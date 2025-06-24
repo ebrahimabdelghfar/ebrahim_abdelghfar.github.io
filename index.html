@@ -426,15 +426,15 @@
             color: var(--primary-color);
         }
 
-        /* Competitions Section */
-        .competitions-grid {
+        /* Competitions & Scholarship Section */
+        .awards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
         }
 
-        .competition-card {
+        .award-card {
             background: var(--card-bg-color);
             padding: 2.5rem 2rem;
             border: 1px solid var(--border-color);
@@ -443,23 +443,23 @@
             transition: all 0.3s ease;
         }
 
-        .competition-card:hover {
+        .award-card:hover {
             transform: translateY(-10px);
             border-color: var(--secondary-color);
         }
 
-        .competition-card .icon {
+        .award-card .icon {
             font-size: 3rem;
             color: var(--secondary-color);
             margin-bottom: 1rem;
         }
 
-        .competition-card h3 {
+        .award-card h3 {
             color: var(--primary-color);
             font-size: 1.25rem;
         }
 
-        .competition-card .competition-date {
+        .award-card .award-date {
             font-size: 0.9rem;
             color: var(--text-color);
             font-style: italic;
@@ -467,7 +467,7 @@
             display: block;
         }
 
-        .competition-card p {
+        .award-card p {
             margin-top: 1rem;
             font-size: 1rem;
         }
@@ -719,6 +719,7 @@
                 <li class="nav-item"><a href="#skills" class="nav-link">Skills</a></li>
                 <li class="nav-item"><a href="#projects" class="nav-link">Projects</a></li>
                 <li class="nav-item"><a href="#competitions" class="nav-link">Competitions</a></li>
+                <li class="nav-item"><a href="#scholarships" class="nav-link">Scholarships</a></li>
                 <li class="nav-item"><a href="#volunteering" class="nav-link">Volunteering</a></li>
                 <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
@@ -736,7 +737,7 @@
                     <h1><span class="typewriter"></span></h1>
                     <p id="bio-text">A results-driven Robotics Software Engineer with 2+ years of experience designing and deploying software for autonomous mobile robots. Expertise in C++/Python, ROS/ROS2, and the NAV2 stack, delivering robust solutions from simulation to deployment.</p>
                     <div class="social-links">
-                        <a href="https://www.linkedin.com/in/ebrahim-abdelghafar/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.linkedin.com/in/ebrahim-abdelghafar" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                         <a href="https://github.com/ebrahimabdelghfar" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
@@ -772,7 +773,7 @@
                     <div class="timeline-item left">
                         <div class="timeline-content">
                             <h3>R&D Robotics Software Developer</h3>
-                            <p>I-Robotic</p>
+                            <p>Noases</p>
                             <div class="timeline-date">Jan 2024 - Nov 2024</div>
                              <i class="fas fa-chevron-down expand-icon"></i>
                             <div class="expand-details">
@@ -825,8 +826,20 @@
             <div class="container reveal">
                 <h2>Education & Certifications</h2>
                 <div class="timeline">
-                    <!-- Education Item 1 -->
+                    <!-- New MSc Item -->
                     <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h3>M.Sc. in Mechatronics and Robotics Engineering</h3>
+                            <p>Graduate Student</p>
+                            <div class="timeline-date">Jan 2024 - Present</div>
+                            <i class="fas fa-chevron-down expand-icon"></i>
+                            <div class="expand-details">
+                                <p>Currently pursuing advanced studies in robotics, focusing on cutting-edge research and development in autonomous systems.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bachelor's Degree Item -->
+                    <div class="timeline-item left">
                         <div class="timeline-content">
                             <h3>Graduate Mechatronics and Automation Engineer</h3>
                             <p>Faculty of Engineering, Ain Shams University</p>
@@ -845,7 +858,7 @@
                         </div>
                     </div>
                     <!-- Certification Item -->
-                    <div class="timeline-item left">
+                    <div class="timeline-item right">
                         <div class="timeline-content">
                             <h3>Robotics Software Engineer Nanodegree</h3>
                             <p>Udacity</p>
@@ -965,34 +978,49 @@
         <section id="competitions" class="section-bg">
             <div class="container reveal">
                 <h2>Competitions & Awards</h2>
-                <div class="competitions-grid">
+                <div class="awards-grid">
                     <!-- Competition 1 -->
-                    <div class="competition-card">
+                    <div class="award-card">
                         <div class="icon"><i class="fas fa-trophy"></i></div>
                         <h3>1st Place, Shell "Pitch the future"</h3>
-                        <span class="competition-date">April 2022</span>
+                        <span class="award-date">April 2022</span>
                         <p>Won first place worldwide on our idea on how to make an autonomous vehicle prevent a carjacking situation.</p>
                     </div>
                     <!-- Competition 2 -->
-                    <div class="competition-card">
+                    <div class="award-card">
                         <div class="icon"><i class="fas fa-trophy"></i></div>
                         <h3>4th National Place, DEBI Robotics</h3>
-                        <span class="competition-date">May 2023</span>
+                        <span class="award-date">May 2023</span>
                         <p>Developed an autonomous system on a TurtleBot3 to track and grasp a ball for the Ministry of Communication competition.</p>
                     </div>
                     <!-- Competition 3 -->
-                    <div class="competition-card">
+                    <div class="award-card">
                         <div class="icon"><i class="fas fa-trophy"></i></div>
                         <h3>5th Place, Shell AI Competition</h3>
-                        <span class="competition-date">May 2022</span>
+                        <span class="award-date">May 2022</span>
                         <p>Won 5th place worldwide by creating a full stack for a self-driving vehicle by using the CARLA simulation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scholarships Section -->
+        <section id="scholarships">
+            <div class="container reveal">
+                <h2>Scholarships</h2>
+                <div class="awards-grid" style="grid-template-columns: 1fr;">
+                    <div class="award-card">
+                        <div class="icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h3>"My Future" Full Scholarship</h3>
+                        <span class="award-date">Offered by Egyptian Refining Company (ERC)</span>
+                        <p>Received a full scholarship for promising national school students to study Bachelor of Mechatronics within the International Programs at the Faculty of Engineering, Ain Shams University.</p>
                     </div>
                 </div>
             </div>
         </section>
         
         <!-- Volunteering Section -->
-        <section id="volunteering">
+        <section id="volunteering" class="section-bg">
             <div class="container reveal">
                 <h2>Volunteering</h2>
                 <div class="timeline">
@@ -1019,7 +1047,7 @@
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="section-bg">
+        <section id="contact">
             <div class="container reveal">
                 <h2>Get In Touch</h2>
                 <p style="text-align: center;">Have a question or want to work together? Feel free to reach out.</p>
@@ -1271,7 +1299,7 @@
 
         // --- Typewriter Effect ---
         const typewriterElement = document.querySelector('.typewriter');
-        const textsToType = ["Hi, I'm Ebrahim Abdelghfar", "Robotics Software Engineer"];
+        const textsToType = ["Hi, I'm Ebrahim Abdelghfar", "A Creative Robotics Engineer"];
         let textIndex = 0;
         let charIndex = 0;
         let isDeleting = false;
