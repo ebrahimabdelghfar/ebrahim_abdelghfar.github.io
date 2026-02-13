@@ -284,7 +284,7 @@
     {
       "id": "project6",
       "title": "Autonomous Agricultural Robot Simulation Stack",
-      "summary": "",
+      "summary": "Full Simulation environment for agriculture autonomous robots",
       "description": "A full-fidelity simulation stack for an autonomous agricultural robot featuring Double Ackermann (4WS/4WD) steering. The platform leverages NVIDIA Isaac Sim for photorealistic, physics-based simulation and the NVIDIA Isaac ROS ecosystem for GPU-accelerated perception, mapping, and navigation.",
       "image": "https://i.postimg.cc/W43bVZrM/image.png",
       "link": "https://www.canva.com/design/DAHA76EFbsA/QyGmz7ZQWELVfI5N1Zvq7Q/watch",
