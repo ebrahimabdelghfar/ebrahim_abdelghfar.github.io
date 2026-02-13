@@ -49,7 +49,7 @@
         "Designed robotic software stack for projects such as Robo-cafe."
       ],
       "company": "Noases",
-      "logo": ""
+      "logo": "https://i.postimg.cc/rw6RJQv3/1705454991744.jpg"
     },
     {
       "title": "Teaching Assistant",
@@ -60,7 +60,7 @@
         "Mentored students on ROS2 implementation and core robotics algorithms."
       ],
       "company": "Faculty of engineering of Ain Shams university",
-      "logo": ""
+      "logo": "https://i.postimg.cc/L5Yhk1vH/image.png"
     },
     {
       "title": "Robotics Software Engineer",
@@ -235,7 +235,7 @@
       "title": "Path Tracking Surveys",
       "summary": "Applied and compared Pure-pursuit, Stanley, and MPC controllers in the CARLA simulator.",
       "description": "A comparative study of different path tracking algorithms.",
-      "image": "https://i.postimg.cc/N066TWFz/image.png",
+      "image": "https://placehold.co/600x400/161b22/00aaff?text=Path+Tracking",
       "link": "https://github.com/ebrahimabdelghfar/Control-surveys",
       "linkText": "View on GitHub",
       "details": [
