@@ -7,10 +7,11 @@
     const loader = document.getElementById('page-loader');
 
     try {
-        // 1. Fetch config and portfolio data in parallel
+        // 1. Fetch config and portfolio data in parallel (cache-bust to always get latest)
+        const cacheBust = `?v=${Date.now()}`;
         const [configRes, portfolioRes] = await Promise.all([
-            fetch('data/config.json'),
-            fetch('data/portfolio.json')
+            fetch('data/config.json' + cacheBust),
+            fetch('data/portfolio.json' + cacheBust)
         ]);
 
         if (!configRes.ok || !portfolioRes.ok) {

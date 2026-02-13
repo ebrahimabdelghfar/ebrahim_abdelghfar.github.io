@@ -70,10 +70,14 @@ const Renderer = {
             const html = `
                 <div class="timeline-item ${side}">
                     <div class="timeline-content">
-                        <h3>${item.title}</h3>
-                        <p>${subtitle}</p>
-                        <div class="timeline-date">${item.date}</div>
-                        <i class="fas fa-chevron-down expand-icon"></i>
+                        <div class="timeline-header">
+                            <div class="timeline-header-text">
+                                <h3>${item.title}</h3>
+                                <p class="timeline-subtitle">${subtitle}</p>
+                                <span class="timeline-date">${item.date}</span>
+                            </div>
+                            <span class="expand-icon"><i class="fas fa-chevron-down"></i></span>
+                        </div>
                         <div class="expand-details">
                             ${detailsHTML}
                         </div>
