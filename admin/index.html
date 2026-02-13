@@ -744,6 +744,10 @@
                             </select>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-image" style="margin-right:6px;"></i>Logo URL (optional)</label>
+                        <input type="text" class="tl-logo" value="${this.escAttr(item.logo || '')}" placeholder="e.g. assets/images/company-logo.png">
+                    </div>
                     ${item.detailsHTML !== undefined ? `
                     <div class="form-group">
                         <label>Details HTML (optional, for formatted text above bullets)</label>
@@ -761,7 +765,7 @@
         addExperience() {
             const container = document.getElementById('experience-list');
             const idx = container.children.length;
-            container.insertAdjacentHTML('beforeend', this.timelineItemHTML({ title: '', company: '', date: '', side: 'right', details: [] }, idx, 'company'));
+            container.insertAdjacentHTML('beforeend', this.timelineItemHTML({ title: '', company: '', date: '', side: 'right', logo: '', details: [] }, idx, 'company'));
         },
         addEducation() {
             const container = document.getElementById('education-list');
@@ -794,6 +798,8 @@
                     details: Array.from(card.querySelectorAll('.tl-details-list .list-item input')).map(inp => inp.value).filter(v => v)
                 };
                 obj[subtitleField] = card.querySelector('.tl-subtitle').value;
+                const logoField = card.querySelector('.tl-logo');
+                if (logoField) obj.logo = logoField.value;
                 const htmlField = card.querySelector('.tl-detailsHTML');
                 if (htmlField) obj.detailsHTML = htmlField.value;
                 return obj;
