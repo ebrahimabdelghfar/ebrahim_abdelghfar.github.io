@@ -618,22 +618,22 @@ section {
     content: '';
     position: absolute;
     top: 34px;
-    right: -7px;
-    width: 40px;
+    right: 0;
+    width: 42px;
     height: 2px;
     background: linear-gradient(270deg, var(--primary-color), transparent);
-    opacity: 0.25;
+    opacity: 0.3;
 }
 
 .timeline-item.right::before {
     content: '';
     position: absolute;
     top: 34px;
-    left: -7px;
-    width: 40px;
+    left: 0;
+    width: 42px;
     height: 2px;
     background: linear-gradient(90deg, var(--primary-color), transparent);
-    opacity: 0.25;
+    opacity: 0.3;
 }
 
 .timeline-content {
@@ -673,7 +673,7 @@ section {
 }
 
 .timeline-item.expanded::before {
-    left: -7px;
+    left: 0;
     right: auto !important;
     background: linear-gradient(90deg, var(--primary-color), transparent);
 }
