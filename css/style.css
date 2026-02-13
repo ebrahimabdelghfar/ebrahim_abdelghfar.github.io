@@ -669,11 +669,12 @@ section {
 
 .timeline-item.expanded::after {
     left: -7px;
+    right: auto !important;
 }
 
 .timeline-item.expanded::before {
     left: -7px;
-    right: auto;
+    right: auto !important;
     background: linear-gradient(90deg, var(--primary-color), transparent);
 }
 
