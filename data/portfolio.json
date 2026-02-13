@@ -35,7 +35,7 @@
         "• Developed technical strategies, plans, and roadmaps for the mobile robot platform."
       ],
       "company": "Dakahlia Group",
-      "logo": ""
+      "logo": "https://i.postimg.cc/NF7SzNNc/images.png"
     },
     {
       "title": "Robotics Software Engineer",
@@ -83,7 +83,8 @@
       "details": [
         "Currently pursuing advanced studies in robotics, focusing on cutting-edge research and development in autonomous systems."
       ],
-      "institution": "Graduate Student"
+      "institution": "Graduate Student",
+      "logo": ""
     },
     {
       "title": "Graduate Mechatronics and Automation Engineer",
@@ -95,6 +96,7 @@
         "Developed a screw localizing technique using YOLOv5 and a depth camera."
       ],
       "institution": "Faculty of Engineering, Ain Shams University",
+      "logo": "",
       "detailsHTML": "<strong>GPA:</strong> 3.0 <br><strong>Thesis:</strong> E-waste Non-Destructive Disassembly Robot. <br><strong>Graduation Project:</strong> Autonomous Disassembly Robotic Manipulator."
     },
     {
@@ -106,6 +108,7 @@
         "Developed testing environments in Gazebo and ROS."
       ],
       "institution": "Udacity",
+      "logo": "",
       "detailsHTML": "A comprehensive program covering the full spectrum of robotics software engineering, from foundational algorithms to advanced ROS applications."
     }
   ],
@@ -232,7 +235,7 @@
       "title": "Path Tracking Surveys",
       "summary": "Applied and compared Pure-pursuit, Stanley, and MPC controllers in the CARLA simulator.",
       "description": "A comparative study of different path tracking algorithms.",
-      "image": "https://i.postimg.cc/CLBQ3xzK/image.png",
+      "image": "https://placehold.co/600x400/161b22/00aaff?text=Path+Tracking",
       "link": "https://github.com/ebrahimabdelghfar/Control-surveys",
       "linkText": "View on GitHub",
       "details": [
@@ -288,7 +291,7 @@
     {
       "id": "project6",
       "title": "Autonomous Agricultural Robot Simulation Stack",
-      "summary": "Full Simulation environment for agriculture autonomous robots",
+      "summary": "",
       "description": "A full-fidelity simulation stack for an autonomous agricultural robot featuring Double Ackermann (4WS/4WD) steering. The platform leverages NVIDIA Isaac Sim for photorealistic, physics-based simulation and the NVIDIA Isaac ROS ecosystem for GPU-accelerated perception, mapping, and navigation.",
       "image": "https://i.postimg.cc/W43bVZrM/image.png",
       "link": "https://www.canva.com/design/DAHA76EFbsA/QyGmz7ZQWELVfI5N1Zvq7Q/watch",
@@ -342,7 +345,8 @@
         "Engineered IOT Cars with latency 20ms for control and sensor signals while 40ms latency for sending photo frames from esp-camera.",
         "Mentored a robotic team to win 4th place in a national robotic competition."
       ],
-      "organization": "Autotronics Research Lab (ARL)"
+      "organization": "Autotronics Research Lab (ARL)",
+      "logo": ""
     }
   ]
 }
