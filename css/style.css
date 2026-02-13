@@ -745,8 +745,7 @@ section {
     content: '';
     position: absolute;
     left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 18px;
     width: 6px;
     height: 6px;
     background: var(--primary-color);
