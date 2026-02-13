@@ -8,99 +8,101 @@
       "Hi, I'm Ebrahim Abdelghfar",
       "A Creative Robotics Engineer"
     ],
-    "resumeURL": "",
+    "resumeURL": "https://drive.google.com/file/d/1hh8awOhaA-seSkyKXhR8HHXsCKB53ORR/view?usp=sharing",
     "socialLinks": [
       {
         "platform": "LinkedIn",
-        "url": "https://www.linkedin.com/in/ebrahim-abdelghafar",
-        "icon": "fab fa-linkedin"
+        "icon": "fab fa-linkedin",
+        "url": "https://www.linkedin.com/in/ebrahim-abdelghafar"
       },
       {
         "platform": "GitHub",
-        "url": "https://github.com/ebrahimabdelghfar",
-        "icon": "fab fa-github"
+        "icon": "fab fa-github",
+        "url": "https://github.com/ebrahimabdelghfar"
       }
     ]
   },
   "experience": [
     {
       "title": "Robotics Software Engineer",
-      "company": "Dakahlia Group",
       "date": "Dec 2024 - Present",
       "side": "right",
       "details": [
-        "Architected and implemented a complete navigation stack for an agricultural AMR using ROS2 and NAV2, achieving 0.7m odometry accuracy.",
-        "Engineered complex Gazebo simulation environments, reducing hardware testing cycles by 40%.",
-        "Containerized robotics applications using Docker, decreasing environment setup time by 75%.",
-        "Provided expert-level consultation on sensor selection and hardware integration."
-      ]
+        "Using Gazebo and Isaac-sim simulators environments for benchmarking and reducing hardware testing cycles by 40% and accelerating algorithm validation.",
+        " Designed MPC Control algorithm for four-wheel independent steering robot.",
+        "Used a complete navigation stack for an AMR using ROS2 and NAV2, achieving 0.3m odometry accuracy through robust sensor fusion of IMU and monocular cameras with PyCuSLAM.",
+        " Containerized robotics applications using Docker, decreasing environment setup time by 75% and improving deployment reliability.",
+        "• Developed technical strategies, plans, and roadmaps for the mobile robot platform."
+      ],
+      "company": "Dakahlia Group"
     },
     {
-      "title": "R&D Robotics Software Developer",
-      "company": "Noases",
+      "title": "Robotics Software Engineer",
       "date": "Jan 2024 - Nov 2024",
       "side": "left",
       "details": [
         "Designed high-fidelity CoppeliaSim environments for Robo-cafe projects, reducing development costs by 30%.",
         "Developed integration bridges between industrial PLCs and high-level ROS controllers.",
         "Established the company's software development pipeline using Git.",
-        "Collaborated on developing the software layer for an IoT soil measurement station using ESP32 and MQTT."
-      ]
+        " Established the company's CI/CD using Git, improving code integration efficiency and enabling version control best practices.",
+        "Designed robotic software stack for projects such as Robo-cafe."
+      ],
+      "company": "Noases"
     },
     {
       "title": "Teaching Assistant",
-      "company": "Faculty of engineering of Ain Shams university",
       "date": "Jan 2024 - Aug 2024",
       "side": "right",
       "details": [
         "Taught the \"MCT443: Autonomous Systems\" course to over 40 undergraduate students.",
         "Mentored students on ROS2 implementation and core robotics algorithms."
-      ]
+      ],
+      "company": "Faculty of engineering of Ain Shams university"
     },
     {
-      "title": "Autonomous System Mentor",
-      "company": "Egyptian Electric Vehicle Rally Competition",
+      "title": "Robotics Software Engineer",
       "date": "Oct 2023 - Aug 2024",
       "side": "left",
       "details": [
         "Delivered training modules on autonomous systems, increasing implementation rates by 70%.",
         "Engineered a milestones simulator using CoppeliaSim and ROS1.",
         "Developed the Steering Control for an Autonomous Vehicle using Pure Pursuit."
-      ]
+      ],
+      "company": "Egyptian Electric Vehicle Rally Competition"
     }
   ],
   "education": [
     {
       "title": "M.Sc. in Mechatronics and Robotics Engineering",
-      "institution": "Graduate Student",
       "date": "Jan 2024 - Present",
       "side": "right",
       "details": [
         "Currently pursuing advanced studies in robotics, focusing on cutting-edge research and development in autonomous systems."
-      ]
+      ],
+      "institution": "Graduate Student"
     },
     {
       "title": "Graduate Mechatronics and Automation Engineer",
-      "institution": "Faculty of Engineering, Ain Shams University",
       "date": "Sep 2018 - Jul 2023",
       "side": "left",
-      "detailsHTML": "<strong>GPA:</strong> 3.0 <br><strong>Thesis:</strong> E-waste Non-Destructive Disassembly Robot. <br><strong>Graduation Project:</strong> Autonomous Disassembly Robotic Manipulator.",
       "details": [
         "Designed a software architecture organizing 11 different algorithms.",
         "Implemented an SDK to facilitate dealing with MoveIt and frame transformation.",
         "Developed a screw localizing technique using YOLOv5 and a depth camera."
-      ]
+      ],
+      "institution": "Faculty of Engineering, Ain Shams University",
+      "detailsHTML": "<strong>GPA:</strong> 3.0 <br><strong>Thesis:</strong> E-waste Non-Destructive Disassembly Robot. <br><strong>Graduation Project:</strong> Autonomous Disassembly Robotic Manipulator."
     },
     {
       "title": "Robotics Software Engineer Nanodegree",
-      "institution": "Udacity",
       "date": "Completed Apr 2025",
       "side": "right",
-      "detailsHTML": "A comprehensive program covering the full spectrum of robotics software engineering, from foundational algorithms to advanced ROS applications.",
       "details": [
         "Implemented algorithms like A*, Extended Kalman Filter, and PID using C++.",
         "Developed testing environments in Gazebo and ROS."
-      ]
+      ],
+      "institution": "Udacity",
+      "detailsHTML": "A comprehensive program covering the full spectrum of robotics software engineering, from foundational algorithms to advanced ROS applications."
     }
   ],
   "skills": [
@@ -108,43 +110,100 @@
       "category": "Programming & Languages",
       "icon": "fas fa-code",
       "items": [
-        { "name": "C++ (Advanced)", "icon": "fas fa-file-code" },
-        { "name": "Python (Advanced)", "icon": "fab fa-python" },
-        { "name": "C", "icon": "fas fa-file-code" },
-        { "name": "LUA", "icon": "fas fa-scroll" },
-        { "name": "Bash Scripting", "icon": "fas fa-terminal" }
+        {
+          "name": "C++ (Advanced)",
+          "icon": "fas fa-file-code"
+        },
+        {
+          "name": "Python (Advanced)",
+          "icon": "fab fa-python"
+        },
+        {
+          "name": "C",
+          "icon": "fas fa-file-code"
+        },
+        {
+          "name": "LUA",
+          "icon": "fas fa-scroll"
+        },
+        {
+          "name": "Bash Scripting",
+          "icon": "fas fa-terminal"
+        }
       ]
     },
     {
       "category": "Robotics & Simulators",
       "icon": "fas fa-robot",
       "items": [
-        { "name": "ROS1 & ROS2", "icon": "fas fa-robot" },
-        { "name": "Nav2 Stack", "icon": "fas fa-route" },
-        { "name": "MoveIt", "icon": "fas fa-cogs" },
-        { "name": "Gazebo / CoppeliaSim / Carla", "icon": "fas fa-cubes" },
-        { "name": "Matlab/Simulink", "icon": "fas fa-project-diagram" }
+        {
+          "name": "ROS1 & ROS2",
+          "icon": "fas fa-robot"
+        },
+        {
+          "name": "Nav2 Stack",
+          "icon": "fas fa-route"
+        },
+        {
+          "name": "MoveIt",
+          "icon": "fas fa-cogs"
+        },
+        {
+          "name": "Gazebo / CoppeliaSim / Carla",
+          "icon": "fas fa-cubes"
+        },
+        {
+          "name": "Matlab/Simulink",
+          "icon": "fas fa-project-diagram"
+        }
       ]
     },
     {
       "category": "Tools & Platforms",
       "icon": "fas fa-tools",
       "items": [
-        { "name": "Git & GitHub", "icon": "fab fa-git-alt" },
-        { "name": "Docker", "icon": "fab fa-docker" },
-        { "name": "CMake", "icon": "fas fa-tools" },
-        { "name": "PyTorch & TensorFlow", "icon": "fas fa-brain" },
-        { "name": "Linux", "icon": "fab fa-linux" }
+        {
+          "name": "Git & GitHub",
+          "icon": "fab fa-git-alt"
+        },
+        {
+          "name": "Docker",
+          "icon": "fab fa-docker"
+        },
+        {
+          "name": "CMake",
+          "icon": "fas fa-tools"
+        },
+        {
+          "name": "PyTorch & TensorFlow",
+          "icon": "fas fa-brain"
+        },
+        {
+          "name": "Linux",
+          "icon": "fab fa-linux"
+        }
       ]
     },
     {
       "category": "Hardware & Embedded",
       "icon": "fas fa-microchip",
       "items": [
-        { "name": "ESP32, ARM", "icon": "fas fa-microchip" },
-        { "name": "PLC Programming", "icon": "fas fa-industry" },
-        { "name": "PCB Design (EasyEDA)", "icon": "fas fa-ruler-combined" },
-        { "name": "MQTT, WebSockets", "icon": "fas fa-network-wired" }
+        {
+          "name": "ESP32, ARM",
+          "icon": "fas fa-microchip"
+        },
+        {
+          "name": "PLC Programming",
+          "icon": "fas fa-industry"
+        },
+        {
+          "name": "PCB Design (EasyEDA)",
+          "icon": "fas fa-ruler-combined"
+        },
+        {
+          "name": "MQTT, WebSockets",
+          "icon": "fas fa-network-wired"
+        }
       ]
     }
   ],
@@ -153,74 +212,74 @@
       "id": "project1",
       "title": "Shell Urban Autonomous Concept Simulator",
       "summary": "A modular simulation framework with ROS 2 and Docker for testing navigation algorithms.",
-      "image": "https://placehold.co/600x400/161b22/00ffaa?text=Autonomous+Sim",
       "description": "Developed for efficient testing of autonomous navigation algorithms.",
+      "image": "https://placehold.co/600x400/161b22/00ffaa?text=Autonomous+Sim",
+      "link": "https://github.com/Shell-Urban-Concept-Autonomous/shell_urban_simulator",
+      "linkText": "View on GitHub",
       "details": [
         "Engineered a modular simulation framework using ROS 2 Humble and Docker.",
         "Implemented Docker containers to ensure consistent development environments and streamline deployment.",
         "Collaborated with a multidisciplinary team to integrate sensor models and vehicle dynamics.",
         "Contributed to documentation and user guides to facilitate broader adoption."
-      ],
-      "link": "https://github.com/Shell-Urban-Concept-Autonomous/shell_urban_simulator",
-      "linkText": "View on GitHub"
+      ]
     },
     {
       "id": "project2",
       "title": "Path Tracking Surveys",
       "summary": "Applied and compared Pure-pursuit, Stanley, and MPC controllers in the CARLA simulator.",
-      "image": "https://placehold.co/600x400/161b22/00aaff?text=Path+Tracking",
       "description": "A comparative study of different path tracking algorithms.",
+      "image": "https://placehold.co/600x400/161b22/00aaff?text=Path+Tracking",
+      "link": "https://github.com/ebrahimabdelghfar/Control-surveys",
+      "linkText": "View on GitHub",
       "details": [
         "Applied Pure-pursuit, Stanley, and MPC to follow a track and compared the performance of each.",
         "Tested algorithms on CARLA and integrated them using ROS2.",
         "All implementations were done in Python."
-      ],
-      "link": "https://github.com/ebrahimabdelghfar/Control-surveys",
-      "linkText": "View on GitHub"
+      ]
     },
     {
       "id": "project3",
       "title": "Self-Driving Car Simulator",
       "summary": "Built a complete simulation environment for an Ackerman steering car with ROS1 integration.",
-      "image": "https://placehold.co/600x400/161b22/ffffff?text=Self-Driving+Sim",
       "description": "A high-fidelity simulation from the ground up.",
+      "image": "https://placehold.co/600x400/161b22/ffffff?text=Self-Driving+Sim",
+      "link": "https://github.com/ebrahimabdelghfar/EVER_Simulator",
+      "linkText": "View on GitHub",
       "details": [
         "Prepared a 3D Model of an Ackerman steering car using SolidWorks and converted it to URDF.",
         "Built the simulation environment and tuned physics to achieve a low sim-to-real gap (10% error).",
         "Added 3D Lidar, IMU, and GPS sensors and connected the environment with ROS1 using LUA."
-      ],
-      "link": "https://github.com/ebrahimabdelghfar/EVER_Simulator",
-      "linkText": "View on GitHub"
+      ]
     },
     {
       "id": "project4",
       "title": "ABB IRB 120 Simulator",
       "summary": "Integrated ROS1 and MoveIt with CoppeliaSim for an industrial robot arm, cited in a Master's thesis.",
-      "image": "https://placehold.co/600x400/161b22/ffaa00?text=ABB+Simulator",
       "description": "A simulator for an industrial robotic arm that gained academic recognition.",
+      "image": "https://placehold.co/600x400/161b22/ffaa00?text=ABB+Simulator",
+      "link": "https://github.com/ebrahimabdelghfar/ABB-IRB120-Coppeliasim-Moveit-Simulation",
+      "linkText": "View on GitHub",
       "details": [
         "The simulator bridge was cited in a Master's thesis in Italy.",
         "Integrated ROS1 and MoveIt with CoppeliaSim.",
         "Designed the complete simulation environment for the robot."
-      ],
-      "link": "https://github.com/ebrahimabdelghfar/ABB-IRB120-Coppeliasim-Moveit-Simulation",
-      "linkText": "View on GitHub"
+      ]
     },
     {
       "id": "project5",
       "title": "Autonomous Disassembly Robotic Manipulator",
       "summary": "A complex project for non-destructive e-waste disassembly, part of my graduation thesis.",
-      "image": "https://placehold.co/600x400/161b22/c9d1d9?text=Disassembly+Robot",
       "description": "This was my graduation project, focusing on the non-destructive disassembly of e-waste.",
+      "image": "https://placehold.co/600x400/161b22/c9d1d9?text=Disassembly+Robot",
+      "link": "https://github.com/ebrahimabdelghfar/EwasteNonDestructiveDisassembly",
+      "linkText": "View on GitHub",
       "details": [
         "Designed a software architecture that organizes workflow between 11 different algorithms.",
         "Implemented an SDK that contains 10 different methods to facilitate dealing with MoveIt and frame transformation.",
         "Facilitated algorithm testing by designing a digital twin environment using CoppeliaSim and ROS1.",
         "Developed approach and unscrewing algorithm at which the success percentage reached 98%.",
         "Developed a Screw localizing technique using YOLOv5 and a depth camera."
-      ],
-      "link": "https://github.com/ebrahimabdelghfar/EwasteNonDestructiveDisassembly",
-      "linkText": "View on GitHub"
+      ]
     }
   ],
   "competitions": [
@@ -254,7 +313,6 @@
   "volunteering": [
     {
       "title": "Autonomous Racing Team's Coordinator",
-      "organization": "Autotronics Research Lab (ARL)",
       "date": "June 2023 - April 2025",
       "side": "right",
       "details": [
@@ -264,7 +322,8 @@
         "Led the technical preparations for the IOT RC cars for the first self-driving car competition in Egypt.",
         "Engineered IOT Cars with latency 20ms for control and sensor signals while 40ms latency for sending photo frames from esp-camera.",
         "Mentored a robotic team to win 4th place in a national robotic competition."
-      ]
+      ],
+      "organization": "Autotronics Research Lab (ARL)"
     }
   ]
 }
