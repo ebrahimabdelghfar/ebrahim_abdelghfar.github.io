@@ -157,6 +157,24 @@ html, body {
         justify-content: center;
     }
 
+    .hero-stats {
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .hero-stat .stat-number {
+        font-size: 1.5rem;
+    }
+
+    .hero-stat .stat-label {
+        font-size: 0.72rem;
+    }
+
+    .hero-greeting {
+        font-size: 0.85rem;
+        letter-spacing: 2px;
+    }
+
     .social-links {
         text-align: center;
     }
@@ -362,6 +380,35 @@ html, body {
         font-size: 0.9rem;
         width: 100%;
         justify-content: center;
+    }
+
+    .btn-contact {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .hero-stats {
+        flex-wrap: wrap;
+        gap: 16px;
+        justify-content: center;
+    }
+
+    .hero-stat .stat-number {
+        font-size: 1.3rem;
+    }
+
+    .hero-stat .stat-label {
+        font-size: 0.68rem;
+    }
+
+    .hero-greeting {
+        font-size: 0.8rem;
+    }
+
+    .section-subtitle {
+        font-size: 0.9rem;
     }
 
     .social-links a {

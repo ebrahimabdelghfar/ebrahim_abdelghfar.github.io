@@ -15,6 +15,8 @@ const Interactions = {
         this.initRevealAnimations();
         this.initThemeToggle();
         this.initBackToTop();
+        this.initStatCounters();
+        this.initSmoothScroll();
     },
 
     /**
@@ -239,6 +241,73 @@ const Interactions = {
                     formFeedback.className = 'error';
                     formFeedback.style.display = 'block';
                 });
+        });
+    },
+
+    /**
+     * Animated number counter for hero stats (triggers on scroll into view).
+     */
+    initStatCounters() {
+        const statNumbers = document.querySelectorAll('.stat-number');
+        if (!statNumbers.length) return;
+
+        let counted = false;
+
+        const countUp = (el) => {
+            const text = el.textContent.trim();
+            const hasPlus = text.includes('+');
+            const target = parseInt(text);
+            if (isNaN(target)) return;
+
+            const duration = 1500;
+            const frameDuration = 1000 / 60;
+            const totalFrames = Math.round(duration / frameDuration);
+            let frame = 0;
+
+            const easeOutQuad = t => t * (2 - t);
+
+            const counter = setInterval(() => {
+                frame++;
+                const progress = easeOutQuad(frame / totalFrames);
+                const current = Math.round(target * progress);
+                el.textContent = current + (hasPlus ? '+' : '');
+
+                if (frame === totalFrames) {
+                    clearInterval(counter);
+                    el.textContent = target + (hasPlus ? '+' : '');
+                }
+            }, frameDuration);
+        };
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !counted) {
+                    counted = true;
+                    statNumbers.forEach(el => countUp(el));
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsRow = document.querySelector('.hero-stats');
+        if (statsRow) statsObserver.observe(statsRow);
+    },
+
+    /**
+     * Smooth scroll for all anchor links with offset for fixed header.
+     */
+    initSmoothScroll() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const target = document.querySelector(targetId);
+                if (!target) return;
+
+                e.preventDefault();
+                const headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height'), 10) || 70;
+                const top = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+                window.scrollTo({ top, behavior: 'smooth' });
+            });
         });
     }
 };

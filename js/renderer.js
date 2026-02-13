@@ -32,13 +32,26 @@ const Renderer = {
             ? `<a href="${hero.resumeURL}" target="_blank" class="btn-resume"><i class="fas fa-download"></i> Download Resume</a>`
             : '';
 
+        // Build hero stats from data or defaults
+        const stats = hero.stats || [
+            { number: '2+', label: 'Years Experience' },
+            { number: '5+', label: 'Projects' },
+            { number: '3', label: 'Awards' }
+        ];
+        const statsHTML = stats.map(s =>
+            `<div class="hero-stat"><span class="stat-number" data-target="${parseInt(s.number)}">${s.number}</span><span class="stat-label">${s.label}</span></div>`
+        ).join('');
+
         containerEl.innerHTML = `
             <div class="hero-text">
+                <span class="hero-greeting">Hello, I'm</span>
                 <h1><span class="typewriter"></span></h1>
                 <p id="bio-text">${hero.bio}</p>
                 <div class="hero-buttons">
                     ${resumeBtn}
+                    <a href="#contact" class="btn-contact"><i class="fas fa-envelope"></i> Get In Touch</a>
                 </div>
+                <div class="hero-stats">${statsHTML}</div>
                 <div class="social-links">${socialHTML}</div>
             </div>
             <div class="hero-img-container">
@@ -124,7 +137,10 @@ const Renderer = {
             // Card
             grid.insertAdjacentHTML('beforeend', `
                 <div class="project-card" data-modal="${proj.id}">
-                    <img src="${proj.image}" alt="${proj.title}" loading="lazy">
+                    <div class="project-img-wrapper">
+                        <img src="${proj.image}" alt="${proj.title}" loading="lazy">
+                        <div class="project-overlay"><span>View Details</span></div>
+                    </div>
                     <div class="project-info">
                         <h3>${proj.title}</h3>
                         <p>${proj.summary}</p>
@@ -210,7 +226,7 @@ const Renderer = {
         const year = new Date().getFullYear();
         footerEl.innerHTML = `
             <div class="container">
-                <p>&copy; ${year} ${footerText}</p>
+                <p>&copy; ${year} Made with <span class="footer-heart">❤</span> by ${footerText}</p>
             </div>
         `;
     }
