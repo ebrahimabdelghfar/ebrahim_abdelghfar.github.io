@@ -621,7 +621,7 @@ section {
     right: 0;
     width: 42px;
     height: 2px;
-    background: linear-gradient(270deg, var(--primary-color), transparent);
+    background: linear-gradient(90deg, var(--primary-color), transparent);
     opacity: 0.3;
 }
 
@@ -632,7 +632,7 @@ section {
     left: 0;
     width: 42px;
     height: 2px;
-    background: linear-gradient(90deg, var(--primary-color), transparent);
+    background: linear-gradient(270deg, var(--primary-color), transparent);
     opacity: 0.3;
 }
 
@@ -675,7 +675,7 @@ section {
 .timeline-item.expanded::before {
     left: 0;
     right: auto !important;
-    background: linear-gradient(90deg, var(--primary-color), transparent);
+    background: linear-gradient(270deg, var(--primary-color), transparent);
 }
 
 .timeline-header {
