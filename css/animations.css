@@ -8,6 +8,8 @@
     white-space: nowrap;
     overflow: hidden;
     animation: blink-caret .75s step-end infinite;
+    display: inline-block;
+    max-width: 100%;
 }
 
 @keyframes blink-caret {

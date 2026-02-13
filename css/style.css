@@ -41,6 +41,12 @@ body {
     color: var(--text-color);
     line-height: 1.6;
     transition: background-color 0.3s ease, color 0.3s ease;
+    -webkit-text-size-adjust: 100%;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
 }
 
 .container {
@@ -274,6 +280,7 @@ section {
     margin-bottom: 1rem;
     font-weight: 700;
     min-height: 120px;
+    overflow: hidden;
 }
 
 .hero-text p {
