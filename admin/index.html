@@ -104,6 +104,9 @@
             color: #fff;
         }
         .btn-danger:hover { box-shadow: 0 0 10px var(--danger); }
+        .btn-success { background: #27ae60; color: #fff; }
+        .btn-success:hover { box-shadow: 0 0 10px #27ae60; }
+        .btn-success:disabled { opacity: 0.6; cursor: not-allowed; }
         .btn-sm { padding: 6px 12px; font-size: 0.85rem; }
         .btn-group { display: flex; gap: 10px; flex-wrap: wrap; }
 
@@ -255,6 +258,7 @@
                 <li><a href="#" data-section="competitions-editor"><i class="fas fa-trophy"></i> <span>Competitions</span></a></li>
                 <li><a href="#" data-section="scholarships-editor"><i class="fas fa-award"></i> <span>Scholarships</span></a></li>
                 <li><a href="#" data-section="volunteering-editor"><i class="fas fa-hands-helping"></i> <span>Volunteering</span></a></li>
+                <li style="margin-top:auto; border-top:1px solid var(--border); padding-top:10px;"><a href="#" data-section="settings-editor"><i class="fas fa-cog"></i> <span>GitHub Settings</span></a></li>
             </ul>
         </aside>
 
@@ -264,6 +268,7 @@
                 <h1><i class="fas fa-edit"></i> Portfolio Content Editor</h1>
                 <div class="btn-group">
                     <button class="btn btn-secondary" onclick="Admin.previewSite()"><i class="fas fa-eye"></i> Preview Site</button>
+                    <button class="btn btn-success" onclick="Admin.saveToGitHub()" id="btn-save-deploy" style="background:#27ae60;"><i class="fas fa-cloud-upload-alt"></i> Save & Deploy</button>
                     <button class="btn btn-primary" onclick="Admin.exportJSON()"><i class="fas fa-download"></i> Export portfolio.json</button>
                 </div>
             </div>
@@ -288,9 +293,8 @@
                     <ol style="padding-left:20px;line-height:2;">
                         <li>Import your existing <code>portfolio.json</code> or start fresh.</li>
                         <li>Navigate to each section using the sidebar and edit your content.</li>
-                        <li>Click <strong>"Export portfolio.json"</strong> to download the updated file.</li>
-                        <li>Replace <code>data/portfolio.json</code> in your repository with the downloaded file.</li>
-                        <li>Commit & push — your site updates automatically!</li>
+                        <li><strong>Auto-save:</strong> Go to <em>GitHub Settings</em> in the sidebar, enter your Personal Access Token, then click <strong>"Save & Deploy"</strong> — changes go live automatically!</li>
+                        <li><strong>Manual:</strong> Click <strong>"Export portfolio.json"</strong> to download, replace the file in your repo, commit & push.</li>
                     </ol>
                 </div>
             </div>
@@ -398,6 +402,57 @@
                     <button class="btn btn-secondary" onclick="Admin.addVolunteering()"><i class="fas fa-plus"></i> Add Volunteering</button>
                 </div>
             </div>
+
+            <!-- ====== GitHub Settings Editor ====== -->
+            <div class="editor-section" id="settings-editor">
+                <div class="section-card">
+                    <h3><i class="fas fa-key"></i> GitHub Personal Access Token</h3>
+                    <p style="margin-bottom:15px; line-height:1.7; color: var(--text-muted, #999);">
+                        To enable <strong>Save & Deploy</strong>, you need a GitHub Personal Access Token with <code>repo</code> scope.
+                        Your token is stored <strong>only in your browser's localStorage</strong> — it never leaves your machine.
+                    </p>
+                    <div class="form-group">
+                        <label>Personal Access Token</label>
+                        <div style="display:flex;gap:8px;">
+                            <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" style="flex:1;">
+                            <button class="btn btn-secondary btn-sm" onclick="Admin.toggleTokenVisibility()" id="btn-toggle-token" title="Show/hide token"><i class="fas fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <ol style="padding-left:20px;line-height:2;margin-top:15px;color:var(--text-muted,#999);font-size:0.9em;">
+                        <li>Go to <a href="https://github.com/settings/tokens/new" target="_blank" style="color:var(--primary);">GitHub → Settings → Developer Settings → Personal Access Tokens → Tokens (classic)</a></li>
+                        <li>Click <strong>"Generate new token (classic)"</strong></li>
+                        <li>Give it a note like <em>"Portfolio Admin"</em>, select the <code>repo</code> scope</li>
+                        <li>Copy the token and paste it above</li>
+                    </ol>
+                </div>
+                <div class="section-card">
+                    <h3><i class="fab fa-github"></i> Repository Settings</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>GitHub Username / Owner</label>
+                            <input type="text" id="gh-owner" placeholder="e.g. ebrahimabdelghfar">
+                        </div>
+                        <div class="form-group">
+                            <label>Repository Name</label>
+                            <input type="text" id="gh-repo" placeholder="e.g. ebrahim_abdelghfar.github.io">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Branch</label>
+                            <input type="text" id="gh-branch" value="main" placeholder="main">
+                        </div>
+                        <div class="form-group">
+                            <label>File Path</label>
+                            <input type="text" id="gh-filepath" value="data/portfolio.json" placeholder="data/portfolio.json">
+                        </div>
+                    </div>
+                    <div class="btn-group" style="margin-top:15px;">
+                        <button class="btn btn-primary" onclick="Admin.saveGitHubSettings()"><i class="fas fa-save"></i> Save Settings</button>
+                        <button class="btn btn-secondary" onclick="Admin.testGitHubConnection()"><i class="fas fa-plug"></i> Test Connection</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -415,6 +470,7 @@
         init() {
             this.initSidebar();
             this.initImport();
+            this.loadGitHubSettings();
         },
 
         initSidebar() {
@@ -961,6 +1017,143 @@
                 icon: card.querySelector('.award-icon').value,
                 description: card.querySelector('.award-desc').value
             }));
+        },
+
+        // ==================== GITHUB SETTINGS ====================
+        loadGitHubSettings() {
+            const settings = JSON.parse(localStorage.getItem('gh_settings') || '{}');
+            document.getElementById('gh-token').value = settings.token || '';
+            document.getElementById('gh-owner').value = settings.owner || '';
+            document.getElementById('gh-repo').value = settings.repo || '';
+            document.getElementById('gh-branch').value = settings.branch || 'main';
+            document.getElementById('gh-filepath').value = settings.filepath || 'data/portfolio.json';
+        },
+
+        saveGitHubSettings() {
+            const settings = {
+                token: document.getElementById('gh-token').value.trim(),
+                owner: document.getElementById('gh-owner').value.trim(),
+                repo: document.getElementById('gh-repo').value.trim(),
+                branch: document.getElementById('gh-branch').value.trim() || 'main',
+                filepath: document.getElementById('gh-filepath').value.trim() || 'data/portfolio.json'
+            };
+            if (!settings.token || !settings.owner || !settings.repo) {
+                this.showToast('Please fill in Token, Owner, and Repo.', 'error');
+                return;
+            }
+            localStorage.setItem('gh_settings', JSON.stringify(settings));
+            this.showToast('GitHub settings saved!', 'success');
+        },
+
+        getGitHubSettings() {
+            return JSON.parse(localStorage.getItem('gh_settings') || '{}');
+        },
+
+        toggleTokenVisibility() {
+            const input = document.getElementById('gh-token');
+            const icon = document.querySelector('#btn-toggle-token i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'fas fa-eye-slash';
+            } else {
+                input.type = 'password';
+                icon.className = 'fas fa-eye';
+            }
+        },
+
+        async testGitHubConnection() {
+            this.saveGitHubSettings();
+            const s = this.getGitHubSettings();
+            if (!s.token || !s.owner || !s.repo) {
+                this.showToast('Save settings first!', 'error');
+                return;
+            }
+            try {
+                const res = await fetch(`https://api.github.com/repos/${s.owner}/${s.repo}`, {
+                    headers: { 'Authorization': `token ${s.token}`, 'Accept': 'application/vnd.github.v3+json' }
+                });
+                if (res.ok) {
+                    const repo = await res.json();
+                    this.showToast(`Connected! Repo: ${repo.full_name} ✓`, 'success');
+                } else if (res.status === 401) {
+                    this.showToast('Invalid token. Check your Personal Access Token.', 'error');
+                } else if (res.status === 404) {
+                    this.showToast('Repository not found. Check owner/repo name.', 'error');
+                } else {
+                    this.showToast(`GitHub error: ${res.status}`, 'error');
+                }
+            } catch (err) {
+                this.showToast('Network error. Check your connection.', 'error');
+            }
+        },
+
+        // ==================== SAVE & DEPLOY ====================
+        async saveToGitHub() {
+            const s = this.getGitHubSettings();
+            if (!s.token || !s.owner || !s.repo) {
+                this.showToast('Set up GitHub Settings first! (sidebar → GitHub Settings)', 'error');
+                // Navigate to settings
+                document.querySelectorAll('.sidebar-nav a').forEach(l => l.classList.remove('active'));
+                document.querySelector('[data-section="settings-editor"]').classList.add('active');
+                document.querySelectorAll('.editor-section').forEach(sec => sec.classList.remove('active'));
+                document.getElementById('settings-editor').classList.add('active');
+                return;
+            }
+
+            const btn = document.getElementById('btn-save-deploy');
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+            btn.disabled = true;
+
+            try {
+                const data = this.collectAll();
+                const content = JSON.stringify(data, null, 2);
+                const contentBase64 = btoa(unescape(encodeURIComponent(content)));
+
+                // Step 1: Get current file SHA (needed for update)
+                const apiURL = `https://api.github.com/repos/${s.owner}/${s.repo}/contents/${s.filepath}`;
+                const headers = {
+                    'Authorization': `token ${s.token}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                };
+
+                let sha = null;
+                const getRes = await fetch(`${apiURL}?ref=${s.branch}`, { headers });
+                if (getRes.ok) {
+                    const fileData = await getRes.json();
+                    sha = fileData.sha;
+                } else if (getRes.status !== 404) {
+                    throw new Error(`GitHub API error: ${getRes.status}`);
+                }
+
+                // Step 2: Create or update file
+                const body = {
+                    message: `Update portfolio content via Admin Panel — ${new Date().toLocaleString()}`,
+                    content: contentBase64,
+                    branch: s.branch
+                };
+                if (sha) body.sha = sha;
+
+                const putRes = await fetch(apiURL, {
+                    method: 'PUT',
+                    headers,
+                    body: JSON.stringify(body)
+                });
+
+                if (putRes.ok) {
+                    this.showToast('✅ Saved & deployed! Changes will be live in ~30 seconds.', 'success');
+                } else {
+                    const errData = await putRes.json();
+                    throw new Error(errData.message || `HTTP ${putRes.status}`);
+                }
+            } catch (err) {
+                this.showToast(`Save failed: ${err.message}`, 'error');
+                console.error('Save to GitHub error:', err);
+            } finally {
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+            }
         },
 
         // ==================== HELPERS ====================
