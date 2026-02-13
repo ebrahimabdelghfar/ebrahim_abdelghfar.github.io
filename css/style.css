@@ -657,9 +657,36 @@ section {
     box-shadow: 0 12px 40px rgba(0, 170, 255, 0.1), 0 0 0 1px rgba(0, 170, 255, 0.2);
 }
 
-/* Expanded timeline item */
+/* Expanded timeline item: full width breakout */
 .timeline-item.expanded {
+    width: 100%;
     z-index: 2;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Right items need to shift left to fill full width */
+.timeline-item.expanded.right {
+    left: 0 !important;
+}
+
+/* Dot stays at center line for left items (right edge moves from 50% to 100%) */
+.timeline-item.expanded.left::after {
+    right: calc(50% - 7px);
+}
+
+/* Dot stays at center line for right items (already uses left: -7px, now container starts at 0) */
+.timeline-item.expanded.right::after {
+    left: calc(50% - 7px);
+}
+
+/* Connector arm stays at center for left items */
+.timeline-item.expanded.left::before {
+    right: calc(50% - 42px);
+}
+
+/* Connector arm stays at center for right items */
+.timeline-item.expanded.right::before {
+    left: calc(50% - 42px);
 }
 
 .timeline-header {
