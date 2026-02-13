@@ -174,12 +174,11 @@ const Interactions = {
     },
 
     _updateThemeIcon(btn, theme) {
-        const icon = btn.querySelector('i');
         if (theme === 'dark') {
-            icon.className = 'fas fa-sun';
+            btn.innerHTML = '☀️';
             btn.title = 'Switch to Light Mode';
         } else {
-            icon.className = 'fas fa-moon';
+            btn.innerHTML = '🌙';
             btn.title = 'Switch to Dark Mode';
         }
     },
