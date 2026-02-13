@@ -280,6 +280,21 @@
         "Developed approach and unscrewing algorithm at which the success percentage reached 98%.",
         "Developed a Screw localizing technique using YOLOv5 and a depth camera."
       ]
+    },
+    {
+      "id": "project6",
+      "title": "Autonomous Agricultural Robot Simulation Stack",
+      "summary": "",
+      "description": "A full-fidelity simulation stack for an autonomous agricultural robot featuring Double Ackermann (4WS/4WD) steering. The platform leverages NVIDIA Isaac Sim for photorealistic, physics-based simulation and the NVIDIA Isaac ROS ecosystem for GPU-accelerated perception, mapping, and navigation.",
+      "image": "https://i.postimg.cc/W43bVZrM/image.png",
+      "link": "https://www.canva.com/design/DAHA76EFbsA/QyGmz7ZQWELVfI5N1Zvq7Q/watch",
+      "linkText": "🎥 View on Video",
+      "details": [
+        "Photorealistic simulation — USD-based agricultural environment in NVIDIA Isaac Sim with realistic terrain, lighting (HDRI), and physics",
+        "GPU-accelerated stereo vision — Multi-camera ESS (Edge-aware Stereo Similarity) disparity and depth estimation",
+        "Visual SLAM — NVIDIA cuVSLAM for GPU-accelerated visual odometry, mapping, and relocalization",
+        "Dynamic obstacle masking — YOLO-based segmentation to filter dynamic objects from depth maps"
+      ]
     }
   ],
   "competitions": [
