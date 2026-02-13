@@ -654,6 +654,25 @@ section {
     box-shadow: 0 12px 40px rgba(0, 170, 255, 0.1), 0 0 0 1px rgba(0, 170, 255, 0.2);
 }
 
+/* Expanded timeline item: full width breakout */
+.timeline-item.expanded {
+    width: 100%;
+    left: 0 !important;
+    padding-left: 48px;
+    padding-right: 0;
+    z-index: 2;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.timeline-item.expanded::after {
+    left: -7px;
+}
+
+.timeline-item.expanded::before {
+    left: 0;
+    background: linear-gradient(90deg, var(--primary-color), transparent);
+}
+
 .timeline-header {
     display: flex;
     align-items: flex-start;

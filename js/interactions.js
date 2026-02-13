@@ -86,7 +86,13 @@ const Interactions = {
         timelineContents.forEach(item => {
             item.addEventListener('click', (e) => {
                 if (e.target.tagName.toLowerCase() === 'a') return;
+                const isExpanding = !item.classList.contains('expanded');
                 item.classList.toggle('expanded');
+                // Toggle class on parent timeline-item for full-width breakout
+                const parentItem = item.closest('.timeline-item');
+                if (parentItem) {
+                    parentItem.classList.toggle('expanded', isExpanding);
+                }
             });
         });
     },
