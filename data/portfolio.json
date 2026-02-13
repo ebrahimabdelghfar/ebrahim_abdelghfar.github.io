@@ -5,8 +5,8 @@
     "bio": "A results-driven Robotics Software Engineer with 2+ years of experience designing and deploying software for autonomous mobile robots. Expertise in C++/Python, ROS/ROS2, and the NAV2 stack, delivering robust solutions from simulation to deployment.",
     "photo": "https://i.postimg.cc/7YvXDxZv/testtt.jpg",
     "typewriterTexts": [
-      "Hi, I'm Ebrahim Abdelghfar",
-      "A Creative Robotics Engineer"
+      "Ebrahim Abdelghfar",
+      "Creative Robotics Engineer"
     ],
     "resumeURL": "https://drive.google.com/file/d/1hh8awOhaA-seSkyKXhR8HHXsCKB53ORR/view?usp=sharing",
     "socialLinks": [
@@ -270,7 +270,7 @@
       "title": "Autonomous Disassembly Robotic Manipulator",
       "summary": "A complex project for non-destructive e-waste disassembly, part of my graduation thesis.",
       "description": "This was my graduation project, focusing on the non-destructive disassembly of e-waste.",
-      "image": "https://i.postimg.cc/fTF3JsQM/image.png",
+      "image": "https://placehold.co/600x400/161b22/c9d1d9?text=Disassembly+Robot",
       "link": "https://github.com/ebrahimabdelghfar/EwasteNonDestructiveDisassembly",
       "linkText": "View on GitHub",
       "details": [
