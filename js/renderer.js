@@ -80,10 +80,15 @@ const Renderer = {
                 detailsHTML += `<ul>${listItems}</ul>`;
             }
 
+            const logoHTML = item.logo
+                ? `<img class="timeline-logo" src="${item.logo}" alt="${subtitle} logo">`
+                : '';
+
             const html = `
                 <div class="timeline-item ${side}">
                     <div class="timeline-content">
                         <div class="timeline-header">
+                            ${logoHTML}
                             <div class="timeline-header-text">
                                 <h3>${item.title}</h3>
                                 <p class="timeline-subtitle">${subtitle}</p>

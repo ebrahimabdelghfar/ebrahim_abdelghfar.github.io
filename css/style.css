@@ -689,6 +689,23 @@ section {
     min-width: 0;
 }
 
+.timeline-logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    object-fit: contain;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-color);
+    padding: 4px;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.timeline-content:hover .timeline-logo {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 12px rgba(0, 170, 255, 0.15);
+}
+
 .timeline-content h3 {
     color: var(--text-color);
     font-size: 1.1rem;

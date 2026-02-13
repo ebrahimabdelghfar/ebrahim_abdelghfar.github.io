@@ -34,7 +34,8 @@
         " Containerized robotics applications using Docker, decreasing environment setup time by 75% and improving deployment reliability.",
         "• Developed technical strategies, plans, and roadmaps for the mobile robot platform."
       ],
-      "company": "Dakahlia Group"
+      "company": "Dakahlia Group",
+      "logo": ""
     },
     {
       "title": "Robotics Software Engineer",
@@ -47,7 +48,8 @@
         " Established the company's CI/CD using Git, improving code integration efficiency and enabling version control best practices.",
         "Designed robotic software stack for projects such as Robo-cafe."
       ],
-      "company": "Noases"
+      "company": "Noases",
+      "logo": ""
     },
     {
       "title": "Teaching Assistant",
@@ -57,7 +59,8 @@
         "Taught the \"MCT443: Autonomous Systems\" course to over 40 undergraduate students.",
         "Mentored students on ROS2 implementation and core robotics algorithms."
       ],
-      "company": "Faculty of engineering of Ain Shams university"
+      "company": "Faculty of engineering of Ain Shams university",
+      "logo": ""
     },
     {
       "title": "Robotics Software Engineer",
@@ -68,7 +71,8 @@
         "Engineered a milestones simulator using CoppeliaSim and ROS1.",
         "Developed the Steering Control for an Autonomous Vehicle using Pure Pursuit."
       ],
-      "company": "Egyptian Electric Vehicle Rally Competition"
+      "company": "Egyptian Electric Vehicle Rally Competition",
+      "logo": ""
     }
   ],
   "education": [
