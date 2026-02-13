@@ -667,26 +667,14 @@ section {
 /* Right items need to shift left to fill full width */
 .timeline-item.expanded.right {
     left: 0 !important;
+    padding-left: 48px;
 }
 
-/* Dot stays at center line for left items (right edge moves from 50% to 100%) */
-.timeline-item.expanded.left::after {
-    right: calc(50% - 7px);
-}
-
-/* Dot stays at center line for right items (already uses left: -7px, now container starts at 0) */
-.timeline-item.expanded.right::after {
-    left: calc(50% - 7px);
-}
-
-/* Connector arm stays at center for left items */
-.timeline-item.expanded.left::before {
-    right: calc(50% - 42px);
-}
-
-/* Connector arm stays at center for right items */
-.timeline-item.expanded.right::before {
-    left: calc(50% - 42px);
+/* Hide dot and connector arm when expanded — card fills full width cleanly */
+.timeline-item.expanded::after,
+.timeline-item.expanded::before {
+    opacity: 0 !important;
+    pointer-events: none;
 }
 
 .timeline-header {
