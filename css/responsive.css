@@ -191,47 +191,60 @@ html, body {
 
     /* ---- Timeline: single column ---- */
     .timeline::after {
-        left: 20px;
+        left: 16px;
     }
 
     .timeline-item {
         width: 100%;
-        padding-left: 55px;
-        padding-right: 10px;
+        padding-left: 50px;
+        padding-right: 0;
     }
 
     .timeline-item.left,
     .timeline-item.right {
         left: 0;
+        padding-left: 50px;
     }
 
     .timeline-item.left::after,
     .timeline-item.right::after {
-        left: 11px;
+        left: 10px;
+        width: 12px;
+        height: 12px;
+    }
+
+    .timeline-item::before {
+        display: none;
     }
 
     .timeline-content {
-        padding: 18px 20px;
+        padding: 20px 22px;
     }
 
     .timeline-content h3 {
-        font-size: 1.05rem;
+        font-size: 1.02rem;
+    }
+
+    .timeline-subtitle {
+        font-size: 0.85rem;
     }
 
     .expand-details ul li {
-        padding: 8px 12px 8px 28px;
-        font-size: 0.88rem;
+        padding: 9px 12px 9px 28px;
+        font-size: 0.85rem;
+        line-height: 1.7;
     }
 
     .expand-details ul li::before {
-        left: 10px;
+        left: 11px;
         width: 5px;
         height: 5px;
+        top: 16px;
     }
 
     .expand-details p {
-        padding: 10px 14px;
-        font-size: 0.9rem;
+        padding: 12px 14px;
+        font-size: 0.87rem;
     }
 
     /* ---- Skills ---- */
