@@ -614,24 +614,26 @@ section {
 }
 
 /* Connector arm from dot to card */
-.timeline-item::before {
+.timeline-item.left::before {
     content: '';
     position: absolute;
     top: 34px;
-    width: 28px;
+    right: -7px;
+    width: 40px;
     height: 2px;
-    background: linear-gradient(90deg, var(--primary-color), transparent);
+    background: linear-gradient(270deg, var(--primary-color), transparent);
     opacity: 0.25;
 }
 
-.timeline-item.left::before {
-    right: 0;
-    background: linear-gradient(270deg, var(--primary-color), transparent);
-}
-
 .timeline-item.right::before {
-    left: 0;
+    content: '';
+    position: absolute;
+    top: 34px;
+    left: -7px;
+    width: 40px;
+    height: 2px;
     background: linear-gradient(90deg, var(--primary-color), transparent);
+    opacity: 0.25;
 }
 
 .timeline-content {
@@ -670,7 +672,8 @@ section {
 }
 
 .timeline-item.expanded::before {
-    left: 0;
+    left: -7px;
+    right: auto;
     background: linear-gradient(90deg, var(--primary-color), transparent);
 }
 
