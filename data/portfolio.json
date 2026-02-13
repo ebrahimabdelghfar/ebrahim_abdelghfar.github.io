@@ -213,7 +213,7 @@
       "title": "Shell Urban Autonomous Concept Simulator",
       "summary": "A modular simulation framework with ROS 2 and Docker for testing navigation algorithms.",
       "description": "Developed for efficient testing of autonomous navigation algorithms.",
-      "image": "https://i.postimg.cc/fyK6p8zs/447697576-a85443a4-060b-4343-af05-7bcb578cb165.png",
+      "image": "https://placehold.co/600x400/161b22/00ffaa?text=Autonomous+Sim",
       "link": "https://github.com/Shell-Urban-Concept-Autonomous/shell_urban_simulator",
       "linkText": "View on GitHub",
       "details": [
@@ -256,7 +256,7 @@
       "title": "ABB IRB 120 Simulator",
       "summary": "Integrated ROS1 and MoveIt with CoppeliaSim for an industrial robot arm, cited in a Master's thesis.",
       "description": "A simulator for an industrial robotic arm that gained academic recognition.",
-      "image": "https://placehold.co/600x400/161b22/ffaa00?text=ABB+Simulator",
+      "image": "https://i.postimg.cc/L6hRYZmf/image.png",
       "link": "https://github.com/ebrahimabdelghfar/ABB-IRB120-Coppeliasim-Moveit-Simulation",
       "linkText": "View on GitHub",
       "details": [
