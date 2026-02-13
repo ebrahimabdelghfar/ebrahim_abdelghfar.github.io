@@ -668,14 +668,15 @@ section {
 }
 
 .timeline-item.expanded::after {
-    left: -7px;
+    left: calc(50% - 7px);
     right: auto !important;
 }
 
 .timeline-item.expanded::before {
-    left: 0;
+    left: calc(50% - 42px);
     right: auto !important;
-    background: linear-gradient(270deg, var(--primary-color), transparent);
+    width: 42px;
+    background: linear-gradient(90deg, transparent, var(--primary-color));
 }
 
 .timeline-header {
