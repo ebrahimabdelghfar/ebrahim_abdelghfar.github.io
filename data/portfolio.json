@@ -49,7 +49,7 @@
         "Designed robotic software stack for projects such as Robo-cafe."
       ],
       "company": "Noases",
-      "logo": "https://i.postimg.cc/rFZQwXR9/image.png"
+      "logo": ""
     },
     {
       "title": "Teaching Assistant",
@@ -235,7 +235,7 @@
       "title": "Path Tracking Surveys",
       "summary": "Applied and compared Pure-pursuit, Stanley, and MPC controllers in the CARLA simulator.",
       "description": "A comparative study of different path tracking algorithms.",
-      "image": "https://placehold.co/600x400/161b22/00aaff?text=Path+Tracking",
+      "image": "https://i.postimg.cc/N066TWFz/image.png",
       "link": "https://github.com/ebrahimabdelghfar/Control-surveys",
       "linkText": "View on GitHub",
       "details": [
