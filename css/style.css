@@ -657,26 +657,9 @@ section {
     box-shadow: 0 12px 40px rgba(0, 170, 255, 0.1), 0 0 0 1px rgba(0, 170, 255, 0.2);
 }
 
-/* Expanded timeline item: full width breakout */
+/* Expanded timeline item */
 .timeline-item.expanded {
-    width: 100%;
-    left: 0 !important;
-    padding-left: 48px;
-    padding-right: 0;
     z-index: 2;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.timeline-item.expanded::after {
-    left: calc(50% - 7px);
-    right: auto !important;
-}
-
-.timeline-item.expanded::before {
-    left: calc(50% - 42px);
-    right: auto !important;
-    width: 42px;
-    background: linear-gradient(90deg, transparent, var(--primary-color));
 }
 
 .timeline-header {
