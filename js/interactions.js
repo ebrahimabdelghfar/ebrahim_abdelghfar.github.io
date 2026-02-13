@@ -87,11 +87,20 @@ const Interactions = {
             item.addEventListener('click', (e) => {
                 if (e.target.tagName.toLowerCase() === 'a') return;
                 const isExpanding = !item.classList.contains('expanded');
-                item.classList.toggle('expanded');
-                // Toggle class on parent timeline-item for full-width breakout
                 const parentItem = item.closest('.timeline-item');
-                if (parentItem) {
-                    parentItem.classList.toggle('expanded', isExpanding);
+
+                if (isExpanding) {
+                    // Expand: first go full width, then expand content
+                    if (parentItem) parentItem.classList.add('expanded');
+                    item.classList.add('expanded');
+                } else {
+                    // Collapse: first collapse content, then shrink width after animation
+                    item.classList.remove('expanded');
+                    if (parentItem) {
+                        setTimeout(() => {
+                            parentItem.classList.remove('expanded');
+                        }, 500);
+                    }
                 }
             });
         });
