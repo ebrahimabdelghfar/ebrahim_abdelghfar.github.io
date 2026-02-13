@@ -1,0 +1,68 @@
+/* ============================================
+   Animations
+   ============================================ */
+
+/* Typewriter Caret Blink */
+.typewriter {
+    border-right: .1em solid var(--primary-color);
+    white-space: nowrap;
+    overflow: hidden;
+    animation: blink-caret .75s step-end infinite;
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: var(--primary-color); }
+}
+
+/* Scroll Reveal */
+.reveal {
+    position: relative;
+    transform: translateY(50px);
+    opacity: 0;
+    transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+}
+
+.reveal.visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Stagger animation for grid children */
+.reveal.visible .skill-category,
+.reveal.visible .project-card,
+.reveal.visible .award-card {
+    animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
+}
+
+.reveal.visible .skill-category:nth-child(1),
+.reveal.visible .project-card:nth-child(1),
+.reveal.visible .award-card:nth-child(1) { animation-delay: 0.1s; }
+
+.reveal.visible .skill-category:nth-child(2),
+.reveal.visible .project-card:nth-child(2),
+.reveal.visible .award-card:nth-child(2) { animation-delay: 0.2s; }
+
+.reveal.visible .skill-category:nth-child(3),
+.reveal.visible .project-card:nth-child(3),
+.reveal.visible .award-card:nth-child(3) { animation-delay: 0.3s; }
+
+.reveal.visible .skill-category:nth-child(4),
+.reveal.visible .project-card:nth-child(4),
+.reveal.visible .award-card:nth-child(4) { animation-delay: 0.4s; }
+
+.reveal.visible .skill-category:nth-child(5),
+.reveal.visible .project-card:nth-child(5),
+.reveal.visible .award-card:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

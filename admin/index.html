@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg: #0d1117;
+            --card: #161b22;
+            --border: #30363d;
+            --primary: #00aaff;
+            --secondary: #00ffaa;
+            --text: #c9d1d9;
+            --danger: #ff4d4d;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Roboto', sans-serif; background: var(--bg); color: var(--text); }
+
+        /* Layout */
+        .admin-layout { display: flex; min-height: 100vh; }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: var(--card);
+            border-right: 1px solid var(--border);
+            padding: 20px 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        .sidebar h2 {
+            color: #fff;
+            padding: 0 20px;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        .sidebar h2 i { color: var(--primary); margin-right: 8px; }
+        .sidebar-nav { list-style: none; }
+        .sidebar-nav li a {
+            display: block;
+            padding: 12px 20px;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+        .sidebar-nav li a:hover,
+        .sidebar-nav li a.active {
+            background: rgba(0, 170, 255, 0.1);
+            color: #fff;
+            border-left-color: var(--primary);
+        }
+        .sidebar-nav li a i { width: 20px; margin-right: 10px; text-align: center; }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 30px;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        .top-bar h1 { color: #fff; font-size: 1.5rem; }
+
+        /* Action Buttons */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: #000;
+        }
+        .btn-primary:hover { box-shadow: 0 0 15px var(--primary); }
+        .btn-secondary {
+            background: var(--card);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover { border-color: var(--primary); color: #fff; }
+        .btn-danger {
+            background: var(--danger);
+            color: #fff;
+        }
+        .btn-danger:hover { box-shadow: 0 0 10px var(--danger); }
+        .btn-sm { padding: 6px 12px; font-size: 0.85rem; }
+        .btn-group { display: flex; gap: 10px; flex-wrap: wrap; }
+
+        /* Sections */
+        .editor-section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .editor-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .section-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        .section-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        /* Form Elements */
+        .form-group { margin-bottom: 15px; }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px 12px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            color: var(--text);
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.95rem;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        /* Repeatable Items */
+        .item-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        .item-card .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .item-card .item-header h4 {
+            color: var(--secondary);
+            font-size: 0.95rem;
+        }
+
+        /* List Editor */
+        .list-editor { margin-top: 10px; }
+        .list-editor .list-item {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .list-editor .list-item input { flex: 1; }
+        .list-editor .list-item button {
+            padding: 8px 10px;
+            background: none;
+            border: 1px solid var(--danger);
+            color: var(--danger);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        .list-editor .list-item button:hover { background: var(--danger); color: #fff; }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: 500;
+            z-index: 9999;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast.success { background: var(--secondary); color: #000; }
+        .toast.error { background: var(--danger); color: #fff; }
+
+        /* Import area */
+        .import-area {
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        .import-area:hover { border-color: var(--primary); }
+        .import-area i { font-size: 2rem; color: var(--primary); margin-bottom: 10px; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar { width: 60px; }
+            .sidebar h2 span, .sidebar-nav li a span { display: none; }
+            .sidebar-nav li a { text-align: center; padding: 12px; }
+            .sidebar-nav li a i { margin: 0; }
+            .main-content { margin-left: 60px; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2><i class="fas fa-cog"></i> <span>Admin Panel</span></h2>
+            <ul class="sidebar-nav" id="sidebar-nav">
+                <li><a href="#" data-section="import-export" class="active"><i class="fas fa-file-import"></i> <span>Import / Export</span></a></li>
+                <li><a href="#" data-section="hero-editor"><i class="fas fa-home"></i> <span>Hero</span></a></li>
+                <li><a href="#" data-section="experience-editor"><i class="fas fa-briefcase"></i> <span>Experience</span></a></li>
+                <li><a href="#" data-section="education-editor"><i class="fas fa-graduation-cap"></i> <span>Education</span></a></li>
+                <li><a href="#" data-section="skills-editor"><i class="fas fa-code"></i> <span>Skills</span></a></li>
+                <li><a href="#" data-section="projects-editor"><i class="fas fa-project-diagram"></i> <span>Projects</span></a></li>
+                <li><a href="#" data-section="competitions-editor"><i class="fas fa-trophy"></i> <span>Competitions</span></a></li>
+                <li><a href="#" data-section="scholarships-editor"><i class="fas fa-award"></i> <span>Scholarships</span></a></li>
+                <li><a href="#" data-section="volunteering-editor"><i class="fas fa-hands-helping"></i> <span>Volunteering</span></a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="top-bar">
+                <h1><i class="fas fa-edit"></i> Portfolio Content Editor</h1>
+                <div class="btn-group">
+                    <button class="btn btn-secondary" onclick="Admin.previewSite()"><i class="fas fa-eye"></i> Preview Site</button>
+                    <button class="btn btn-primary" onclick="Admin.exportJSON()"><i class="fas fa-download"></i> Export portfolio.json</button>
+                </div>
+            </div>
+
+            <!-- ====== Import/Export Section ====== -->
+            <div class="editor-section active" id="import-export">
+                <div class="section-card">
+                    <h3><i class="fas fa-file-import"></i> Load Existing Data</h3>
+                    <p style="margin-bottom:15px;">Import your current <code>portfolio.json</code> to start editing, or start fresh.</p>
+                    <div class="import-area" id="import-area">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Click to import portfolio.json<br><small>or drag & drop the file here</small></p>
+                        <input type="file" id="import-file" accept=".json" style="display:none;">
+                    </div>
+                    <div class="btn-group" style="margin-top:20px;">
+                        <button class="btn btn-secondary" onclick="Admin.loadFromURL()"><i class="fas fa-link"></i> Load from ../data/portfolio.json</button>
+                        <button class="btn btn-secondary" onclick="Admin.loadFresh()"><i class="fas fa-plus"></i> Start Fresh</button>
+                    </div>
+                </div>
+                <div class="section-card">
+                    <h3><i class="fas fa-info-circle"></i> How It Works</h3>
+                    <ol style="padding-left:20px;line-height:2;">
+                        <li>Import your existing <code>portfolio.json</code> or start fresh.</li>
+                        <li>Navigate to each section using the sidebar and edit your content.</li>
+                        <li>Click <strong>"Export portfolio.json"</strong> to download the updated file.</li>
+                        <li>Replace <code>data/portfolio.json</code> in your repository with the downloaded file.</li>
+                        <li>Commit & push — your site updates automatically!</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- ====== Hero Editor ====== -->
+            <div class="editor-section" id="hero-editor">
+                <div class="section-card">
+                    <h3><i class="fas fa-home"></i> Hero Section</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="hero-name" placeholder="Your full name">
+                        </div>
+                        <div class="form-group">
+                            <label>Title / Role</label>
+                            <input type="text" id="hero-title" placeholder="e.g. Robotics Software Engineer">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Bio / About</label>
+                        <textarea id="hero-bio" rows="4" placeholder="A short biography..."></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Photo URL</label>
+                            <input type="url" id="hero-photo" placeholder="https://...">
+                        </div>
+                        <div class="form-group">
+                            <label>Resume / CV URL (optional)</label>
+                            <input type="url" id="hero-resume" placeholder="https://... or leave empty">
+                        </div>
+                    </div>
+                </div>
+                <div class="section-card">
+                    <h3><i class="fas fa-keyboard"></i> Typewriter Texts</h3>
+                    <div class="list-editor" id="typewriter-list"></div>
+                    <button class="btn btn-secondary btn-sm" onclick="Admin.addTypewriterText()"><i class="fas fa-plus"></i> Add Text</button>
+                </div>
+                <div class="section-card">
+                    <h3><i class="fas fa-share-alt"></i> Social Links</h3>
+                    <div id="social-links-list"></div>
+                    <button class="btn btn-secondary btn-sm" onclick="Admin.addSocialLink()"><i class="fas fa-plus"></i> Add Social Link</button>
+                </div>
+            </div>
+
+            <!-- ====== Experience Editor ====== -->
+            <div class="editor-section" id="experience-editor">
+                <div class="section-card">
+                    <h3><i class="fas fa-briefcase"></i> Work Experience</h3>
+                    <div id="experience-list"></div>
+                    <button class="btn btn-secondary" onclick="Admin.addExperience()"><i class="fas fa-plus"></i> Add Experience</button>
+                </div>
+            </div>
+
+            <!-- ====== Education Editor ====== -->
+            <div class="editor-section" id="education-editor">
+                <div class="section-card">
+                    <h3><i class="fas fa-graduation-cap"></i> Education & Certifications</h3>
+                    <div id="education-list"></div>
+                    <button class="btn btn-secondary" onclick="Admin.addEducation()"><i class="fas fa-plus"></i> Add Education</button>
+                </div>
+            </div>
+
+            <!-- ====== Skills Editor ====== -->
+            <div class="editor-section" id="skills-editor">
+                <div class="section-card">
+                    <h3><i class="fas fa-code"></i> Technical Skills</h3>
+                    <div id="skills-list"></div>
+                    <button class="btn btn-secondary" onclick="Admin.addSkillCategory()"><i class="fas fa-plus"></i> Add Skill Category</button>
+                </div>
+            </div>
+
+            <!-- ====== Projects Editor ====== -->
+            <div class="editor-section" id="projects-editor">
+                <div class="section-card">
+                    <h3><i class="fas fa-project-diagram"></i> Projects</h3>
+                    <div id="projects-list"></div>
+                    <button class="btn btn-secondary" onclick="Admin.addProject()"><i class="fas fa-plus"></i> Add Project</button>
+                </div>
+            </div>
+
+            <!-- ====== Competitions Editor ====== -->
+            <div class="editor-section" id="competitions-editor">
+                <div class="section-card">
+                    <h3><i class="fas fa-trophy"></i> Competitions & Awards</h3>
+                    <div id="competitions-list"></div>
+                    <button class="btn btn-secondary" onclick="Admin.addCompetition()"><i class="fas fa-plus"></i> Add Competition</button>
+                </div>
+            </div>
+
+            <!-- ====== Scholarships Editor ====== -->
+            <div class="editor-section" id="scholarships-editor">
+                <div class="section-card">
+                    <h3><i class="fas fa-award"></i> Scholarships</h3>
+                    <div id="scholarships-list"></div>
+                    <button class="btn btn-secondary" onclick="Admin.addScholarship()"><i class="fas fa-plus"></i> Add Scholarship</button>
+                </div>
+            </div>
+
+            <!-- ====== Volunteering Editor ====== -->
+            <div class="editor-section" id="volunteering-editor">
+                <div class="section-card">
+                    <h3><i class="fas fa-hands-helping"></i> Volunteering</h3>
+                    <div id="volunteering-list"></div>
+                    <button class="btn btn-secondary" onclick="Admin.addVolunteering()"><i class="fas fa-plus"></i> Add Volunteering</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+    /**
+     * Admin Panel — Portfolio JSON Editor
+     */
+    const Admin = {
+        data: null,
+
+        // ==================== INIT ====================
+        init() {
+            this.initSidebar();
+            this.initImport();
+        },
+
+        initSidebar() {
+            const links = document.querySelectorAll('.sidebar-nav a');
+            links.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    links.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                    document.querySelectorAll('.editor-section').forEach(s => s.classList.remove('active'));
+                    const target = document.getElementById(link.dataset.section);
+                    if (target) target.classList.add('active');
+                });
+            });
+        },
+
+        initImport() {
+            const area = document.getElementById('import-area');
+            const fileInput = document.getElementById('import-file');
+
+            area.addEventListener('click', () => fileInput.click());
+            area.addEventListener('dragover', (e) => { e.preventDefault(); area.style.borderColor = 'var(--primary)'; });
+            area.addEventListener('dragleave', () => { area.style.borderColor = 'var(--border)'; });
+            area.addEventListener('drop', (e) => {
+                e.preventDefault();
+                area.style.borderColor = 'var(--border)';
+                const file = e.dataTransfer.files[0];
+                if (file) this.readFile(file);
+            });
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) this.readFile(file);
+            });
+        },
+
+        readFile(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    this.data = JSON.parse(e.target.result);
+                    this.populateAll();
+                    this.showToast('Data loaded successfully!', 'success');
+                } catch (err) {
+                    this.showToast('Invalid JSON file!', 'error');
+                }
+            };
+            reader.readAsText(file);
+        },
+
+        async loadFromURL() {
+            try {
+                const res = await fetch('../data/portfolio.json');
+                if (!res.ok) throw new Error('File not found');
+                this.data = await res.json();
+                this.populateAll();
+                this.showToast('Loaded from data/portfolio.json!', 'success');
+            } catch (err) {
+                this.showToast('Could not load file. Try importing manually.', 'error');
+            }
+        },
+
+        loadFresh() {
+            this.data = {
+                hero: { name: '', title: '', bio: '', photo: '', typewriterTexts: [], resumeURL: '', socialLinks: [] },
+                experience: [],
+                education: [],
+                skills: [],
+                projects: [],
+                competitions: [],
+                scholarships: [],
+                volunteering: []
+            };
+            this.populateAll();
+            this.showToast('Starting with fresh data.', 'success');
+        },
+
+        // ==================== POPULATE ALL ====================
+        populateAll() {
+            if (!this.data) return;
+            const d = this.data;
+
+            // Hero
+            document.getElementById('hero-name').value = d.hero.name || '';
+            document.getElementById('hero-title').value = d.hero.title || '';
+            document.getElementById('hero-bio').value = d.hero.bio || '';
+            document.getElementById('hero-photo').value = d.hero.photo || '';
+            document.getElementById('hero-resume').value = d.hero.resumeURL || '';
+
+            // Typewriter
+            this.renderTypewriterTexts();
+
+            // Social
+            this.renderSocialLinks();
+
+            // Sections
+            this.renderExperience();
+            this.renderEducation();
+            this.renderSkills();
+            this.renderProjects();
+            this.renderCompetitions();
+            this.renderScholarships();
+            this.renderVolunteering();
+        },
+
+        // ==================== COLLECT ALL ====================
+        collectAll() {
+            if (!this.data) this.loadFresh();
+            const d = this.data;
+
+            d.hero.name = document.getElementById('hero-name').value;
+            d.hero.title = document.getElementById('hero-title').value;
+            d.hero.bio = document.getElementById('hero-bio').value;
+            d.hero.photo = document.getElementById('hero-photo').value;
+            d.hero.resumeURL = document.getElementById('hero-resume').value;
+
+            // Typewriter
+            d.hero.typewriterTexts = this.collectListItems('typewriter-list');
+
+            // Social
+            d.hero.socialLinks = this.collectSocialLinks();
+
+            // Sections
+            d.experience = this.collectTimelineItems('experience-list', 'company');
+            d.education = this.collectTimelineItems('education-list', 'institution');
+            d.skills = this.collectSkills();
+            d.projects = this.collectProjects();
+            d.competitions = this.collectAwards('competitions-list');
+            d.scholarships = this.collectAwards('scholarships-list');
+            d.volunteering = this.collectTimelineItems('volunteering-list', 'organization');
+
+            return d;
+        },
+
+        // ==================== EXPORT ====================
+        exportJSON() {
+            const data = this.collectAll();
+            const json = JSON.stringify(data, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'portfolio.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            this.showToast('portfolio.json downloaded!', 'success');
+        },
+
+        previewSite() {
+            window.open('../index.html', '_blank');
+        },
+
+        // ==================== TYPEWRITER ====================
+        renderTypewriterTexts() {
+            const container = document.getElementById('typewriter-list');
+            container.innerHTML = '';
+            (this.data.hero.typewriterTexts || []).forEach((text, i) => {
+                container.insertAdjacentHTML('beforeend', `
+                    <div class="list-item">
+                        <input type="text" value="${this.escAttr(text)}" placeholder="Typewriter text ${i + 1}">
+                        <button onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
+                    </div>
+                `);
+            });
+        },
+
+        addTypewriterText() {
+            document.getElementById('typewriter-list').insertAdjacentHTML('beforeend', `
+                <div class="list-item">
+                    <input type="text" value="" placeholder="New typewriter text">
+                    <button onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
+                </div>
+            `);
+        },
+
+        // ==================== SOCIAL LINKS ====================
+        renderSocialLinks() {
+            const container = document.getElementById('social-links-list');
+            container.innerHTML = '';
+            (this.data.hero.socialLinks || []).forEach((link, i) => {
+                container.insertAdjacentHTML('beforeend', this.socialLinkHTML(link, i));
+            });
+        },
+
+        socialLinkHTML(link, idx) {
+            return `
+                <div class="item-card" data-idx="${idx}">
+                    <div class="item-header">
+                        <h4>Social Link ${idx + 1}</h4>
+                        <button class="btn btn-danger btn-sm" onclick="this.closest('.item-card').remove()"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Platform</label>
+                            <input type="text" class="social-platform" value="${this.escAttr(link.platform || '')}">
+                        </div>
+                        <div class="form-group">
+                            <label>Icon Class (Font Awesome)</label>
+                            <input type="text" class="social-icon" value="${this.escAttr(link.icon || '')}" placeholder="fab fa-linkedin">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>URL</label>
+                        <input type="url" class="social-url" value="${this.escAttr(link.url || '')}">
+                    </div>
+                </div>
+            `;
+        },
+
+        addSocialLink() {
+            const container = document.getElementById('social-links-list');
+            const idx = container.children.length;
+            container.insertAdjacentHTML('beforeend', this.socialLinkHTML({ platform: '', icon: '', url: '' }, idx));
+        },
+
+        collectSocialLinks() {
+            const cards = document.querySelectorAll('#social-links-list .item-card');
+            return Array.from(cards).map(card => ({
+                platform: card.querySelector('.social-platform').value,
+                icon: card.querySelector('.social-icon').value,
+                url: card.querySelector('.social-url').value
+            }));
+        },
+
+        // ==================== TIMELINE (Experience, Education, Volunteering) ====================
+        renderTimelineItems(containerId, items, subtitleField) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            (items || []).forEach((item, i) => {
+                container.insertAdjacentHTML('beforeend', this.timelineItemHTML(item, i, subtitleField));
+            });
+        },
+
+        renderExperience() { this.renderTimelineItems('experience-list', this.data.experience, 'company'); },
+        renderEducation() { this.renderTimelineItems('education-list', this.data.education, 'institution'); },
+        renderVolunteering() { this.renderTimelineItems('volunteering-list', this.data.volunteering, 'organization'); },
+
+        timelineItemHTML(item, idx, subtitleField) {
+            const detailsList = (item.details || []).map((d, i) => `
+                <div class="list-item">
+                    <input type="text" value="${this.escAttr(d)}">
+                    <button onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
+                </div>
+            `).join('');
+
+            return `
+                <div class="item-card" data-idx="${idx}">
+                    <div class="item-header">
+                        <h4>${item.title || 'New Item'}</h4>
+                        <button class="btn btn-danger btn-sm" onclick="this.closest('.item-card').remove()"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Title / Position</label>
+                            <input type="text" class="tl-title" value="${this.escAttr(item.title || '')}">
+                        </div>
+                        <div class="form-group">
+                            <label>${this.capitalize(subtitleField)}</label>
+                            <input type="text" class="tl-subtitle" value="${this.escAttr(item[subtitleField] || '')}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="text" class="tl-date" value="${this.escAttr(item.date || '')}" placeholder="e.g. Jan 2024 - Present">
+                        </div>
+                        <div class="form-group">
+                            <label>Side</label>
+                            <select class="tl-side">
+                                <option value="right" ${item.side === 'right' ? 'selected' : ''}>Right</option>
+                                <option value="left" ${item.side === 'left' ? 'selected' : ''}>Left</option>
+                            </select>
+                        </div>
+                    </div>
+                    ${item.detailsHTML !== undefined ? `
+                    <div class="form-group">
+                        <label>Details HTML (optional, for formatted text above bullets)</label>
+                        <textarea class="tl-detailsHTML" rows="2">${this.escAttr(item.detailsHTML || '')}</textarea>
+                    </div>` : ''}
+                    <div class="form-group">
+                        <label>Bullet Points</label>
+                        <div class="list-editor tl-details-list">${detailsList}</div>
+                        <button class="btn btn-secondary btn-sm" onclick="Admin.addDetailItem(this)"><i class="fas fa-plus"></i> Add Bullet</button>
+                    </div>
+                </div>
+            `;
+        },
+
+        addExperience() {
+            const container = document.getElementById('experience-list');
+            const idx = container.children.length;
+            container.insertAdjacentHTML('beforeend', this.timelineItemHTML({ title: '', company: '', date: '', side: 'right', details: [] }, idx, 'company'));
+        },
+        addEducation() {
+            const container = document.getElementById('education-list');
+            const idx = container.children.length;
+            container.insertAdjacentHTML('beforeend', this.timelineItemHTML({ title: '', institution: '', date: '', side: 'right', detailsHTML: '', details: [] }, idx, 'institution'));
+        },
+        addVolunteering() {
+            const container = document.getElementById('volunteering-list');
+            const idx = container.children.length;
+            container.insertAdjacentHTML('beforeend', this.timelineItemHTML({ title: '', organization: '', date: '', side: 'right', details: [] }, idx, 'organization'));
+        },
+
+        addDetailItem(btn) {
+            const list = btn.previousElementSibling;
+            list.insertAdjacentHTML('beforeend', `
+                <div class="list-item">
+                    <input type="text" value="" placeholder="New detail...">
+                    <button onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
+                </div>
+            `);
+        },
+
+        collectTimelineItems(containerId, subtitleField) {
+            const cards = document.querySelectorAll(`#${containerId} .item-card`);
+            return Array.from(cards).map(card => {
+                const obj = {
+                    title: card.querySelector('.tl-title').value,
+                    date: card.querySelector('.tl-date').value,
+                    side: card.querySelector('.tl-side').value,
+                    details: Array.from(card.querySelectorAll('.tl-details-list .list-item input')).map(inp => inp.value).filter(v => v)
+                };
+                obj[subtitleField] = card.querySelector('.tl-subtitle').value;
+                const htmlField = card.querySelector('.tl-detailsHTML');
+                if (htmlField) obj.detailsHTML = htmlField.value;
+                return obj;
+            });
+        },
+
+        // ==================== SKILLS ====================
+        renderSkills() {
+            const container = document.getElementById('skills-list');
+            container.innerHTML = '';
+            (this.data.skills || []).forEach((cat, i) => {
+                container.insertAdjacentHTML('beforeend', this.skillCategoryHTML(cat, i));
+            });
+        },
+
+        skillCategoryHTML(cat, idx) {
+            const items = (cat.items || []).map((item, i) => `
+                <div class="list-item">
+                    <input type="text" class="skill-name" value="${this.escAttr(item.name || '')}" placeholder="Skill name">
+                    <input type="text" class="skill-icon" value="${this.escAttr(item.icon || '')}" placeholder="fas fa-code" style="max-width:150px;">
+                    <button onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
+                </div>
+            `).join('');
+
+            return `
+                <div class="item-card" data-idx="${idx}">
+                    <div class="item-header">
+                        <h4>${cat.category || 'New Category'}</h4>
+                        <button class="btn btn-danger btn-sm" onclick="this.closest('.item-card').remove()"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Category Name</label>
+                            <input type="text" class="skill-cat-name" value="${this.escAttr(cat.category || '')}">
+                        </div>
+                        <div class="form-group">
+                            <label>Category Icon</label>
+                            <input type="text" class="skill-cat-icon" value="${this.escAttr(cat.icon || '')}" placeholder="fas fa-code">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Skills (name + icon class)</label>
+                        <div class="list-editor skill-items-list">${items}</div>
+                        <button class="btn btn-secondary btn-sm" onclick="Admin.addSkillItem(this)"><i class="fas fa-plus"></i> Add Skill</button>
+                    </div>
+                </div>
+            `;
+        },
+
+        addSkillCategory() {
+            const container = document.getElementById('skills-list');
+            container.insertAdjacentHTML('beforeend', this.skillCategoryHTML({ category: '', icon: '', items: [] }, container.children.length));
+        },
+
+        addSkillItem(btn) {
+            const list = btn.previousElementSibling;
+            list.insertAdjacentHTML('beforeend', `
+                <div class="list-item">
+                    <input type="text" class="skill-name" value="" placeholder="Skill name">
+                    <input type="text" class="skill-icon" value="" placeholder="fas fa-code" style="max-width:150px;">
+                    <button onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
+                </div>
+            `);
+        },
+
+        collectSkills() {
+            const cards = document.querySelectorAll('#skills-list .item-card');
+            return Array.from(cards).map(card => ({
+                category: card.querySelector('.skill-cat-name').value,
+                icon: card.querySelector('.skill-cat-icon').value,
+                items: Array.from(card.querySelectorAll('.skill-items-list .list-item')).map(li => ({
+                    name: li.querySelector('.skill-name').value,
+                    icon: li.querySelector('.skill-icon').value
+                })).filter(i => i.name)
+            }));
+        },
+
+        // ==================== PROJECTS ====================
+        renderProjects() {
+            const container = document.getElementById('projects-list');
+            container.innerHTML = '';
+            (this.data.projects || []).forEach((proj, i) => {
+                container.insertAdjacentHTML('beforeend', this.projectHTML(proj, i));
+            });
+        },
+
+        projectHTML(proj, idx) {
+            const details = (proj.details || []).map(d => `
+                <div class="list-item">
+                    <input type="text" value="${this.escAttr(d)}">
+                    <button onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
+                </div>
+            `).join('');
+
+            return `
+                <div class="item-card" data-idx="${idx}">
+                    <div class="item-header">
+                        <h4>${proj.title || 'New Project'}</h4>
+                        <button class="btn btn-danger btn-sm" onclick="this.closest('.item-card').remove()"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Project ID (unique, no spaces)</label>
+                            <input type="text" class="proj-id" value="${this.escAttr(proj.id || 'project' + (idx + 1))}">
+                        </div>
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" class="proj-title" value="${this.escAttr(proj.title || '')}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Short Summary (for card)</label>
+                        <input type="text" class="proj-summary" value="${this.escAttr(proj.summary || '')}">
+                    </div>
+                    <div class="form-group">
+                        <label>Full Description (for modal)</label>
+                        <textarea class="proj-desc" rows="2">${this.escAttr(proj.description || '')}</textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Image URL</label>
+                            <input type="url" class="proj-image" value="${this.escAttr(proj.image || '')}">
+                        </div>
+                        <div class="form-group">
+                            <label>GitHub / Link URL</label>
+                            <input type="url" class="proj-link" value="${this.escAttr(proj.link || '')}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Link Text</label>
+                        <input type="text" class="proj-linktext" value="${this.escAttr(proj.linkText || 'View on GitHub')}">
+                    </div>
+                    <div class="form-group">
+                        <label>Details / Bullet Points</label>
+                        <div class="list-editor proj-details-list">${details}</div>
+                        <button class="btn btn-secondary btn-sm" onclick="Admin.addDetailItem(this)"><i class="fas fa-plus"></i> Add Bullet</button>
+                    </div>
+                </div>
+            `;
+        },
+
+        addProject() {
+            const container = document.getElementById('projects-list');
+            const idx = container.children.length;
+            container.insertAdjacentHTML('beforeend', this.projectHTML({
+                id: 'project' + (idx + 1), title: '', summary: '', image: '', description: '',
+                details: [], link: '', linkText: 'View on GitHub'
+            }, idx));
+        },
+
+        collectProjects() {
+            const cards = document.querySelectorAll('#projects-list .item-card');
+            return Array.from(cards).map(card => ({
+                id: card.querySelector('.proj-id').value,
+                title: card.querySelector('.proj-title').value,
+                summary: card.querySelector('.proj-summary').value,
+                description: card.querySelector('.proj-desc').value,
+                image: card.querySelector('.proj-image').value,
+                link: card.querySelector('.proj-link').value,
+                linkText: card.querySelector('.proj-linktext').value,
+                details: Array.from(card.querySelectorAll('.proj-details-list .list-item input')).map(inp => inp.value).filter(v => v)
+            }));
+        },
+
+        // ==================== AWARDS (Competitions & Scholarships) ====================
+        renderAwards(containerId, items) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            (items || []).forEach((item, i) => {
+                container.insertAdjacentHTML('beforeend', this.awardHTML(item, i));
+            });
+        },
+
+        renderCompetitions() { this.renderAwards('competitions-list', this.data.competitions); },
+        renderScholarships() { this.renderAwards('scholarships-list', this.data.scholarships); },
+
+        awardHTML(item, idx) {
+            return `
+                <div class="item-card" data-idx="${idx}">
+                    <div class="item-header">
+                        <h4>${item.title || 'New Award'}</h4>
+                        <button class="btn btn-danger btn-sm" onclick="this.closest('.item-card').remove()"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" class="award-title" value="${this.escAttr(item.title || '')}">
+                        </div>
+                        <div class="form-group">
+                            <label>Date / Source</label>
+                            <input type="text" class="award-date" value="${this.escAttr(item.date || '')}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Icon Class</label>
+                        <input type="text" class="award-icon" value="${this.escAttr(item.icon || 'fas fa-trophy')}">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="award-desc" rows="3">${this.escAttr(item.description || '')}</textarea>
+                    </div>
+                </div>
+            `;
+        },
+
+        addCompetition() {
+            const container = document.getElementById('competitions-list');
+            container.insertAdjacentHTML('beforeend', this.awardHTML({ title: '', date: '', icon: 'fas fa-trophy', description: '' }, container.children.length));
+        },
+
+        addScholarship() {
+            const container = document.getElementById('scholarships-list');
+            container.insertAdjacentHTML('beforeend', this.awardHTML({ title: '', date: '', icon: 'fas fa-graduation-cap', description: '' }, container.children.length));
+        },
+
+        collectAwards(containerId) {
+            const cards = document.querySelectorAll(`#${containerId} .item-card`);
+            return Array.from(cards).map(card => ({
+                title: card.querySelector('.award-title').value,
+                date: card.querySelector('.award-date').value,
+                icon: card.querySelector('.award-icon').value,
+                description: card.querySelector('.award-desc').value
+            }));
+        },
+
+        // ==================== HELPERS ====================
+        collectListItems(containerId) {
+            return Array.from(document.querySelectorAll(`#${containerId} .list-item input`))
+                .map(inp => inp.value)
+                .filter(v => v);
+        },
+
+        escAttr(str) {
+            return String(str || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        },
+
+        capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        },
+
+        showToast(message, type) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type} show`;
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+    };
+
+    // Initialize
+    Admin.init();
+    </script>
+</body>
+</html>

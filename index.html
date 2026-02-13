@@ -1,730 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ebrahim Abdelghfar Ebrahim | Robotics Software Engineer</title>
-    
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Portfolio of Ebrahim Abdelghfar Ebrahim — a Robotics Software Engineer specializing in ROS/ROS2, autonomous navigation, and simulation.">
+    <meta name="keywords" content="Robotics, ROS, ROS2, NAV2, C++, Python, Autonomous, Simulation, Gazebo, CoppeliaSim">
+    <meta name="author" content="Ebrahim Abdelghfar Ebrahim">
+
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ebrahimabdelghfar.github.io">
+    <meta property="og:title" content="Ebrahim Abdelghfar Ebrahim | Robotics Software Engineer">
+    <meta property="og:description" content="Portfolio of Ebrahim Abdelghfar Ebrahim — a Robotics Software Engineer specializing in ROS/ROS2, autonomous navigation, and simulation.">
+    <meta property="og:image" content="https://i.postimg.cc/7YvXDxZv/testtt.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ebrahim Abdelghfar Ebrahim | Robotics Software Engineer">
+    <meta name="twitter:description" content="Portfolio of Ebrahim Abdelghfar Ebrahim — a Robotics Software Engineer specializing in ROS/ROS2, autonomous navigation, and simulation.">
+    <meta name="twitter:image" content="https://i.postimg.cc/7YvXDxZv/testtt.jpg">
+
     <!-- Google Fonts: Roboto -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
     <!-- EmailJS SDK -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
-    <style>
-        /* CSS Variables for easy theme management */
-        :root {
-            --bg-color: #0d1117;
-            --primary-color: #00aaff;
-            --secondary-color: #00ffaa;
-            --text-color: #c9d1d9;
-            --border-color: #30363d;
-            --card-bg-color: #161b22;
-            --header-height: 70px;
-        }
-
-        /* Basic Reset and Setup */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: var(--header-height);
-        }
-
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
-
-        /* Container for consistent spacing */
-        .container {
-            max-width: 1100px;
-            margin: auto;
-            padding: 0 20px;
-        }
-
-        h1, h2, h3 {
-            color: #fff;
-            font-weight: 500;
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            border-radius: 2px;
-        }
-
-        section {
-            padding: 80px 0;
-        }
-        
-        .section-bg {
-            background-color: var(--card-bg-color);
-        }
-
-        /* Header and Navigation */
-        .header {
-            background-color: rgba(13, 17, 23, 0.85);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-            height: var(--header-height);
-            display: flex;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-
-        .header-scrolled {
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
-
-        .nav-logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #fff;
-            text-decoration: none;
-        }
-
-        .nav-menu {
-            list-style: none;
-            display: flex;
-        }
-
-        .nav-item {
-            margin-left: 30px;
-        }
-
-        .nav-link {
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
-            transition: color 0.3s ease;
-            position: relative;
-            padding-bottom: 5px;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: var(--primary-color);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover, .nav-link.active {
-            color: #fff;
-        }
-
-        .nav-link:hover::after, .nav-link.active::after {
-            width: 100%;
-        }
-
-        .nav-toggle {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #fff;
-        }
-
-        /* Hero Section */
-        #hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .hero-content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 50px;
-            flex-wrap: wrap;
-        }
-        
-        .hero-text {
-            max-width: 600px;
-            text-align: left;
-        }
-
-        .hero-text h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-            min-height: 120px;
-        }
-
-        .typewriter {
-            border-right: .1em solid var(--primary-color);
-            white-space: nowrap;
-            overflow: hidden;
-            animation: blink-caret .75s step-end infinite;
-        }
-
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: var(--primary-color); }
-        }
-
-        .hero-text p {
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-img-container {
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 5px solid var(--border-color);
-            box-shadow: 0 0 30px rgba(0, 170, 255, 0.3);
-        }
-
-        .hero-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .social-links a {
-            color: var(--text-color);
-            font-size: 1.5rem;
-            margin-right: 20px;
-            transition: color 0.3s, transform 0.3s;
-        }
-
-        .social-links a:hover {
-            color: var(--primary-color);
-            transform: scale(1.2);
-        }
-
-        /* Timeline for Education and Experience */
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .timeline::after {
-            content: '';
-            position: absolute;
-            width: 3px;
-            background: var(--border-color);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -1.5px;
-        }
-
-        .timeline-item {
-            padding: 10px 40px;
-            position: relative;
-            width: 50%;
-        }
-
-        .timeline-item.left {
-            left: 0;
-        }
-
-        .timeline-item.right {
-            left: 50%;
-        }
-
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: var(--bg-color);
-            border: 4px solid var(--primary-color);
-            top: 25px;
-            border-radius: 50%;
-            z-index: 1;
-        }
-
-        .timeline-item.left::after {
-            right: -10px;
-        }
-
-        .timeline-item.right::after {
-            left: -10px;
-        }
-        
-        .timeline-content {
-            padding: 20px 30px;
-            background: var(--card-bg-color);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            position: relative;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .timeline-content:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0, 170, 255, 0.1);
-        }
-        
-        .timeline-content h3 {
-            color: var(--primary-color);
-        }
-        
-        .timeline-date {
-            font-size: 0.9rem;
-            font-weight: 300;
-            color: var(--secondary-color);
-            margin-bottom: 0.5rem;
-        }
-        
-        .expand-details {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-in-out;
-        }
-
-        .timeline-content.expanded .expand-details {
-            max-height: 500px; /* Adjust as needed */
-        }
-        
-        .expand-details ul {
-            list-style-position: inside;
-            padding-left: 10px;
-            margin-top: 10px;
-        }
-
-        .expand-icon {
-            float: right;
-            transition: transform 0.3s ease;
-        }
-
-        .timeline-content.expanded .expand-icon {
-            transform: rotate(180deg);
-        }
-
-        /* Skills Section */
-        #skills .container {
-            text-align: center;
-        }
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .skill-category {
-            background: var(--card-bg-color);
-            padding: 2rem;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            transition: transform 0.3s;
-        }
-
-        .skill-category:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary-color);
-        }
-
-        .skill-category h3 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 0.5rem;
-        }
-
-        .skill-category ul {
-            list-style: none;
-            text-align: left;
-        }
-
-        .skill-category li {
-            padding: 0.5rem 0;
-            display: flex;
-            align-items: center;
-        }
-        
-        .skill-category li i {
-            color: var(--secondary-color);
-            margin-right: 15px;
-            width: 20px;
-            text-align: center;
-        }
-
-        /* Projects Section */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .project-card {
-            background: var(--card-bg-color);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border-color: var(--primary-color);
-        }
-
-        .project-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .project-info {
-            padding: 1.5rem;
-        }
-        
-        .project-info h3 {
-            color: var(--primary-color);
-        }
-
-        /* Competitions & Scholarship Section */
-        .awards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .award-card {
-            background: var(--card-bg-color);
-            padding: 2.5rem 2rem;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .award-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--secondary-color);
-        }
-
-        .award-card .icon {
-            font-size: 3rem;
-            color: var(--secondary-color);
-            margin-bottom: 1rem;
-        }
-
-        .award-card h3 {
-            color: var(--primary-color);
-            font-size: 1.25rem;
-        }
-
-        .award-card .award-date {
-            font-size: 0.9rem;
-            color: var(--text-color);
-            font-style: italic;
-            margin-top: 0.5rem;
-            display: block;
-        }
-
-        .award-card p {
-            margin-top: 1rem;
-            font-size: 1rem;
-        }
-
-
-        /* Modal for Projects */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1001;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.7);
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.show {
-            display: flex;
-        }
-
-        .modal-content {
-            background-color: var(--card-bg-color);
-            margin: auto;
-            padding: 30px;
-            border: 1px solid var(--border-color);
-            width: 90%;
-            max-width: 700px;
-            border-radius: 8px;
-            position: relative;
-            animation: slideIn 0.4s ease-out;
-        }
-
-        .close-modal {
-            color: var(--text-color);
-            position: absolute;
-            top: 15px;
-            right: 25px;
-            font-size: 2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .close-modal:hover {
-            color: var(--primary-color);
-        }
-        
-        .modal-content h3 {
-             color: var(--primary-color);
-             margin-bottom: 1rem;
-        }
-        
-        .modal-content ul {
-            list-style-position: inside;
-            padding-left: 10px;
-            margin-top: 10px;
-        }
-        
-        .project-link {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background: var(--primary-color);
-            color: #111;
-            font-weight: 500;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-            font-family: 'Roboto', sans-serif;
-            text-align: center;
-        }
-        .project-link:hover {
-            background: var(--secondary-color);
-            box-shadow: 0 0 15px var(--secondary-color);
-        }
-        .project-link i {
-            margin-left: 8px;
-        }
-
-        @keyframes slideIn {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        /* Contact Section */
-        #contact .container {
-            max-width: 800px;
-        }
-
-        .contact-form {
-            margin-top: 3rem;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-        }
-
-        .form-group {
-            position: relative;
-        }
-        
-        .contact-form input, .contact-form textarea {
-            width: 100%;
-            padding: 1rem;
-            background: var(--card-bg-color);
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            color: var(--text-color);
-            font-family: 'Roboto', sans-serif;
-            font-size: 1rem;
-        }
-
-        .contact-form input:focus, .contact-form textarea:focus {
-            outline: none;
-            border-color: var(--primary-color);
-        }
-
-        .btn-submit {
-            padding: 1rem 2rem;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            color: #000;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            width: fit-content;
-            justify-self: center;
-        }
-
-        .btn-submit:hover {
-            opacity: 0.9;
-            box-shadow: 0 0 20px var(--primary-color);
-        }
-
-        /* Footer */
-        .footer {
-            padding: 2rem 0;
-            text-align: center;
-            background-color: var(--card-bg-color);
-            border-top: 1px solid var(--border-color);
-        }
-
-        /* Animations on Scroll */
-        .reveal {
-            position: relative;
-            transform: translateY(50px);
-            opacity: 0;
-            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
-        }
-
-        .reveal.visible {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        
-        #form-feedback {
-            text-align: center;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 15px;
-            font-weight: 500;
-        }
-        
-        #form-feedback.success {
-            background-color: var(--secondary-color);
-            color: var(--bg-color);
-        }
-
-        #form-feedback.error {
-            background-color: #ff4d4d;
-            color: #fff;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            h2 { font-size: 2rem; }
-            .hero-text h1 { font-size: 2.5rem; min-height: 100px;}
-        }
-        
-        @media (max-width: 768px) {
-            .nav-menu {
-                position: absolute;
-                top: var(--header-height);
-                right: -100%;
-                width: 100%;
-                height: calc(100vh - var(--header-height));
-                flex-direction: column;
-                background-color: var(--bg-color);
-                align-items: center;
-                padding-top: 2rem;
-                transition: right 0.4s ease-in-out;
-            }
-
-            .nav-menu.active {
-                right: 0;
-            }
-
-            .nav-item {
-                margin: 1rem 0;
-            }
-
-            .nav-toggle {
-                display: block;
-            }
-
-            .timeline::after {
-                left: 20px;
-            }
-
-            .timeline-item {
-                width: 100%;
-                padding-left: 60px;
-                padding-right: 10px;
-            }
-            
-            .timeline-item.left, .timeline-item.right {
-                left: 0%;
-            }
-
-            .timeline-item.left::after, .timeline-item.right::after {
-                left: 10px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .hero-text h1 { font-size: 2rem; min-height: 80px;}
-            .hero-img-container { width: 250px; height: 250px; }
-            h2 { font-size: 1.8rem; }
-        }
-    </style>
 </head>
 <body>
+
+    <!-- Page Loader -->
+    <div class="page-loader" id="page-loader">
+        <div class="loader-spinner"></div>
+    </div>
 
     <!-- Header -->
     <header class="header" id="header">
         <div class="container navbar">
             <a href="#hero" class="nav-logo">EA.</a>
             <ul class="nav-menu" id="nav-menu">
-                <li class="nav-item"><a href="#hero" class="nav-link active">Home</a></li>
-                <li class="nav-item"><a href="#experience" class="nav-link">Experience</a></li>
-                <li class="nav-item"><a href="#education" class="nav-link">Education</a></li>
-                <li class="nav-item"><a href="#skills" class="nav-link">Skills</a></li>
-                <li class="nav-item"><a href="#projects" class="nav-link">Projects</a></li>
-                <li class="nav-item"><a href="#competitions" class="nav-link">Competitions</a></li>
-                <li class="nav-item"><a href="#scholarships" class="nav-link">Scholarships</a></li>
-                <li class="nav-item"><a href="#volunteering" class="nav-link">Volunteering</a></li>
-                <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+                <!-- Nav items rendered dynamically from config.json -->
             </ul>
-            <div class="nav-toggle" id="nav-toggle">
-                <i class="fas fa-bars"></i>
+            <div style="display:flex;align-items:center;">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-sun"></i>
+                </button>
+                <div class="nav-toggle" id="nav-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
             </div>
         </div>
     </header>
@@ -733,17 +68,7 @@
         <!-- Hero Section -->
         <section id="hero">
             <div class="container hero-content reveal">
-                <div class="hero-text">
-                    <h1><span class="typewriter"></span></h1>
-                    <p id="bio-text">A results-driven Robotics Software Engineer with 2+ years of experience designing and deploying software for autonomous mobile robots. Expertise in C++/Python, ROS/ROS2, and the NAV2 stack, delivering robust solutions from simulation to deployment.</p>
-                    <div class="social-links">
-                        <a href="https://www.linkedin.com/in/ebrahim-abdelghafar" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://github.com/ebrahimabdelghfar" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                    </div>
-                </div>
-                <div class="hero-img-container">
-                    <img src="https://i.postimg.cc/7YvXDxZv/testtt.jpg" alt="Ebrahim Abdelghfar Ebrahim">
-                </div>
+                <!-- Rendered dynamically -->
             </div>
         </section>
 
@@ -751,129 +76,15 @@
         <section id="experience" class="section-bg">
             <div class="container reveal">
                 <h2>Work Experience</h2>
-                <div class="timeline">
-                    <!-- Experience Item 1 -->
-                    <div class="timeline-item right">
-                        <div class="timeline-content">
-                            <h3>Robotics Software Engineer</h3>
-                            <p>Dakahlia Group</p>
-                            <div class="timeline-date">Dec 2024 - Present</div>
-                            <i class="fas fa-chevron-down expand-icon"></i>
-                            <div class="expand-details">
-                                <ul>
-                                    <li>Architected and implemented a complete navigation stack for an agricultural AMR using ROS2 and NAV2, achieving 0.7m odometry accuracy.</li>
-                                    <li>Engineered complex Gazebo simulation environments, reducing hardware testing cycles by 40%.</li>
-                                    <li>Containerized robotics applications using Docker, decreasing environment setup time by 75%.</li>
-                                    <li>Provided expert-level consultation on sensor selection and hardware integration.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Experience Item 2 -->
-                    <div class="timeline-item left">
-                        <div class="timeline-content">
-                            <h3>R&D Robotics Software Developer</h3>
-                            <p>Noases</p>
-                            <div class="timeline-date">Jan 2024 - Nov 2024</div>
-                             <i class="fas fa-chevron-down expand-icon"></i>
-                            <div class="expand-details">
-                                <ul>
-                                    <li>Designed high-fidelity CoppeliaSim environments for Robo-cafe projects, reducing development costs by 30%.</li>
-                                    <li>Developed integration bridges between industrial PLCs and high-level ROS controllers.</li>
-                                    <li>Established the company's software development pipeline using Git.</li>
-                                    <li>Collaborated on developing the software layer for an IoT soil measurement station using ESP32 and MQTT.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Experience Item 3 -->
-                    <div class="timeline-item right">
-                        <div class="timeline-content">
-                             <h3>Teaching Assistant</h3>
-                            <p>Faculty of engineering of Ain Shams university</p>
-                            <div class="timeline-date">Jan 2024 - Aug 2024</div>
-                             <i class="fas fa-chevron-down expand-icon"></i>
-                            <div class="expand-details">
-                                <ul>
-                                    <li>Taught the "MCT443: Autonomous Systems" course to over 40 undergraduate students.</li>
-                                    <li>Mentored students on ROS2 implementation and core robotics algorithms.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                     <!-- Experience Item 4 -->
-                    <div class="timeline-item left">
-                        <div class="timeline-content">
-                            <h3>Autonomous System Mentor</h3>
-                            <p>Egyptian Electric Vehicle Rally Competition</p>
-                            <div class="timeline-date">Oct 2023 - Aug 2024</div>
-                             <i class="fas fa-chevron-down expand-icon"></i>
-                            <div class="expand-details">
-                                <ul>
-                                    <li>Delivered training modules on autonomous systems, increasing implementation rates by 70%.</li>
-                                    <li>Engineered a milestones simulator using CoppeliaSim and ROS1.</li>
-                                    <li>Developed the Steering Control for an Autonomous Vehicle using Pure Pursuit.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- Timeline rendered dynamically -->
             </div>
         </section>
 
         <!-- Education Section -->
         <section id="education">
             <div class="container reveal">
-                <h2>Education & Certifications</h2>
-                <div class="timeline">
-                    <!-- New MSc Item -->
-                    <div class="timeline-item right">
-                        <div class="timeline-content">
-                            <h3>M.Sc. in Mechatronics and Robotics Engineering</h3>
-                            <p>Graduate Student</p>
-                            <div class="timeline-date">Jan 2024 - Present</div>
-                            <i class="fas fa-chevron-down expand-icon"></i>
-                            <div class="expand-details">
-                                <p>Currently pursuing advanced studies in robotics, focusing on cutting-edge research and development in autonomous systems.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Bachelor's Degree Item -->
-                    <div class="timeline-item left">
-                        <div class="timeline-content">
-                            <h3>Graduate Mechatronics and Automation Engineer</h3>
-                            <p>Faculty of Engineering, Ain Shams University</p>
-                            <div class="timeline-date">Sep 2018 - Jul 2023</div>
-                            <i class="fas fa-chevron-down expand-icon"></i>
-                            <div class="expand-details">
-                                <strong>GPA:</strong> 3.0 <br>
-                                <strong>Thesis:</strong> E-waste Non-Destructive Disassembly Robot. <br>
-                                <strong>Graduation Project:</strong> Autonomous Disassembly Robotic Manipulator.
-                                <ul>
-                                    <li>Designed a software architecture organizing 11 different algorithms.</li>
-                                    <li>Implemented an SDK to facilitate dealing with MoveIt and frame transformation.</li>
-                                    <li>Developed a screw localizing technique using YOLOv5 and a depth camera.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Certification Item -->
-                    <div class="timeline-item right">
-                        <div class="timeline-content">
-                            <h3>Robotics Software Engineer Nanodegree</h3>
-                            <p>Udacity</p>
-                            <div class="timeline-date">Completed Apr 2025</div>
-                             <i class="fas fa-chevron-down expand-icon"></i>
-                            <div class="expand-details">
-                                <p>A comprehensive program covering the full spectrum of robotics software engineering, from foundational algorithms to advanced ROS applications.</p>
-                                <ul>
-                                    <li>Implemented algorithms like A*, Extended Kalman Filter, and PID using C++.</li>
-                                    <li>Developed testing environments in Gazebo and ROS.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <h2>Education &amp; Certifications</h2>
+                <!-- Timeline rendered dynamically -->
             </div>
         </section>
 
@@ -881,47 +92,7 @@
         <section id="skills" class="section-bg">
             <div class="container reveal">
                 <h2>Technical Skills</h2>
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <h3><i class="fas fa-code"></i> Programming & Languages</h3>
-                        <ul>
-                            <li><i class="fas fa-file-code"></i> C++ (Advanced)</li>
-                            <li><i class="fab fa-python"></i> Python (Advanced)</li>
-                            <li><i class="fas fa-file-code"></i> C</li>
-                            <li><i class="fas fa-scroll"></i> LUA</li>
-                            <li><i class="fas fa-terminal"></i> Bash Scripting</li>
-                        </ul>
-                    </div>
-                    <div class="skill-category">
-                        <h3><i class="fas fa-robot"></i> Robotics & Simulators</h3>
-                         <ul>
-                            <li><i class="fas fa-robot"></i> ROS1 & ROS2</li>
-                            <li><i class="fas fa-route"></i> Nav2 Stack</li>
-                            <li><i class="fas fa-cogs"></i> MoveIt</li>
-                            <li><i class="fas fa-cubes"></i> Gazebo / CoppeliaSim / Carla</li>
-                            <li><i class="fas fa-project-diagram"></i> Matlab/Simulink</li>
-                        </ul>
-                    </div>
-                    <div class="skill-category">
-                        <h3><i class="fas fa-tools"></i> Tools & Platforms</h3>
-                        <ul>
-                            <li><i class="fab fa-git-alt"></i> Git & GitHub</li>
-                            <li><i class="fab fa-docker"></i> Docker</li>
-                            <li><i class="fas fa-tools"></i> CMake</li>
-                            <li><i class="fas fa-brain"></i> PyTorch & TensorFlow</li>
-                            <li><i class="fab fa-linux"></i> Linux</li>
-                        </ul>
-                    </div>
-                    <div class="skill-category">
-                        <h3><i class="fas fa-microchip"></i> Hardware & Embedded</h3>
-                        <ul>
-                            <li><i class="fas fa-microchip"></i> ESP32, ARM</li>
-                            <li><i class="fas fa-industry"></i> PLC Programming</li>
-                            <li><i class="fas fa-ruler-combined"></i> PCB Design (EasyEDA)</li>
-                            <li><i class="fas fa-network-wired"></i> MQTT, WebSockets</li>
-                        </ul>
-                    </div>
-                </div>
+                <!-- Skills grid rendered dynamically -->
             </div>
         </section>
 
@@ -929,78 +100,15 @@
         <section id="projects">
             <div class="container reveal">
                 <h2>Projects</h2>
-                <div class="projects-grid">
-                    <!-- Project 1 -->
-                    <div class="project-card" data-modal="project1">
-                        <img src="https://placehold.co/600x400/161b22/00ffaa?text=Autonomous+Sim" alt="Project 1">
-                        <div class="project-info">
-                            <h3>Shell Urban Autonomous Concept Simulator</h3>
-                            <p>A modular simulation framework with ROS 2 and Docker for testing navigation algorithms.</p>
-                        </div>
-                    </div>
-                    <!-- Project 2 -->
-                    <div class="project-card" data-modal="project2">
-                        <img src="https://placehold.co/600x400/161b22/00aaff?text=Path+Tracking" alt="Project 2">
-                        <div class="project-info">
-                            <h3>Path Tracking Surveys</h3>
-                            <p>Applied and compared Pure-pursuit, Stanley, and MPC controllers in the CARLA simulator.</p>
-                        </div>
-                    </div>
-                    <!-- Project 3 -->
-                    <div class="project-card" data-modal="project3">
-                        <img src="https://placehold.co/600x400/161b22/ffffff?text=Self-Driving+Sim" alt="Project 3">
-                        <div class="project-info">
-                            <h3>Self-Driving Car Simulator</h3>
-                            <p>Built a complete simulation environment for an Ackerman steering car with ROS1 integration.</p>
-                        </div>
-                    </div>
-                    <!-- Project 4 -->
-                    <div class="project-card" data-modal="project4">
-                         <img src="https://placehold.co/600x400/161b22/ffaa00?text=ABB+Simulator" alt="Project 4">
-                        <div class="project-info">
-                            <h3>ABB IRB 120 Simulator</h3>
-                            <p>Integrated ROS1 and MoveIt with CoppeliaSim for an industrial robot arm, cited in a Master's thesis.</p>
-                        </div>
-                    </div>
-                     <!-- Project 5 -->
-                    <div class="project-card" data-modal="project5">
-                        <img src="https://placehold.co/600x400/161b22/c9d1d9?text=Disassembly+Robot" alt="Project 5">
-                        <div class="project-info">
-                            <h3>Autonomous Disassembly Robotic Manipulator</h3>
-                            <p>A complex project for non-destructive e-waste disassembly, part of my graduation thesis.</p>
-                        </div>
-                    </div>
-                </div>
+                <!-- Projects grid rendered dynamically -->
             </div>
         </section>
 
         <!-- Competitions Section -->
         <section id="competitions" class="section-bg">
             <div class="container reveal">
-                <h2>Competitions & Awards</h2>
-                <div class="awards-grid">
-                    <!-- Competition 1 -->
-                    <div class="award-card">
-                        <div class="icon"><i class="fas fa-trophy"></i></div>
-                        <h3>1st Place, Shell "Pitch the future"</h3>
-                        <span class="award-date">April 2022</span>
-                        <p>Won first place worldwide on our idea on how to make an autonomous vehicle prevent a carjacking situation.</p>
-                    </div>
-                    <!-- Competition 2 -->
-                    <div class="award-card">
-                        <div class="icon"><i class="fas fa-trophy"></i></div>
-                        <h3>4th National Place, DEBI Robotics</h3>
-                        <span class="award-date">May 2023</span>
-                        <p>Developed an autonomous system on a TurtleBot3 to track and grasp a ball for the Ministry of Communication competition.</p>
-                    </div>
-                    <!-- Competition 3 -->
-                    <div class="award-card">
-                        <div class="icon"><i class="fas fa-trophy"></i></div>
-                        <h3>5th Place, Shell AI Competition</h3>
-                        <span class="award-date">May 2022</span>
-                        <p>Won 5th place worldwide by creating a full stack for a self-driving vehicle by using the CARLA simulation.</p>
-                    </div>
-                </div>
+                <h2>Competitions &amp; Awards</h2>
+                <!-- Awards grid rendered dynamically -->
             </div>
         </section>
 
@@ -1008,41 +116,15 @@
         <section id="scholarships">
             <div class="container reveal">
                 <h2>Scholarships</h2>
-                <div class="awards-grid" style="grid-template-columns: 1fr;">
-                    <div class="award-card">
-                        <div class="icon"><i class="fas fa-graduation-cap"></i></div>
-                        <h3>"My Future" Full Scholarship</h3>
-                        <span class="award-date">Offered by Egyptian Refining Company (ERC)</span>
-                        <p>Received a full scholarship for promising national school students to study Bachelor of Mechatronics within the International Programs at the Faculty of Engineering, Ain Shams University.</p>
-                    </div>
-                </div>
+                <!-- Awards grid rendered dynamically -->
             </div>
         </section>
-        
+
         <!-- Volunteering Section -->
         <section id="volunteering" class="section-bg">
             <div class="container reveal">
                 <h2>Volunteering</h2>
-                <div class="timeline">
-                    <div class="timeline-item right">
-                        <div class="timeline-content">
-                            <h3>Autonomous Racing Team's Coordinator</h3>
-                            <p>Autotronics Research Lab (ARL)</p>
-                            <div class="timeline-date">June 2023 - April 2025</div>
-                            <i class="fas fa-chevron-down expand-icon"></i>
-                            <div class="expand-details">
-                                <ul>
-                                    <li>Developed a Shell Urban Autonomous simulation environment using Gazebo Harmonic and ROS2 for low-specification laptops.</li>
-                                    <li>Designed Carla simulation environments for testing ADAS algorithms for the autonomous teams.</li>
-                                    <li>Planned and taught an autonomous workshop curriculum to 100 students over 3 months.</li>
-                                    <li>Led the technical preparations for the IOT RC cars for the first self-driving car competition in Egypt.</li>
-                                    <li>Engineered IOT Cars with latency 20ms for control and sensor signals while 40ms latency for sending photo frames from esp-camera.</li>
-                                    <li>Mentored a robotic team to win 4th place in a national robotic competition.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- Timeline rendered dynamically -->
             </div>
         </section>
 
@@ -1050,298 +132,28 @@
         <section id="contact">
             <div class="container reveal">
                 <h2>Get In Touch</h2>
-                <p style="text-align: center;">Have a question or want to work together? Feel free to reach out.</p>
-                <form class="contact-form" id="contact-form">
-                    <div class="form-group">
-                        <input type="text" name="from_name" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" name="from_email" placeholder="Your Email" required>
-                    </div>
-                     <div class="form-group">
-                        <input type="text" name="subject" placeholder="Subject" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea name="message" rows="6" placeholder="Your Message" required></textarea>
-                    </div>
-                    <button type="submit" class="btn-submit">Send Message</button>
-                    <div id="form-feedback" style="display: none;"></div>
-                </form>
+                <!-- Contact form rendered dynamically -->
             </div>
         </section>
     </main>
-    
+
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 Ebrahim Abdelghfar Ebrahim. All Rights Reserved.</p>
-        </div>
+        <!-- Rendered dynamically -->
     </footer>
-    
-    <!-- Modals for Projects -->
-    <div id="project1" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h3 class="project-title">Shell Urban Autonomous Concept simulator</h3>
-            <p class="project-description">Developed for efficient testing of autonomous navigation algorithms.</p>
-            <ul>
-                <li>Engineered a modular simulation framework using ROS 2 Humble and Docker.</li>
-                <li>Implemented Docker containers to ensure consistent development environments and streamline deployment.</li>
-                <li>Collaborated with a multidisciplinary team to integrate sensor models and vehicle dynamics.</li>
-                <li>Contributed to documentation and user guides to facilitate broader adoption.</li>
-            </ul>
-            <a href="https://github.com/Shell-Urban-Concept-Autonomous/shell_urban_simulator" target="_blank" class="project-link">View on GitHub <i class="fas fa-external-link-alt"></i></a>
-        </div>
-    </div>
-    <div id="project2" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h3 class="project-title">Path Tracking Surveys</h3>
-            <p class="project-description">A comparative study of different path tracking algorithms.</p>
-             <ul>
-                <li>Applied Pure-pursuit, Stanley, and MPC to follow a track and compared the performance of each.</li>
-                <li>Tested algorithms on CARLA and integrated them using ROS2.</li>
-                <li>All implementations were done in Python.</li>
-            </ul>
-            <a href="https://github.com/ebrahimabdelghfar/Control-surveys" target="_blank" class="project-link">View on GitHub <i class="fas fa-external-link-alt"></i></a>
-        </div>
-    </div>
-     <div id="project3" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h3 class="project-title">Self-Driving Car simulator</h3>
-            <p class="project-description">A high-fidelity simulation from the ground up.</p>
-             <ul>
-                <li>Prepared a 3D Model of an Ackerman steering car using SolidWorks and converted it to URDF.</li>
-                <li>Built the simulation environment and tuned physics to achieve a low sim-to-real gap (10% error).</li>
-                <li>Added 3D Lidar, IMU, and GPS sensors and connected the environment with ROS1 using LUA.</li>
-            </ul>
-            <a href="https://github.com/ebrahimabdelghfar/EVER_Simulator" target="_blank" class="project-link">View on GitHub <i class="fas fa-external-link-alt"></i></a>
-        </div>
-    </div>
-     <div id="project4" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h3 class="project-title">ABB IRB 120 Simulator</h3>
-            <p class="project-description">A simulator for an industrial robotic arm that gained academic recognition.</p>
-             <ul>
-                <li>The simulator bridge was cited in a Master's thesis in Italy.</li>
-                <li>Integrated ROS1 and MoveIt with CoppeliaSim.</li>
-                <li>Designed the complete simulation environment for the robot.</li>
-            </ul>
-            <a href="https://github.com/ebrahimabdelghfar/ABB-IRB120-Coppeliasim-Moveit-Simulation" target="_blank" class="project-link">View on GitHub <i class="fas fa-external-link-alt"></i></a>
-        </div>
-    </div>
-    <div id="project5" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h3 class="project-title">Autonomous Disassembly Robotic Manipulator</h3>
-            <p class="project-description">This was my graduation project, focusing on the non-destructive disassembly of e-waste.</p>
-             <ul>
-                <li>Designed a software architecture that organizes workflow between 11 different algorithms.</li>
-                <li>Implemented an SDK that contains 10 different methods to facilitate dealing with MoveIt and frame transformation.</li>
-                <li>Facilitated algorithm testing by designing a digital twin environment using CoppeliaSim and ROS1.</li>
-                <li>Developed approach and unscrewing algorithm at which the success percentage reached 98%.</li>
-                <li>Developed a Screw localizing technique using YOLOv5 and a depth camera.</li>
-            </ul>
-            <a href="https://github.com/ebrahimabdelghfar/EwasteNonDestructiveDisassembly" target="_blank" class="project-link">View on GitHub <i class="fas fa-external-link-alt"></i></a>
-        </div>
-    </div>
 
+    <!-- Modals Container (project modals injected here) -->
+    <div id="modals-container"></div>
 
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const header = document.getElementById('header');
-        const navMenu = document.getElementById('nav-menu');
-        const navToggle = document.getElementById('nav-toggle');
-        const navLinks = document.querySelectorAll('.nav-link');
-        const sections = document.querySelectorAll('section[id]');
-        const headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height'), 10) || 70;
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
-        // --- Header Scroll Effect ---
-        const handleScroll = () => {
-            if (window.scrollY > 50) {
-                header.classList.add('header-scrolled');
-            } else {
-                header.classList.remove('header-scrolled');
-            }
-            
-            // --- Active Nav Link on Scroll ---
-            let currentSection = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (window.scrollY >= (sectionTop - headerHeight - 1)) {
-                    currentSection = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').includes(currentSection)) {
-                    link.classList.add('active');
-                }
-            });
-        };
-        window.addEventListener('scroll', handleScroll);
-
-
-        // --- Mobile Navigation Toggle ---
-        if (navToggle) {
-            navToggle.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
-            });
-        }
-        
-        // --- Close mobile nav on link click ---
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                if (navMenu.classList.contains('active')) {
-                    navMenu.classList.remove('active');
-                }
-            });
-        });
-
-        // --- Expandable Timeline Content ---
-        const timelineContents = document.querySelectorAll('.timeline-content');
-        timelineContents.forEach(item => {
-            item.addEventListener('click', (e) => {
-                if (e.target.tagName.toLowerCase() === 'a') return;
-                item.classList.toggle('expanded');
-            });
-        });
-        
-        // --- Project Modals ---
-        const projectCards = document.querySelectorAll('.project-card');
-        const modals = document.querySelectorAll('.modal');
-        const closeModals = document.querySelectorAll('.close-modal');
-
-        projectCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const modalId = card.getAttribute('data-modal');
-                const modal = document.getElementById(modalId);
-                if(modal) modal.classList.add('show');
-            });
-        });
-
-        const closeModal = (modal) => {
-             if(modal) modal.classList.remove('show');
-        }
-
-        closeModals.forEach(button => {
-            button.addEventListener('click', () => {
-                closeModal(button.closest('.modal'));
-            });
-        });
-        
-        window.addEventListener('click', (e) => {
-            modals.forEach(modal => {
-                if (e.target === modal) {
-                    closeModal(modal);
-                }
-            });
-        });
-
-        // --- Animation on Scroll ---
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, {
-            threshold: 0.1
-        });
-        
-        revealElements.forEach(el => {
-            revealObserver.observe(el);
-        });
-
-        // --- Contact Form Submission with EmailJS ---
-        const contactForm = document.getElementById('contact-form');
-        const submitBtn = contactForm.querySelector('.btn-submit');
-        const formFeedback = document.getElementById('form-feedback');
-
-        // Initialize EmailJS with your Public Key
-        // TODO: Replace with your actual EmailJS Public Key
-        emailjs.init({
-          publicKey: "H3EZb3ZP6fhQysRUN",
-        });
-
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Show sending status
-            submitBtn.textContent = 'Sending...';
-            submitBtn.disabled = true;
-            formFeedback.style.display = 'none';
-
-            // TODO: Replace with your actual EmailJS Service ID and Template ID
-            const serviceID = 'service_mcbdxgo';
-            const templateID = 'template_uys4exf';
-
-            emailjs.sendForm(serviceID, templateID, this)
-                .then(() => {
-                    submitBtn.textContent = 'Send Message';
-                    submitBtn.disabled = false;
-                    formFeedback.textContent = 'Message sent successfully!';
-                    formFeedback.className = 'success';
-                    formFeedback.style.display = 'block';
-                    contactForm.reset();
-                }, (err) => {
-                    submitBtn.textContent = 'Send Message';
-                    submitBtn.disabled = false;
-                    formFeedback.textContent = `Failed to send message. Error: ${JSON.stringify(err)}`;
-                    formFeedback.className = 'error';
-                    formFeedback.style.display = 'block';
-                });
-        });
-
-        // --- Typewriter Effect ---
-        const typewriterElement = document.querySelector('.typewriter');
-        const textsToType = ["Hi, I'm Ebrahim Abdelghfar", "A Creative Robotics Engineer"];
-        let textIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        
-        function type() {
-            const currentText = textsToType[textIndex];
-            
-            if (isDeleting) {
-                // Deleting
-                charIndex--;
-                typewriterElement.textContent = currentText.substring(0, charIndex);
-            } else {
-                // Typing
-                charIndex++;
-                typewriterElement.textContent = currentText.substring(0, charIndex);
-            }
-
-            let typeSpeed = 150;
-
-            if (isDeleting) {
-                typeSpeed /= 2;
-            }
-
-            // If word is complete
-            if (!isDeleting && charIndex === currentText.length) {
-                typeSpeed = 2000;
-                isDeleting = true;
-            } 
-            // If word is deleted
-            else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                textIndex = (textIndex + 1) % textsToType.length;
-                typeSpeed = 500;
-            }
-
-            setTimeout(type, typeSpeed);
-        }
-
-        // Start the effect after a short delay
-        setTimeout(type, 500);
-
-    });
-    </script>
+    <!-- JavaScript Modules -->
+    <script src="js/renderer.js"></script>
+    <script src="js/typewriter.js"></script>
+    <script src="js/interactions.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

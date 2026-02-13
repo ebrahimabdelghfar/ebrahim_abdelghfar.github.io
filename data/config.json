@@ -1,0 +1,46 @@
+{
+  "site": {
+    "title": "Ebrahim Abdelghfar Ebrahim | Robotics Software Engineer",
+    "description": "Portfolio of Ebrahim Abdelghfar Ebrahim — a Robotics Software Engineer specializing in ROS/ROS2, autonomous navigation, and simulation.",
+    "keywords": "Robotics, ROS, ROS2, NAV2, C++, Python, Autonomous, Simulation, Gazebo, CoppeliaSim",
+    "author": "Ebrahim Abdelghfar Ebrahim",
+    "url": "https://ebrahimabdelghfar.github.io",
+    "ogImage": "https://i.postimg.cc/7YvXDxZv/testtt.jpg",
+    "footerText": "Ebrahim Abdelghfar Ebrahim. All Rights Reserved.",
+    "navLogo": "EA."
+  },
+  "theme": {
+    "dark": {
+      "bgColor": "#0d1117",
+      "primaryColor": "#00aaff",
+      "secondaryColor": "#00ffaa",
+      "textColor": "#c9d1d9",
+      "borderColor": "#30363d",
+      "cardBgColor": "#161b22"
+    },
+    "light": {
+      "bgColor": "#f5f7fa",
+      "primaryColor": "#0077cc",
+      "secondaryColor": "#00a86b",
+      "textColor": "#333333",
+      "borderColor": "#d0d7de",
+      "cardBgColor": "#ffffff"
+    }
+  },
+  "emailjs": {
+    "publicKey": "H3EZb3ZP6fhQysRUN",
+    "serviceID": "service_mcbdxgo",
+    "templateID": "template_uys4exf"
+  },
+  "sections": [
+    { "id": "hero", "label": "Home" },
+    { "id": "experience", "label": "Experience" },
+    { "id": "education", "label": "Education" },
+    { "id": "skills", "label": "Skills" },
+    { "id": "projects", "label": "Projects" },
+    { "id": "competitions", "label": "Competitions" },
+    { "id": "scholarships", "label": "Scholarships" },
+    { "id": "volunteering", "label": "Volunteering" },
+    { "id": "contact", "label": "Contact" }
+  ]
+}
