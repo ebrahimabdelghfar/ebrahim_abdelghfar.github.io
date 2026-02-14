@@ -162,6 +162,10 @@
         {
           "name": "Matlab/Simulink",
           "icon": "fas fa-project-diagram"
+        },
+        {
+          "name": "Nvidia Isaac Sim",
+          "icon": "fas fa-robot"
         }
       ]
     },
