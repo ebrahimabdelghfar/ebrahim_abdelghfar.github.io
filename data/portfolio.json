@@ -156,7 +156,7 @@
           "icon": "fas fa-cogs"
         },
         {
-          "name": "Gazebo / CoppeliaSim / Carla",
+          "name": "Gazebo / CoppeliaSim / Carla / Isaac Sim",
           "icon": "fas fa-cubes"
         },
         {
@@ -188,6 +188,10 @@
         {
           "name": "Linux",
           "icon": "fab fa-linux"
+        },
+        {
+          "name": "Digital Ocean",
+          "icon": "fa-brands fa-digital-ocean"
         }
       ]
     },
