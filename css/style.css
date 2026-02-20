@@ -84,7 +84,9 @@ img {
     padding: 0 20px;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     color: #fff;
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -186,7 +188,9 @@ section {
 }
 
 @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /* ============================================
@@ -275,7 +279,8 @@ section {
     border-radius: 2px;
 }
 
-.nav-link:hover, .nav-link.active {
+.nav-link:hover,
+.nav-link.active {
     color: #fff;
 }
 
@@ -284,7 +289,8 @@ section {
     color: #1a1a2e;
 }
 
-.nav-link:hover::after, .nav-link.active::after {
+.nav-link:hover::after,
+.nav-link.active::after {
     width: 100%;
 }
 
@@ -303,8 +309,8 @@ section {
 .theme-toggle {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 32px;
+    width: 80px;
+    height: 38px;
     margin-left: 20px;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
@@ -323,79 +329,114 @@ section {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: var(--card-bg-hover);
-    border: 1px solid var(--border-color);
-    transition: background-color 0.4s ease, border-color 0.4s ease;
-    border-radius: 34px;
+    background-color: #1a2035;
+    /* Dark navy */
+    transition: background-color 0.5s ease;
+    border-radius: 40px;
     overflow: hidden;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.toggle-thumb {
-    position: absolute;
-    content: "";
-    height: 24px;
-    width: 24px;
-    left: 3px;
-    bottom: 3px;
-    background-color: var(--primary-color);
-    transition: transform 0.4s cubic-bezier(0.4, 0.0, 0.2, 1), background-color 0.4s ease;
-    border-radius: 50%;
-    z-index: 2;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-}
-
-[data-theme="light"] .toggle-thumb {
-    transform: translateX(28px);
-    background-color: #FFD700;
-}
-
-.theme-toggle input:focus + .toggle-track {
-    box-shadow: 0 0 0 2px var(--primary-color);
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 [data-theme="light"] .toggle-track {
-    background-color: #87CEEB; /* Sky blue for day */
-    border-color: #4682B4;
+    background-color: #38bdf8;
+    /* Sky blue */
 }
 
-/* Icons inside the track */
-.icon-sun, .icon-moon {
+/* Background SVGs */
+.bg-stars,
+.bg-clouds {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 18px;
-    height: 18px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.bg-stars {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+[data-theme="light"] .bg-stars {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.bg-clouds {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+[data-theme="light"] .bg-clouds {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Thumb */
+.toggle-thumb {
+    position: absolute;
+    height: 32px;
+    width: 32px;
+    left: 3px;
+    bottom: 3px;
+    transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+    border-radius: 50%;
+    z-index: 2;
+}
+
+[data-theme="light"] .toggle-thumb {
+    transform: translateX(42px);
+}
+
+.thumb-sun,
+.thumb-moon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    z-index: 1;
 }
 
-.icon-moon {
-    right: 7px;
+/* Base states: default is dark mode */
+.thumb-moon {
     opacity: 1;
+    transform: rotate(0);
+    filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.8));
 }
 
-.icon-sun {
-    left: 7px;
+.thumb-moon svg {
+    width: 26px;
+    height: 26px;
+}
+
+[data-theme="light"] .thumb-moon {
     opacity: 0;
-    transform: translateY(-50%) scale(0.5);
+    transform: rotate(-90deg) scale(0.5);
+    filter: drop-shadow(0 0 0px transparent);
 }
 
-[data-theme="light"] .icon-moon {
+.thumb-sun {
     opacity: 0;
-    transform: translateY(-50%) scale(0.5);
+    transform: rotate(90deg) scale(0.5);
 }
 
-[data-theme="light"] .icon-sun {
+.thumb-sun svg {
+    width: 30px;
+    height: 30px;
+}
+
+[data-theme="light"] .thumb-sun {
     opacity: 1;
-    transform: translateY(-50%) scale(1);
+    transform: rotate(0);
 }
 
 .theme-toggle:hover .toggle-thumb {
-    box-shadow: 0 0 8px var(--primary-color);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
 }
 
 /* ============================================
@@ -428,9 +469,19 @@ section {
 }
 
 @keyframes heroGradient {
-    0%, 100% { transform: translate(0, 0) rotate(0deg); }
-    33% { transform: translate(2%, -2%) rotate(1deg); }
-    66% { transform: translate(-1%, 1%) rotate(-1deg); }
+
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    33% {
+        transform: translate(2%, -2%) rotate(1deg);
+    }
+
+    66% {
+        transform: translate(-1%, 1%) rotate(-1deg);
+    }
 }
 
 [data-theme="light"] #hero::before {
@@ -547,7 +598,7 @@ section {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     transition: left 0.5s ease;
 }
 
@@ -598,8 +649,15 @@ section {
 }
 
 @keyframes profilePulse {
-    0%, 100% { box-shadow: 0 0 40px rgba(0, 170, 255, 0.2), 0 0 80px rgba(0, 170, 255, 0.05); }
-    50% { box-shadow: 0 0 50px rgba(0, 170, 255, 0.3), 0 0 100px rgba(0, 255, 170, 0.08); }
+
+    0%,
+    100% {
+        box-shadow: 0 0 40px rgba(0, 170, 255, 0.2), 0 0 80px rgba(0, 170, 255, 0.05);
+    }
+
+    50% {
+        box-shadow: 0 0 50px rgba(0, 170, 255, 0.3), 0 0 100px rgba(0, 255, 170, 0.08);
+    }
 }
 
 .hero-img-container img {
@@ -1086,7 +1144,7 @@ section {
 .project-card .project-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -1216,7 +1274,7 @@ section {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.75);
+    background-color: rgba(0, 0, 0, 0.75);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     align-items: center;
@@ -1268,7 +1326,7 @@ section {
     font-size: 1.4rem;
 }
 
-.modal-content > p {
+.modal-content>p {
     color: var(--text-muted);
     line-height: 1.8;
     margin-bottom: 0.5rem;
@@ -1329,8 +1387,15 @@ section {
 }
 
 @keyframes modalIn {
-    from { transform: translateY(-30px) scale(0.95); opacity: 0; }
-    to { transform: translateY(0) scale(1); opacity: 1; }
+    from {
+        transform: translateY(-30px) scale(0.95);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
 }
 
 /* ============================================
@@ -1351,7 +1416,8 @@ section {
     position: relative;
 }
 
-.contact-form input, .contact-form textarea {
+.contact-form input,
+.contact-form textarea {
     width: 100%;
     padding: 1rem 1.2rem;
     background: var(--card-bg-color);
@@ -1363,7 +1429,8 @@ section {
     transition: all 0.3s ease;
 }
 
-.contact-form input:focus, .contact-form textarea:focus {
+.contact-form input:focus,
+.contact-form textarea:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px var(--glow-primary);
@@ -1393,7 +1460,7 @@ section {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     transition: left 0.5s ease;
 }
 
@@ -1427,8 +1494,15 @@ section {
 }
 
 @keyframes heartbeat {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.15); }
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
 }
 
 /* ============================================

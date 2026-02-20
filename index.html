@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ebrahim Abdelghfar Ebrahim | Robotics Software Engineer</title>
 
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Portfolio of Ebrahim Abdelghfar Ebrahim — a Robotics Software Engineer specializing in ROS/ROS2, autonomous navigation, and simulation.">
+    <meta name="description"
+        content="Portfolio of Ebrahim Abdelghfar Ebrahim — a Robotics Software Engineer specializing in ROS/ROS2, autonomous navigation, and simulation.">
     <meta name="keywords" content="Robotics, ROS, ROS2, NAV2, C++, Python, Autonomous, Simulation, Gazebo, CoppeliaSim">
     <meta name="author" content="Ebrahim Abdelghfar Ebrahim">
 
@@ -14,19 +16,23 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ebrahimabdelghfar.github.io">
     <meta property="og:title" content="Ebrahim Abdelghfar Ebrahim | Robotics Software Engineer">
-    <meta property="og:description" content="Portfolio of Ebrahim Abdelghfar Ebrahim — a Robotics Software Engineer specializing in ROS/ROS2, autonomous navigation, and simulation.">
+    <meta property="og:description"
+        content="Portfolio of Ebrahim Abdelghfar Ebrahim — a Robotics Software Engineer specializing in ROS/ROS2, autonomous navigation, and simulation.">
     <meta property="og:image" content="https://i.postimg.cc/7YvXDxZv/testtt.jpg">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Ebrahim Abdelghfar Ebrahim | Robotics Software Engineer">
-    <meta name="twitter:description" content="Portfolio of Ebrahim Abdelghfar Ebrahim — a Robotics Software Engineer specializing in ROS/ROS2, autonomous navigation, and simulation.">
+    <meta name="twitter:description"
+        content="Portfolio of Ebrahim Abdelghfar Ebrahim — a Robotics Software Engineer specializing in ROS/ROS2, autonomous navigation, and simulation.">
     <meta name="twitter:image" content="https://i.postimg.cc/7YvXDxZv/testtt.jpg">
 
     <!-- Google Fonts: Inter + Roboto -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
 
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -39,6 +45,7 @@
     <!-- EmailJS SDK -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
+
 <body>
 
     <!-- Page Loader -->
@@ -61,24 +68,54 @@
                 <label class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
                     <input type="checkbox" id="theme-checkbox">
                     <div class="toggle-track">
-                        <div class="toggle-thumb"></div>
-                        <!-- Sun with clouds (Light Mode) -->
-                        <div class="icon-sun">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="12" cy="12" r="5" fill="#FFD700"/>
-                                <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41" stroke="#FFD700" stroke-width="2" stroke-linecap="round"/>
-                                <path d="M18 16a3 3 0 01-2.9 2.25H9a3.5 3.5 0 01-1-6.86A4 4 0 0115 8.5C15.46 8.5 15.9 8.6 16.3 8.78A3 3 0 0118 16z" fill="#FFFFFF" opacity="0.9"/>
-                            </svg>
-                        </div>
-                        <!-- Moon with glowing star (Dark Mode) -->
-                        <div class="icon-moon">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" fill="#C9D1D9"/>
-                                <path d="M16 4l1.5 3.5L21 9l-3.5 1.5L16 14l-1.5-3.5L11 9l3.5-1.5L16 4z" fill="#FFD700" opacity="0.8">
-                                    <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite"/>
-                                    <animateTransform attributeName="transform" type="scale" values="0.8;1.2;0.8" cx="16" cy="9" dur="2s" repeatCount="indefinite"/>
-                                </path>
-                            </svg>
+                        <!-- SVG Overlays for Track -->
+                        <svg viewBox="0 0 80 40" class="bg-stars" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22 10 L23.5 14.5 L28 16 L23.5 17.5 L22 22 L20.5 17.5 L16 16 L20.5 14.5 Z"
+                                fill="#FFFFFF" />
+                            <path d="M36 18 L36.5 20 L38.5 20.5 L36.5 21 L36 23 L35.5 21 L33.5 20.5 L35.5 20 Z"
+                                fill="#FFFFFF" />
+                            <path d="M16 26 L16.5 27.5 L18 28 L16.5 28.5 L16 30 L15.5 28.5 L14 28 L15.5 27.5 Z"
+                                fill="#FFFFFF" />
+                            <circle cx="30" cy="12" r="1.5" fill="#FFFFFF" opacity="0.6" />
+                            <circle cx="25" cy="28" r="1.5" fill="#FFFFFF" opacity="0.8" />
+                            <circle cx="38" cy="26" r="1.5" fill="#FFFFFF" opacity="0.5" />
+                            <circle cx="10" cy="18" r="1.5" fill="#FFFFFF" opacity="0.6" />
+                            <circle cx="45" cy="28" r="1" fill="#FFFFFF" opacity="0.4" />
+                        </svg>
+                        <svg viewBox="0 0 80 40" class="bg-clouds" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="42" cy="15" r="5" fill="#FFFFFF" opacity="0.4" />
+                            <circle cx="49" cy="14" r="6.5" fill="#FFFFFF" opacity="0.4" />
+                            <circle cx="56" cy="16" r="5" fill="#FFFFFF" opacity="0.4" />
+                            <circle cx="52" cy="26" r="5" fill="#FFFFFF" />
+                            <circle cx="59" cy="22" r="7" fill="#FFFFFF" />
+                            <circle cx="67" cy="26" r="5.5" fill="#FFFFFF" />
+                            <rect x="52" y="24" width="15" height="7.5" fill="#FFFFFF" />
+                        </svg>
+                        <div class="toggle-thumb">
+                            <div class="thumb-sun">
+                                <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="16" cy="16" r="7" fill="#FFCF54" />
+                                    <path
+                                        d="M16 3v3m0 20v3m9.192-22.192l-2.121 2.121M6.929 25.071l-2.121 2.121M29 16h-3M6 16H3m22.192 9.192l-2.121-2.121M6.929 6.929l-2.121-2.121"
+                                        stroke="#FFCF54" stroke-width="3" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                            <div class="thumb-moon">
+                                <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <mask id="moon-mask">
+                                            <rect width="32" height="32" fill="white" />
+                                            <circle cx="10" cy="14" r="11" fill="black" />
+                                        </mask>
+                                    </defs>
+                                    <g mask="url(#moon-mask)">
+                                        <circle cx="16" cy="16" r="11" fill="#FFFFFF" />
+                                        <circle cx="23.5" cy="13" r="1.5" fill="#E2E8F0" />
+                                        <circle cx="24" cy="18" r="2" fill="#E2E8F0" />
+                                        <circle cx="20" cy="23" r="1.5" fill="#E2E8F0" />
+                                    </g>
+                                </svg>
+                            </div>
                         </div>
                     </div>
                 </label>
@@ -189,4 +226,5 @@
     <script src="js/interactions.js?v=2.3"></script>
     <script src="js/app.js?v=2.3"></script>
 </body>
+
 </html>
