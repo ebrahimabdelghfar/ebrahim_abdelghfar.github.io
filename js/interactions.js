@@ -172,30 +172,18 @@ const Interactions = {
      * Dark/Light theme toggle with localStorage persistence.
      */
     initThemeToggle() {
-        const toggleBtn = document.getElementById('theme-toggle');
-        if (!toggleBtn) return;
+        const toggleCheckbox = document.getElementById('theme-checkbox');
+        if (!toggleCheckbox) return;
 
         const savedTheme = localStorage.getItem('portfolio-theme') || 'dark';
         document.documentElement.setAttribute('data-theme', savedTheme);
-        this._updateThemeIcon(toggleBtn, savedTheme);
+        toggleCheckbox.checked = savedTheme === 'light';
 
-        toggleBtn.addEventListener('click', () => {
-            const current = document.documentElement.getAttribute('data-theme') || 'dark';
-            const next = current === 'dark' ? 'light' : 'dark';
+        toggleCheckbox.addEventListener('change', () => {
+            const next = toggleCheckbox.checked ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', next);
             localStorage.setItem('portfolio-theme', next);
-            this._updateThemeIcon(toggleBtn, next);
         });
-    },
-
-    _updateThemeIcon(btn, theme) {
-        if (theme === 'dark') {
-            btn.innerHTML = '☀️';
-            btn.title = 'Switch to Light Mode';
-        } else {
-            btn.innerHTML = '🌙';
-            btn.title = 'Switch to Dark Mode';
-        }
     },
 
     /**
