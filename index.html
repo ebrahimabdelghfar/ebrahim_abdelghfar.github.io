@@ -65,59 +65,79 @@
             </ul>
             <div style="display:flex;align-items:center;">
                 <!-- Theme Toggle -->
-                <label class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <label class="bot-theme-switch theme-toggle" id="theme-toggle" aria-label="Toggle theme">
                     <input type="checkbox" id="theme-checkbox">
-                    <div class="toggle-track">
-                        <!-- SVG Overlays for Track -->
-                        <svg viewBox="0 0 80 40" class="bg-stars" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M47 10 L48.5 14.5 L53 16 L48.5 17.5 L47 22 L45.5 17.5 L41 16 L45.5 14.5 Z"
-                                fill="#FFFFFF" />
-                            <path d="M61 18 L61.5 20 L63.5 20.5 L61.5 21 L61 23 L60.5 21 L58.5 20.5 L60.5 20 Z"
-                                fill="#FFFFFF" />
-                            <path d="M41 26 L41.5 27.5 L43 28 L41.5 28.5 L41 30 L40.5 28.5 L39 28 L40.5 27.5 Z"
-                                fill="#FFFFFF" />
-                            <circle cx="55" cy="12" r="1.5" fill="#FFFFFF" opacity="0.6" />
-                            <circle cx="50" cy="28" r="1.5" fill="#FFFFFF" opacity="0.8" />
-                            <circle cx="63" cy="26" r="1.5" fill="#FFFFFF" opacity="0.5" />
-                            <circle cx="35" cy="18" r="1.5" fill="#FFFFFF" opacity="0.6" />
-                            <circle cx="70" cy="28" r="1" fill="#FFFFFF" opacity="0.4" />
-                        </svg>
-                        <svg viewBox="0 0 80 40" class="bg-clouds" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="12" cy="15" r="5" fill="#FFFFFF" opacity="0.4" />
-                            <circle cx="19" cy="14" r="6.5" fill="#FFFFFF" opacity="0.4" />
-                            <circle cx="26" cy="16" r="5" fill="#FFFFFF" opacity="0.4" />
-                            <circle cx="22" cy="26" r="5" fill="#FFFFFF" />
-                            <circle cx="29" cy="22" r="7" fill="#FFFFFF" />
-                            <circle cx="37" cy="26" r="5.5" fill="#FFFFFF" />
-                            <rect x="22" y="24" width="15" height="7.5" fill="#FFFFFF" />
-                        </svg>
-                        <div class="toggle-thumb">
-                            <div class="thumb-sun">
-                                <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="16" cy="16" r="7" fill="#FFCF54" />
-                                    <path
-                                        d="M16 3v3m0 20v3m9.192-22.192l-2.121 2.121M6.929 25.071l-2.121 2.121M29 16h-3M6 16H3m22.192 9.192l-2.121-2.121M6.929 6.929l-2.121-2.121"
-                                        stroke="#FFCF54" stroke-width="3" stroke-linecap="round" />
-                                </svg>
-                            </div>
-                            <div class="thumb-moon">
-                                <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                                    <defs>
-                                        <mask id="moon-mask">
-                                            <rect width="32" height="32" fill="white" />
-                                            <circle cx="10" cy="14" r="11" fill="black" />
-                                        </mask>
-                                    </defs>
-                                    <g mask="url(#moon-mask)">
-                                        <circle cx="16" cy="16" r="11" fill="#FFFFFF" />
-                                        <circle cx="23.5" cy="13" r="1.5" fill="#E2E8F0" />
-                                        <circle cx="24" cy="18" r="2" fill="#E2E8F0" />
-                                        <circle cx="20" cy="23" r="1.5" fill="#E2E8F0" />
-                                    </g>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
+                    <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <mask id="crescent-mask">
+                                <circle cx="50" cy="50" r="14" fill="white" />
+                                <circle cx="58" cy="45" r="14" fill="black" />
+                            </mask>
+                        </defs>
+
+                        <!-- 1. The Docking Track -->
+                        <rect x="10" y="20" width="180" height="60" rx="30" class="track-bg" />
+                        <rect x="15" y="25" width="170" height="50" rx="25" class="track-inner" />
+
+                        <!-- 2. Light Mode Icon (Sun) -->
+                        <g id="icon-sun">
+                            <g class="sun-ray" stroke-width="3.5" stroke-linecap="round">
+                                <line x1="150" y1="24" x2="150" y2="31" />
+                                <line x1="150" y1="24" x2="150" y2="31" transform="rotate(45 150 50)" />
+                                <line x1="150" y1="24" x2="150" y2="31" transform="rotate(90 150 50)" />
+                                <line x1="150" y1="24" x2="150" y2="31" transform="rotate(135 150 50)" />
+                                <line x1="150" y1="24" x2="150" y2="31" transform="rotate(180 150 50)" />
+                                <line x1="150" y1="24" x2="150" y2="31" transform="rotate(225 150 50)" />
+                                <line x1="150" y1="24" x2="150" y2="31" transform="rotate(270 150 50)" />
+                                <line x1="150" y1="24" x2="150" y2="31" transform="rotate(315 150 50)" />
+                            </g>
+                            <circle cx="150" cy="50" r="12" class="sun-core" />
+                            <circle cx="146" cy="46" r="3" fill="#FFFFFF" opacity="0.3" />
+                        </g>
+
+                        <!-- 3. Dark Mode Icon (Moon) -->
+                        <g id="icon-moon">
+                            <path id="star-1" class="star"
+                                d="M 27 35 Q 32 35 32 30 Q 32 35 37 35 Q 32 35 32 40 Q 32 35 27 35 Z" />
+                            <path id="star-2" class="star"
+                                d="M 62 30 Q 65 30 65 27 Q 65 30 68 30 Q 65 30 65 33 Q 65 30 62 30 Z" />
+                            <path id="star-3" class="star"
+                                d="M 32 65 Q 34 65 34 63 Q 34 65 36 65 Q 34 65 34 67 Q 34 65 32 65 Z" />
+
+                            <circle cx="50" cy="50" r="14" class="moon-base" mask="url(#crescent-mask)" />
+
+                            <g mask="url(#crescent-mask)">
+                                <circle cx="43" cy="53" r="3.5" class="moon-crater" />
+                                <circle cx="48" cy="60" r="2.5" class="moon-crater" />
+                                <circle cx="46" cy="43" r="2" class="moon-crater" />
+                            </g>
+                        </g>
+
+                        <!-- 4. The Bot Head -->
+                        <g id="bot-head-group">
+                            <g id="antenna">
+                                <line x1="50" y1="20" x2="50" y2="6" class="bot-casing-stroke" stroke-width="4"
+                                    stroke-linecap="round" />
+                                <circle cx="50" cy="6" r="4" class="bot-eye-fill" />
+                            </g>
+
+                            <rect x="16" y="38" width="8" height="24" rx="3" class="bot-accent" />
+                            <rect x="76" y="38" width="8" height="24" rx="3" class="bot-accent" />
+
+                            <rect x="20" y="20" width="60" height="60" rx="20" class="bot-casing" />
+                            <line x1="28" y1="70" x2="72" y2="70" class="bot-accent-stroke" stroke-width="3"
+                                stroke-linecap="round" />
+
+                            <rect x="26" y="32" width="48" height="28" rx="10" class="bot-screen" />
+
+                            <g id="face-screen">
+                                <path id="eye-l" class="bot-eye-stroke" d="M 32 44 Q 37 36 42 44" fill="none"
+                                    stroke-width="4" stroke-linecap="round" />
+                                <path id="eye-r" class="bot-eye-stroke" d="M 58 44 Q 63 36 68 44" fill="none"
+                                    stroke-width="4" stroke-linecap="round" />
+                            </g>
+                        </g>
+                    </svg>
                 </label>
                 <div class="nav-toggle" id="nav-toggle">
                     <i class="fas fa-bars"></i>

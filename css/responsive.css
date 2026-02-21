@@ -3,7 +3,8 @@
    ============================================ */
 
 /* ---- Prevent horizontal overflow on all screens ---- */
-html, body {
+html,
+body {
     overflow-x: hidden;
 }
 
@@ -71,6 +72,7 @@ html, body {
    Tablets portrait & large phones (≤768px)
    ============================================ */
 @media (max-width: 768px) {
+
     /* ---- Navigation: slide-in mobile menu ---- */
     .nav-menu {
         position: fixed;
@@ -672,6 +674,7 @@ html, body {
    Touch device optimizations
    ============================================ */
 @media (hover: none) and (pointer: coarse) {
+
     /* Disable hover transforms on touch — prevents "sticky hover" */
     .skill-category:hover,
     .project-card:hover,
@@ -697,8 +700,8 @@ html, body {
     }
 
     .theme-toggle {
-        min-width: 44px;
-        min-height: 44px;
+        min-width: 80px;
+        min-height: 40px;
     }
 
     .back-to-top {
@@ -716,8 +719,12 @@ html, body {
    Print styles
    ============================================ */
 @media print {
-    .header, .back-to-top, .nav-toggle,
-    .theme-toggle, .page-loader {
+
+    .header,
+    .back-to-top,
+    .nav-toggle,
+    .theme-toggle,
+    .page-loader {
         display: none !important;
     }
 
