@@ -16,6 +16,11 @@
     --glow-secondary: rgba(0, 255, 170, 0.12);
     --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     --gradient-accent: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    --glass-bg: rgba(17, 24, 39, 0.5);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-highlight: rgba(255, 255, 255, 0.03);
+    --glass-shadow: rgba(0, 0, 0, 0.3);
+    --glass-blur: blur(16px) saturate(180%);
 }
 
 /* Light theme overrides */
@@ -33,6 +38,10 @@
     --glow-secondary: rgba(0, 168, 107, 0.08);
     --gradient-primary: linear-gradient(135deg, #0077cc, #00a86b);
     --gradient-accent: linear-gradient(135deg, #6d28d9, #0077cc);
+    --glass-bg: rgba(255, 255, 255, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.8);
+    --glass-highlight: rgba(255, 255, 255, 0.9);
+    --glass-shadow: rgba(0, 0, 0, 0.05);
 }
 
 [data-theme="light"] .project-card:hover {
@@ -137,7 +146,7 @@ section {
 }
 
 .section-bg {
-    background-color: var(--card-bg-color);
+    background-color: transparent;
 }
 
 /* ============================================
@@ -197,9 +206,12 @@ section {
    Header and Navigation
    ============================================ */
 .header {
-    background-color: rgba(10, 14, 23, 0.8);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background-color: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border-top: 1px solid var(--glass-highlight);
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: 0 4px 30px var(--glass-shadow);
     position: fixed;
     width: 100%;
     top: 0;
@@ -209,12 +221,9 @@ section {
     display: flex;
     align-items: center;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    border-bottom: 1px solid transparent;
 }
 
-[data-theme="light"] .header {
-    background-color: rgba(248, 250, 252, 0.85);
-}
+/* Light theme override handled by glass variables */
 
 .header-scrolled {
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
@@ -580,10 +589,10 @@ section {
     overflow: hidden;
 }
 
-/* Animated gradient mesh background */
-#hero::before {
+/* Animated global gradient mesh background */
+body::before {
     content: '';
-    position: absolute;
+    position: fixed;
     top: -50%;
     left: -50%;
     width: 200%;
@@ -593,7 +602,8 @@ section {
         radial-gradient(circle at 80% 20%, rgba(0, 255, 170, 0.06) 0%, transparent 50%),
         radial-gradient(circle at 60% 80%, rgba(124, 58, 237, 0.05) 0%, transparent 50%);
     animation: heroGradient 15s ease-in-out infinite;
-    z-index: 0;
+    z-index: -1;
+    pointer-events: none;
 }
 
 @keyframes heroGradient {
@@ -612,7 +622,7 @@ section {
     }
 }
 
-[data-theme="light"] #hero::before {
+[data-theme="light"] body::before {
     background:
         radial-gradient(circle at 20% 50%, rgba(0, 119, 204, 0.06) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, rgba(0, 168, 107, 0.05) 0%, transparent 50%),
@@ -900,8 +910,12 @@ section {
 
 .timeline-content {
     padding: 26px 28px;
-    background: var(--card-bg-color);
-    border: 1px solid var(--border-color);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-top: 1px solid var(--glass-highlight);
+    box-shadow: 0 4px 6px var(--glass-shadow);
     border-radius: 14px;
     position: relative;
     cursor: pointer;
@@ -910,8 +924,8 @@ section {
 
 .timeline-content:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 170, 255, 0.1);
-    border-color: rgba(0, 170, 255, 0.25);
+    box-shadow: 0 12px 36px var(--glass-shadow), 0 0 0 1px rgba(0, 170, 255, 0.2);
+    border-color: rgba(0, 170, 255, 0.5);
 }
 
 .timeline-content.expanded {
@@ -1155,9 +1169,13 @@ section {
 }
 
 .skill-category {
-    background: var(--card-bg-color);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
     padding: 2rem;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--glass-border);
+    border-top: 1px solid var(--glass-highlight);
+    box-shadow: 0 4px 6px var(--glass-shadow);
     border-radius: 16px;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
@@ -1238,8 +1256,12 @@ section {
 }
 
 .project-card {
-    background: var(--card-bg-color);
-    border: 1px solid var(--border-color);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-top: 1px solid var(--glass-highlight);
+    box-shadow: 0 4px 6px var(--glass-shadow);
     border-radius: 16px;
     overflow: hidden;
     cursor: pointer;
@@ -1322,9 +1344,13 @@ section {
 }
 
 .award-card {
-    background: var(--card-bg-color);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
     padding: 2.5rem 2rem;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--glass-border);
+    border-top: 1px solid var(--glass-highlight);
+    box-shadow: 0 4px 6px var(--glass-shadow);
     border-radius: 16px;
     text-align: center;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1414,16 +1440,19 @@ section {
 }
 
 .modal-content {
-    background-color: var(--card-bg-color);
+    background-color: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
     margin: auto;
     padding: 36px;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--glass-border);
+    border-top: 1px solid var(--glass-highlight);
     width: 90%;
     max-width: 700px;
     border-radius: 20px;
     position: relative;
     animation: modalIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 25px 60px var(--glass-shadow);
 }
 
 .close-modal {
@@ -1548,8 +1577,11 @@ section {
 .contact-form textarea {
     width: 100%;
     padding: 1rem 1.2rem;
-    background: var(--card-bg-color);
-    border: 1px solid var(--border-color);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-bottom: 2px solid transparent;
     border-radius: 12px;
     color: var(--text-color);
     font-family: 'Inter', 'Roboto', sans-serif;
