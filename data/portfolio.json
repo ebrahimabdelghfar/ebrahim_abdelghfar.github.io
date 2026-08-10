@@ -6,7 +6,9 @@
     "photo": "https://i.postimg.cc/7YvXDxZv/testtt.jpg",
     "typewriterTexts": [
       "Ebrahim Abdelghfar Ebrahim",
-      "Innovative Robotics Engineer"
+      "Robotics Simulation Engineer",
+      "Preparing His Master Thesis",
+      "in vehicle parameter Estimation"
     ],
     "resumeURL": "https://drive.google.com/file/d/1hh8awOhaA-seSkyKXhR8HHXsCKB53ORR/view?usp=sharing",
     "socialLinks": [
@@ -25,7 +27,7 @@
   "experience": [
     {
       "title": "Robotics Software Engineer",
-      "date": "Dec 2024 - April 2026",
+      "date": "Dec 2024 - Present",
       "side": "right",
       "details": [
         "Using Gazebo and Isaac-sim simulators environments for benchmarking and reducing hardware testing cycles by 40% and accelerating algorithm validation.",
@@ -73,18 +75,6 @@
       ],
       "company": "Egyptian Electric Vehicle Rally Competition",
       "logo": "https://i.postimg.cc/kGKtSHnB/image.png"
-    },
-    {
-      "title": "Roboitcs Simulation Engineer",
-      "date": "April 2026 - Present",
-      "side": "right",
-      "details": [
-        "Design Simulation Environments using Blender and Import It using Unreal engine 4.26.",
-        "Cut onsite testing phase by 70% by adding realistic sensors model, robot dynamics, design and environments in CARLA simulation.",
-        "Adjust Cosoms Drive Dream to generate synthetic data collected from CARLA environment to decrease the sim2real gap of perception stack"
-      ],
-      "company": "Micropolis",
-      "logo": "https://i.postimg.cc/tgCrkwr6/28b2acc032a8494f9b704dbca422ae69.png"
     }
   ],
   "education": [
