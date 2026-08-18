@@ -28,7 +28,7 @@
     {
       "title": "Robotics Simulation Engineer",
       "date": "Apr 2026 - Present",
-      "side": "right",
+      "side": "left",
       "details": [
         "Adjust Cosoms Drive Dream to generate synthetic data collected from CARLA environment to decrease the sim2real gap of perception stack",
         "Transfer UAV dense pointcloud in enivronment and import it in CARLA environment.",
