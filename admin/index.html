@@ -232,6 +232,62 @@
         .import-area:hover { border-color: var(--primary); }
         .import-area i { font-size: 2rem; color: var(--primary); margin-bottom: 10px; }
 
+        /* ========== Drag & Drop ========== */
+        .drag-handle {
+            cursor: grab;
+            color: #555;
+            font-size: 1.1rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: color 0.2s, background 0.2s;
+            user-select: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        .drag-handle:hover {
+            color: var(--primary);
+            background: rgba(0, 170, 255, 0.1);
+        }
+        .drag-handle:active { cursor: grabbing; }
+
+        .item-card .item-header { gap: 8px; }
+        .item-card .item-header .drag-handle { order: -1; }
+
+        .list-item .drag-handle {
+            font-size: 0.85rem;
+            padding: 4px 4px;
+            flex-shrink: 0;
+        }
+
+        /* Dragging state */
+        .item-card.dragging,
+        .list-item.dragging {
+            opacity: 0.35;
+            border: 2px dashed var(--primary) !important;
+            transform: scale(0.97);
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        /* Drop indicator line */
+        .drop-indicator {
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), var(--primary), transparent);
+            border-radius: 3px;
+            margin: 2px 0;
+            pointer-events: none;
+            animation: dropGlow 1s ease-in-out infinite alternate;
+        }
+        @keyframes dropGlow {
+            from { box-shadow: 0 0 6px var(--primary); }
+            to   { box-shadow: 0 0 14px var(--secondary); }
+        }
+
+        /* Smooth reorder transition */
+        .drag-container > .item-card,
+        .drag-container > .list-item {
+            transition: transform 0.15s ease;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .sidebar { width: 60px; }
@@ -629,20 +685,25 @@
             (this.data.hero.typewriterTexts || []).forEach((text, i) => {
                 container.insertAdjacentHTML('beforeend', `
                     <div class="list-item">
+                        <span class="drag-handle" title="Drag to reorder"><i class="fas fa-grip-vertical"></i></span>
                         <input type="text" value="${this.escAttr(text)}" placeholder="Typewriter text ${i + 1}">
                         <button onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
                     </div>
                 `);
             });
+            this.initDragDrop(container, '.list-item');
         },
 
         addTypewriterText() {
-            document.getElementById('typewriter-list').insertAdjacentHTML('beforeend', `
+            const container = document.getElementById('typewriter-list');
+            container.insertAdjacentHTML('beforeend', `
                 <div class="list-item">
+                    <span class="drag-handle" title="Drag to reorder"><i class="fas fa-grip-vertical"></i></span>
                     <input type="text" value="" placeholder="New typewriter text">
                     <button onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
                 </div>
             `);
+            this.initDragDrop(container, '.list-item');
         },
 
         // ==================== SOCIAL LINKS ====================
@@ -652,12 +713,14 @@
             (this.data.hero.socialLinks || []).forEach((link, i) => {
                 container.insertAdjacentHTML('beforeend', this.socialLinkHTML(link, i));
             });
+            this.initDragDrop(container, '.item-card');
         },
 
         socialLinkHTML(link, idx) {
             return `
                 <div class="item-card" data-idx="${idx}">
                     <div class="item-header">
+                        <span class="drag-handle" title="Drag to reorder"><i class="fas fa-grip-vertical"></i></span>
                         <h4>Social Link ${idx + 1}</h4>
                         <button class="btn btn-danger btn-sm" onclick="this.closest('.item-card').remove()"><i class="fas fa-trash"></i></button>
                     </div>
@@ -683,6 +746,7 @@
             const container = document.getElementById('social-links-list');
             const idx = container.children.length;
             container.insertAdjacentHTML('beforeend', this.socialLinkHTML({ platform: '', icon: '', url: '' }, idx));
+            this._refreshDragDrop(container, '.item-card');
         },
 
         collectSocialLinks() {
@@ -701,6 +765,11 @@
             (items || []).forEach((item, i) => {
                 container.insertAdjacentHTML('beforeend', this.timelineItemHTML(item, i, subtitleField));
             });
+            this.initDragDrop(container, '.item-card');
+            // Also init drag on bullet lists within each item
+            container.querySelectorAll('.tl-details-list').forEach(list => {
+                this.initDragDrop(list, '.list-item');
+            });
         },
 
         renderExperience() { this.renderTimelineItems('experience-list', this.data.experience, 'company'); },
@@ -710,6 +779,7 @@
         timelineItemHTML(item, idx, subtitleField) {
             const detailsList = (item.details || []).map((d, i) => `
                 <div class="list-item">
+                    <span class="drag-handle" title="Drag to reorder"><i class="fas fa-grip-vertical"></i></span>
                     <input type="text" value="${this.escAttr(d)}">
                     <button onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
                 </div>
@@ -718,6 +788,7 @@
             return `
                 <div class="item-card" data-idx="${idx}">
                     <div class="item-header">
+                        <span class="drag-handle" title="Drag to reorder"><i class="fas fa-grip-vertical"></i></span>
                         <h4>${item.title || 'New Item'}</h4>
                         <button class="btn btn-danger btn-sm" onclick="this.closest('.item-card').remove()"><i class="fas fa-trash"></i></button>
                     </div>
@@ -766,26 +837,31 @@
             const container = document.getElementById('experience-list');
             const idx = container.children.length;
             container.insertAdjacentHTML('beforeend', this.timelineItemHTML({ title: '', company: '', date: '', side: 'right', logo: '', details: [] }, idx, 'company'));
+            this._refreshDragDrop(container, '.item-card');
         },
         addEducation() {
             const container = document.getElementById('education-list');
             const idx = container.children.length;
             container.insertAdjacentHTML('beforeend', this.timelineItemHTML({ title: '', institution: '', date: '', side: 'right', detailsHTML: '', details: [] }, idx, 'institution'));
+            this._refreshDragDrop(container, '.item-card');
         },
         addVolunteering() {
             const container = document.getElementById('volunteering-list');
             const idx = container.children.length;
             container.insertAdjacentHTML('beforeend', this.timelineItemHTML({ title: '', organization: '', date: '', side: 'right', details: [] }, idx, 'organization'));
+            this._refreshDragDrop(container, '.item-card');
         },
 
         addDetailItem(btn) {
             const list = btn.previousElementSibling;
             list.insertAdjacentHTML('beforeend', `
                 <div class="list-item">
+                    <span class="drag-handle" title="Drag to reorder"><i class="fas fa-grip-vertical"></i></span>
                     <input type="text" value="" placeholder="New detail...">
                     <button onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
                 </div>
             `);
+            this.initDragDrop(list, '.list-item');
         },
 
         collectTimelineItems(containerId, subtitleField) {
@@ -813,11 +889,16 @@
             (this.data.skills || []).forEach((cat, i) => {
                 container.insertAdjacentHTML('beforeend', this.skillCategoryHTML(cat, i));
             });
+            this.initDragDrop(container, '.item-card');
+            container.querySelectorAll('.skill-items-list').forEach(list => {
+                this.initDragDrop(list, '.list-item');
+            });
         },
 
         skillCategoryHTML(cat, idx) {
             const items = (cat.items || []).map((item, i) => `
                 <div class="list-item">
+                    <span class="drag-handle" title="Drag to reorder"><i class="fas fa-grip-vertical"></i></span>
                     <input type="text" class="skill-name" value="${this.escAttr(item.name || '')}" placeholder="Skill name">
                     <input type="text" class="skill-icon" value="${this.escAttr(item.icon || '')}" placeholder="fas fa-code" style="max-width:150px;">
                     <button onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
@@ -827,6 +908,7 @@
             return `
                 <div class="item-card" data-idx="${idx}">
                     <div class="item-header">
+                        <span class="drag-handle" title="Drag to reorder"><i class="fas fa-grip-vertical"></i></span>
                         <h4>${cat.category || 'New Category'}</h4>
                         <button class="btn btn-danger btn-sm" onclick="this.closest('.item-card').remove()"><i class="fas fa-trash"></i></button>
                     </div>
@@ -852,17 +934,20 @@
         addSkillCategory() {
             const container = document.getElementById('skills-list');
             container.insertAdjacentHTML('beforeend', this.skillCategoryHTML({ category: '', icon: '', items: [] }, container.children.length));
+            this._refreshDragDrop(container, '.item-card');
         },
 
         addSkillItem(btn) {
             const list = btn.previousElementSibling;
             list.insertAdjacentHTML('beforeend', `
                 <div class="list-item">
+                    <span class="drag-handle" title="Drag to reorder"><i class="fas fa-grip-vertical"></i></span>
                     <input type="text" class="skill-name" value="" placeholder="Skill name">
                     <input type="text" class="skill-icon" value="" placeholder="fas fa-code" style="max-width:150px;">
                     <button onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
                 </div>
             `);
+            this.initDragDrop(list, '.list-item');
         },
 
         collectSkills() {
@@ -884,11 +969,16 @@
             (this.data.projects || []).forEach((proj, i) => {
                 container.insertAdjacentHTML('beforeend', this.projectHTML(proj, i));
             });
+            this.initDragDrop(container, '.item-card');
+            container.querySelectorAll('.proj-details-list').forEach(list => {
+                this.initDragDrop(list, '.list-item');
+            });
         },
 
         projectHTML(proj, idx) {
             const details = (proj.details || []).map(d => `
                 <div class="list-item">
+                    <span class="drag-handle" title="Drag to reorder"><i class="fas fa-grip-vertical"></i></span>
                     <input type="text" value="${this.escAttr(d)}">
                     <button onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
                 </div>
@@ -897,6 +987,7 @@
             return `
                 <div class="item-card" data-idx="${idx}">
                     <div class="item-header">
+                        <span class="drag-handle" title="Drag to reorder"><i class="fas fa-grip-vertical"></i></span>
                         <h4>${proj.title || 'New Project'}</h4>
                         <button class="btn btn-danger btn-sm" onclick="this.closest('.item-card').remove()"><i class="fas fa-trash"></i></button>
                     </div>
@@ -948,6 +1039,7 @@
                 id: 'project' + (idx + 1), title: '', summary: '', image: '', description: '',
                 details: [], link: '', linkText: 'View on GitHub'
             }, idx));
+            this._refreshDragDrop(container, '.item-card');
         },
 
         collectProjects() {
@@ -971,6 +1063,7 @@
             (items || []).forEach((item, i) => {
                 container.insertAdjacentHTML('beforeend', this.awardHTML(item, i));
             });
+            this.initDragDrop(container, '.item-card');
         },
 
         renderCompetitions() { this.renderAwards('competitions-list', this.data.competitions); },
@@ -980,6 +1073,7 @@
             return `
                 <div class="item-card" data-idx="${idx}">
                     <div class="item-header">
+                        <span class="drag-handle" title="Drag to reorder"><i class="fas fa-grip-vertical"></i></span>
                         <h4>${item.title || 'New Award'}</h4>
                         <button class="btn btn-danger btn-sm" onclick="this.closest('.item-card').remove()"><i class="fas fa-trash"></i></button>
                     </div>
@@ -1008,11 +1102,13 @@
         addCompetition() {
             const container = document.getElementById('competitions-list');
             container.insertAdjacentHTML('beforeend', this.awardHTML({ title: '', date: '', icon: 'fas fa-trophy', description: '' }, container.children.length));
+            this._refreshDragDrop(container, '.item-card');
         },
 
         addScholarship() {
             const container = document.getElementById('scholarships-list');
             container.insertAdjacentHTML('beforeend', this.awardHTML({ title: '', date: '', icon: 'fas fa-graduation-cap', description: '' }, container.children.length));
+            this._refreshDragDrop(container, '.item-card');
         },
 
         collectAwards(containerId) {
@@ -1159,6 +1255,192 @@
             } finally {
                 btn.innerHTML = originalHTML;
                 btn.disabled = false;
+            }
+        },
+
+        // ==================== DRAG & DROP ====================
+        initDragDrop(container, itemSelector) {
+            if (!container) return;
+            container.classList.add('drag-container');
+
+            // Remove previous listeners by replacing with clean clone — skip, use flag instead
+            if (container._dragInitialized) return;
+            container._dragInitialized = true;
+
+            let draggedEl = null;
+
+            // --- Utility: get closest sibling after cursor ---
+            function getDragAfterElement(container, y, selector) {
+                const draggableEls = [...container.querySelectorAll(`${selector}:not(.dragging):not(.drop-indicator)`)];
+                return draggableEls.reduce((closest, child) => {
+                    const box = child.getBoundingClientRect();
+                    const offset = y - box.top - box.height / 2;
+                    if (offset < 0 && offset > closest.offset) {
+                        return { offset, element: child };
+                    }
+                    return closest;
+                }, { offset: Number.NEGATIVE_INFINITY }).element;
+            }
+
+            function removeIndicators(cont) {
+                cont.querySelectorAll('.drop-indicator').forEach(el => el.remove());
+            }
+
+            // --- Mouse / HTML5 drag events ---
+            container.addEventListener('dragstart', (e) => {
+                const item = e.target.closest(itemSelector);
+                if (!item || !container.contains(item)) return;
+                draggedEl = item;
+                item.classList.add('dragging');
+                e.dataTransfer.effectAllowed = 'move';
+                // Needed for Firefox
+                e.dataTransfer.setData('text/plain', '');
+            });
+
+            container.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+                if (!draggedEl) return;
+
+                removeIndicators(container);
+
+                const afterElement = getDragAfterElement(container, e.clientY, itemSelector);
+                const indicator = document.createElement('div');
+                indicator.className = 'drop-indicator';
+
+                if (afterElement) {
+                    container.insertBefore(indicator, afterElement);
+                } else {
+                    container.appendChild(indicator);
+                }
+            });
+
+            container.addEventListener('drop', (e) => {
+                e.preventDefault();
+                if (!draggedEl) return;
+
+                removeIndicators(container);
+
+                const afterElement = getDragAfterElement(container, e.clientY, itemSelector);
+                if (afterElement) {
+                    container.insertBefore(draggedEl, afterElement);
+                } else {
+                    container.appendChild(draggedEl);
+                }
+
+                draggedEl.classList.remove('dragging');
+                draggedEl = null;
+            });
+
+            container.addEventListener('dragend', (e) => {
+                removeIndicators(container);
+                if (draggedEl) {
+                    draggedEl.classList.remove('dragging');
+                    draggedEl = null;
+                }
+            });
+
+            container.addEventListener('dragleave', (e) => {
+                // Only remove indicators when leaving the container entirely
+                if (!container.contains(e.relatedTarget)) {
+                    removeIndicators(container);
+                }
+            });
+
+            // --- Touch events (mobile polyfill) ---
+            let touchDragEl = null;
+            let touchClone = null;
+            let touchStartY = 0;
+
+            container.addEventListener('touchstart', (e) => {
+                const handle = e.target.closest('.drag-handle');
+                if (!handle) return;
+                const item = handle.closest(itemSelector);
+                if (!item || !container.contains(item)) return;
+
+                touchDragEl = item;
+                touchStartY = e.touches[0].clientY;
+
+                // Create floating clone
+                touchClone = item.cloneNode(true);
+                touchClone.style.position = 'fixed';
+                touchClone.style.width = item.offsetWidth + 'px';
+                touchClone.style.opacity = '0.8';
+                touchClone.style.zIndex = '10000';
+                touchClone.style.pointerEvents = 'none';
+                touchClone.style.left = item.getBoundingClientRect().left + 'px';
+                touchClone.style.top = e.touches[0].clientY - 20 + 'px';
+                document.body.appendChild(touchClone);
+
+                item.classList.add('dragging');
+            }, { passive: true });
+
+            container.addEventListener('touchmove', (e) => {
+                if (!touchDragEl) return;
+                e.preventDefault();
+                const y = e.touches[0].clientY;
+                if (touchClone) {
+                    touchClone.style.top = y - 20 + 'px';
+                }
+
+                removeIndicators(container);
+                const afterElement = getDragAfterElement(container, y, itemSelector);
+                const indicator = document.createElement('div');
+                indicator.className = 'drop-indicator';
+                if (afterElement) {
+                    container.insertBefore(indicator, afterElement);
+                } else {
+                    container.appendChild(indicator);
+                }
+            }, { passive: false });
+
+            container.addEventListener('touchend', (e) => {
+                if (!touchDragEl) return;
+
+                removeIndicators(container);
+                if (touchClone) {
+                    touchClone.remove();
+                    touchClone = null;
+                }
+
+                const y = e.changedTouches[0].clientY;
+                const afterElement = getDragAfterElement(container, y, itemSelector);
+                if (afterElement) {
+                    container.insertBefore(touchDragEl, afterElement);
+                } else {
+                    container.appendChild(touchDragEl);
+                }
+
+                touchDragEl.classList.remove('dragging');
+                touchDragEl = null;
+            });
+
+            // --- Make existing items draggable (via handle) ---
+            this._makeDraggable(container, itemSelector);
+        },
+
+        _makeDraggable(container, itemSelector) {
+            container.querySelectorAll(itemSelector).forEach(item => {
+                if (item._draggableInit) return;
+                item._draggableInit = true;
+                const handle = item.querySelector('.drag-handle');
+                if (handle) {
+                    // Only start drag from the handle
+                    item.setAttribute('draggable', 'false');
+                    handle.addEventListener('mousedown', () => {
+                        item.setAttribute('draggable', 'true');
+                    });
+                    item.addEventListener('dragend', () => {
+                        item.setAttribute('draggable', 'false');
+                    });
+                }
+            });
+        },
+
+        // Re-init draggable on newly added items in a container
+        _refreshDragDrop(container, itemSelector) {
+            if (container && container._dragInitialized) {
+                this._makeDraggable(container, itemSelector);
             }
         },
 
