@@ -288,6 +288,14 @@
             transition: transform 0.15s ease;
         }
 
+        /* Prevent inputs from being dragged inside draggable parents */
+        .drag-container input,
+        .drag-container textarea,
+        .drag-container select,
+        .drag-container button:not(.drag-handle) {
+            -webkit-user-drag: none;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .sidebar { width: 60px; }
@@ -1263,15 +1271,14 @@
             if (!container) return;
             container.classList.add('drag-container');
 
-            // Remove previous listeners by replacing with clean clone — skip, use flag instead
             if (container._dragInitialized) return;
             container._dragInitialized = true;
 
             let draggedEl = null;
 
-            // --- Utility: get closest sibling after cursor ---
-            function getDragAfterElement(container, y, selector) {
-                const draggableEls = [...container.querySelectorAll(`${selector}:not(.dragging):not(.drop-indicator)`)];
+            // --- Utility: get the direct child matching selector that comes after cursor Y ---
+            function getDragAfterElement(cont, y, selector) {
+                const draggableEls = [...cont.querySelectorAll(':scope > ' + selector + ':not(.dragging):not(.drop-indicator)')];
                 return draggableEls.reduce((closest, child) => {
                     const box = child.getBoundingClientRect();
                     const offset = y - box.top - box.height / 2;
@@ -1283,18 +1290,40 @@
             }
 
             function removeIndicators(cont) {
-                cont.querySelectorAll('.drop-indicator').forEach(el => el.remove());
+                cont.querySelectorAll(':scope > .drop-indicator').forEach(el => el.remove());
             }
 
-            // --- Mouse / HTML5 drag events ---
+            // --- HTML5 drag events ---
             container.addEventListener('dragstart', (e) => {
-                const item = e.target.closest(itemSelector);
-                if (!item || !container.contains(item)) return;
+                // Only allow drag if initiated from a .drag-handle
+                const handle = e.target.closest('.drag-handle');
+                if (!handle) {
+                    e.preventDefault();
+                    return;
+                }
+                const item = handle.closest(itemSelector);
+                if (!item || item.parentElement !== container) {
+                    e.preventDefault();
+                    return;
+                }
+                // Stop propagation so parent drag-containers don't also capture this
+                e.stopPropagation();
+
                 draggedEl = item;
                 item.classList.add('dragging');
                 e.dataTransfer.effectAllowed = 'move';
-                // Needed for Firefox
                 e.dataTransfer.setData('text/plain', '');
+                // Use a minimal drag image so the browser default ghost doesn't obscure
+                if (e.dataTransfer.setDragImage) {
+                    const ghost = item.cloneNode(true);
+                    ghost.style.width = item.offsetWidth + 'px';
+                    ghost.style.opacity = '0.7';
+                    ghost.style.position = 'absolute';
+                    ghost.style.top = '-9999px';
+                    document.body.appendChild(ghost);
+                    e.dataTransfer.setDragImage(ghost, 20, 20);
+                    setTimeout(() => ghost.remove(), 0);
+                }
             });
 
             container.addEventListener('dragover', (e) => {
@@ -1317,6 +1346,7 @@
 
             container.addEventListener('drop', (e) => {
                 e.preventDefault();
+                e.stopPropagation();
                 if (!draggedEl) return;
 
                 removeIndicators(container);
@@ -1341,7 +1371,6 @@
             });
 
             container.addEventListener('dragleave', (e) => {
-                // Only remove indicators when leaving the container entirely
                 if (!container.contains(e.relatedTarget)) {
                     removeIndicators(container);
                 }
@@ -1350,26 +1379,17 @@
             // --- Touch events (mobile polyfill) ---
             let touchDragEl = null;
             let touchClone = null;
-            let touchStartY = 0;
 
             container.addEventListener('touchstart', (e) => {
                 const handle = e.target.closest('.drag-handle');
                 if (!handle) return;
                 const item = handle.closest(itemSelector);
-                if (!item || !container.contains(item)) return;
+                if (!item || item.parentElement !== container) return;
 
                 touchDragEl = item;
-                touchStartY = e.touches[0].clientY;
 
-                // Create floating clone
                 touchClone = item.cloneNode(true);
-                touchClone.style.position = 'fixed';
-                touchClone.style.width = item.offsetWidth + 'px';
-                touchClone.style.opacity = '0.8';
-                touchClone.style.zIndex = '10000';
-                touchClone.style.pointerEvents = 'none';
-                touchClone.style.left = item.getBoundingClientRect().left + 'px';
-                touchClone.style.top = e.touches[0].clientY - 20 + 'px';
+                touchClone.style.cssText = `position:fixed;width:${item.offsetWidth}px;opacity:0.7;z-index:10000;pointer-events:none;left:${item.getBoundingClientRect().left}px;top:${e.touches[0].clientY - 20}px;`;
                 document.body.appendChild(touchClone);
 
                 item.classList.add('dragging');
@@ -1379,9 +1399,7 @@
                 if (!touchDragEl) return;
                 e.preventDefault();
                 const y = e.touches[0].clientY;
-                if (touchClone) {
-                    touchClone.style.top = y - 20 + 'px';
-                }
+                if (touchClone) touchClone.style.top = y - 20 + 'px';
 
                 removeIndicators(container);
                 const afterElement = getDragAfterElement(container, y, itemSelector);
@@ -1396,12 +1414,8 @@
 
             container.addEventListener('touchend', (e) => {
                 if (!touchDragEl) return;
-
                 removeIndicators(container);
-                if (touchClone) {
-                    touchClone.remove();
-                    touchClone = null;
-                }
+                if (touchClone) { touchClone.remove(); touchClone = null; }
 
                 const y = e.changedTouches[0].clientY;
                 const afterElement = getDragAfterElement(container, y, itemSelector);
@@ -1410,30 +1424,20 @@
                 } else {
                     container.appendChild(touchDragEl);
                 }
-
                 touchDragEl.classList.remove('dragging');
                 touchDragEl = null;
             });
 
-            // --- Make existing items draggable (via handle) ---
+            // --- Make existing items draggable ---
             this._makeDraggable(container, itemSelector);
         },
 
         _makeDraggable(container, itemSelector) {
-            container.querySelectorAll(itemSelector).forEach(item => {
+            container.querySelectorAll(':scope > ' + itemSelector).forEach(item => {
                 if (item._draggableInit) return;
                 item._draggableInit = true;
-                const handle = item.querySelector('.drag-handle');
-                if (handle) {
-                    // Only start drag from the handle
-                    item.setAttribute('draggable', 'false');
-                    handle.addEventListener('mousedown', () => {
-                        item.setAttribute('draggable', 'true');
-                    });
-                    item.addEventListener('dragend', () => {
-                        item.setAttribute('draggable', 'false');
-                    });
-                }
+                // Always draggable — dragstart handler gates via .drag-handle check
+                item.setAttribute('draggable', 'true');
             });
         },
 
