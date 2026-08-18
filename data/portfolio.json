@@ -239,7 +239,7 @@
       "title": "High Fidelity Racing Simulator",
       "summary": "developed a fully configurable simulation environment using CARLA 0.9.16 and Unreal Engine 4.26",
       "description": "developed a fully configurable simulation environment using CARLA 0.9.16 and Unreal Engine 4.26, built specifically for Formula AI participants and researchers to test their algorithms. The setup is straightforward just adjust your sensor locations, parameters, and rates, and you’re ready to run your tests.\n\nKey details:\n- Track: Silverstone UK\n- Vehicle: Formula AI model tuned to approximate real-world vehicle parameters\n",
-      "image": "https://ibb.co/HLx67Nqj",
+      "image": "https://i.ibb.co/SDdbNQBz/Screenshot-from-2026-08-18-16-45-56.png",
       "link": "",
       "linkText": "https://github.com/ebrahimabdelghfar/Carla_ASU_Bridge",
       "details": []
