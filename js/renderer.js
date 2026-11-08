@@ -1,241 +1,159 @@
 /**
  * renderer.js
- * Renders all portfolio sections dynamically from JSON data.
+ * Turns data/portfolio.json into page markup.
  */
 
 const Renderer = {
-    /**
-     * Render navigation menu items from config sections.
-     */
-    renderNav(sections, navMenuEl) {
-        sections.forEach((sec, i) => {
-            const li = document.createElement('li');
-            li.className = 'nav-item';
-            const a = document.createElement('a');
-            a.href = `#${sec.id}`;
-            a.className = `nav-link${i === 0 ? ' active' : ''}`;
-            a.textContent = sec.label;
-            li.appendChild(a);
-            navMenuEl.appendChild(li);
-        });
+    renderNav(sections, listEl) {
+        listEl.innerHTML = sections
+            .map(s => `<li><a class="nav-link" href="#${s.id}">${s.label}</a></li>`)
+            .join('');
     },
 
-    /**
-     * Render the hero section.
-     */
-    renderHero(hero, containerEl) {
-        const socialHTML = hero.socialLinks.map(link =>
-            `<a href="${link.url}" target="_blank" aria-label="${link.platform}"><i class="${link.icon}"></i></a>`
+    socialLinks(links) {
+        return links.map(l =>
+            `<li><a href="${l.url}" ${l.url.startsWith('mailto:') ? '' : 'target="_blank" rel="noopener"'} aria-label="${l.platform}"><i class="${l.icon}" aria-hidden="true"></i></a></li>`
+        ).join('');
+    },
+
+    renderHero(hero, el) {
+        const stats = (hero.stats || []).map(s =>
+            `<div class="fact"><dt>${s.number}</dt><dd>${s.label}</dd></div>`
         ).join('');
 
-        const resumeBtn = hero.resumeURL
-            ? `<a href="${hero.resumeURL}" target="_blank" class="btn-resume"><i class="fas fa-download"></i> Download Resume</a>`
+        const resume = hero.resumeURL
+            ? `<a class="btn btn-primary" href="${hero.resumeURL}" target="_blank" rel="noopener">Download CV</a>`
             : '';
 
-        // Build hero stats from data or defaults
-        const stats = hero.stats || [
-            { number: '2+', label: 'Years Experience' },
-            { number: '5+', label: 'Projects' },
-            { number: '3', label: 'Awards' }
-        ];
-        const statsHTML = stats.map(s =>
-            `<div class="hero-stat"><span class="stat-number" data-target="${parseInt(s.number)}">${s.number}</span><span class="stat-label">${s.label}</span></div>`
-        ).join('');
-
-        containerEl.innerHTML = `
-            <div class="hero-text">
-                <span class="hero-greeting">Hello, I'm</span>
-                <h1><span class="typewriter"></span></h1>
-                <p id="bio-text">${hero.bio}</p>
-                <div class="hero-buttons">
-                    ${resumeBtn}
-                    <a href="#contact" class="btn-contact"><i class="fas fa-envelope"></i> Get In Touch</a>
+        el.innerHTML = `
+            <div class="hero-copy">
+                <div class="hero-id" data-enter>
+                    ${hero.photo ? `<img class="hero-photo" src="${hero.photo}" alt="Portrait of ${hero.name}" width="56" height="56">` : ''}
+                    <p>${hero.title}<br><span>${hero.location || ''}</span></p>
                 </div>
-                <div class="hero-stats">${statsHTML}</div>
-                <div class="social-links">${socialHTML}</div>
+                <h1 class="hero-name" data-enter>${hero.name}</h1>
+                <p class="hero-bio" data-enter>${hero.bio}</p>
+                <div class="hero-actions" data-enter>
+                    ${resume}
+                    <a class="btn btn-ghost" href="#contact">Get in touch</a>
+                    <ul class="social">${this.socialLinks(hero.socialLinks)}</ul>
+                </div>
             </div>
-            <div class="hero-img-container">
-                <img src="${hero.photo}" alt="${hero.name}" loading="lazy">
-            </div>
+            <figure class="sim" data-enter>
+                <canvas id="sim-canvas" role="img"
+                    aria-label="Animated occupancy grid: a car plans a route with A* and follows it with Pure Pursuit. Click the map to give it a new goal."></canvas>
+                <figcaption class="sim-legend">
+                    <span class="key key-path">A* plan</span>
+                    <span class="key key-horizon">Predicted horizon</span>
+                    <span class="key key-trail">Driven path</span>
+                    <span class="sim-hint">Click the map to set a goal</span>
+                </figcaption>
+            </figure>
+            <dl class="hero-facts" data-enter>${stats}</dl>
         `;
     },
 
-    /**
-     * Render a timeline section (experience, education, volunteering).
-     */
-    renderTimeline(items, containerEl, type) {
-        const timelineDiv = document.createElement('div');
-        timelineDiv.className = 'timeline';
-
-        items.forEach(item => {
-            const side = item.side || 'right';
-            const subtitle = item.company || item.institution || item.organization || '';
-
-            let detailsHTML = '';
-            if (item.detailsHTML) {
-                detailsHTML += `<p>${item.detailsHTML}</p>`;
-            }
-            if (item.details && item.details.length > 0) {
-                const listItems = item.details.map(d => `<li>${d}</li>`).join('');
-                detailsHTML += `<ul>${listItems}</ul>`;
-            }
-
-            const logoHTML = item.logo
-                ? `<img class="timeline-logo" src="${item.logo}" alt="${subtitle} logo">`
-                : '';
-
-            const html = `
-                <div class="timeline-item ${side}">
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            ${logoHTML}
-                            <div class="timeline-header-text">
-                                <h3>${item.title}</h3>
-                                <p class="timeline-subtitle">${subtitle}</p>
-                                <span class="timeline-date">${item.date}</span>
-                            </div>
-                            <span class="expand-icon"><i class="fas fa-chevron-down"></i></span>
-                        </div>
-                        <div class="expand-details">
-                            ${detailsHTML}
-                        </div>
+    /** Experience, education, teaching: date column + content column. */
+    renderEntries(items, el) {
+        el.innerHTML = `<ol class="entries">${items.map(item => {
+            const org = item.company || item.institution || item.organization || '';
+            const points = (item.details || []).filter(Boolean).map(d => `<li>${d}</li>`).join('');
+            return `
+                <li class="entry">
+                    <p class="entry-when">${item.date}</p>
+                    <div class="entry-main">
+                        <h3>${item.title}</h3>
+                        <p class="entry-org">
+                            ${item.logo ? `<img src="${item.logo}" alt="" width="22" height="22" loading="lazy">` : ''}
+                            ${org}
+                        </p>
+                        ${item.detailsHTML ? `<p class="entry-note">${item.detailsHTML}</p>` : ''}
+                        ${points ? `<ul class="entry-points">${points}</ul>` : ''}
                     </div>
-                </div>
-            `;
-            timelineDiv.insertAdjacentHTML('beforeend', html);
-        });
-
-        containerEl.appendChild(timelineDiv);
+                </li>`;
+        }).join('')}</ol>`;
     },
 
-    /**
-     * Render the skills section.
-     */
-    renderSkills(skills, containerEl) {
-        const grid = document.createElement('div');
-        grid.className = 'skills-grid';
-
-        skills.forEach(cat => {
-            const items = cat.items.map(item =>
-                `<li><i class="${item.icon}"></i> ${item.name}</li>`
-            ).join('');
-
-            grid.insertAdjacentHTML('beforeend', `
-                <div class="skill-category">
-                    <h3><i class="${cat.icon}"></i> ${cat.category}</h3>
-                    <ul>${items}</ul>
-                </div>
-            `);
-        });
-
-        containerEl.appendChild(grid);
+    renderSkills(skills, el) {
+        el.innerHTML = `<dl class="skills">${skills.map(cat => `
+            <div class="skill-row">
+                <dt>${cat.category}</dt>
+                <dd>${cat.items.map(i => i.name).join(', ')}</dd>
+            </div>`).join('')}</dl>`;
     },
 
-    /**
-     * Render the projects section (cards + modals).
-     */
-    renderProjects(projects, containerEl, modalsContainer) {
-        const grid = document.createElement('div');
-        grid.className = 'projects-grid';
-
-        projects.forEach(proj => {
-            // Card
-            grid.insertAdjacentHTML('beforeend', `
-                <div class="project-card" data-modal="${proj.id}">
-                    <div class="project-img-wrapper">
-                        <img src="${proj.image}" alt="${proj.title}" loading="lazy">
-                        <div class="project-overlay"><span>View Details</span></div>
-                    </div>
-                    <div class="project-info">
-                        <h3>${proj.title}</h3>
-                        <p>${proj.summary}</p>
-                    </div>
-                </div>
-            `);
-
-            // Modal
-            const details = proj.details.map(d => `<li>${d}</li>`).join('');
-            const linkHTML = proj.link
-                ? `<a href="${proj.link}" target="_blank" class="project-link">${proj.linkText || 'View Project'} <i class="fas fa-external-link-alt"></i></a>`
-                : '';
-
-            modalsContainer.insertAdjacentHTML('beforeend', `
-                <div id="${proj.id}" class="modal">
-                    <div class="modal-content">
-                        <span class="close-modal">&times;</span>
-                        <h3>${proj.title}</h3>
-                        <p>${proj.description}</p>
-                        <ul>${details}</ul>
-                        ${linkHTML}
-                    </div>
-                </div>
-            `);
-        });
-
-        containerEl.appendChild(grid);
+    renderProjects(projects, el) {
+        el.innerHTML = `<ul class="projects">${projects.map((p, i) => `
+            <li class="project${p.image ? '' : ' project-text'}">
+                <button class="project-open" type="button" data-project="${i}">
+                    <span class="project-media">
+                        ${p.image
+                            ? `<img src="${p.image}" alt="" loading="lazy">`
+                            : `<span class="project-plate">${p.title}</span>`}
+                    </span>
+                    <span class="project-title">${p.title}</span>
+                    <span class="project-summary">${p.summary}</span>
+                </button>
+            </li>`).join('')}</ul>`;
     },
 
-    /**
-     * Render awards/competitions or scholarships grid.
-     */
-    renderAwards(items, containerEl, singleColumn = false) {
-        const grid = document.createElement('div');
-        grid.className = 'awards-grid';
-        if (singleColumn) {
-            grid.style.gridTemplateColumns = '1fr';
-        }
-
-        items.forEach(item => {
-            grid.insertAdjacentHTML('beforeend', `
-                <div class="award-card">
-                    <div class="icon"><i class="${item.icon}"></i></div>
-                    <h3>${item.title}</h3>
-                    <span class="award-date">${item.date}</span>
-                    <p>${item.description}</p>
-                </div>
-            `);
-        });
-
-        containerEl.appendChild(grid);
+    projectDialog(p) {
+        const points = (p.details || []).map(d => `<li>${d}</li>`).join('');
+        return `
+            <div class="dialog-inner">
+                <button class="dialog-close icon-btn" type="button" aria-label="Close project details">
+                    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                </button>
+                ${p.image ? `<img class="dialog-img" src="${p.image}" alt="Screenshot of ${p.title}">` : ''}
+                <h3 id="dialog-title">${p.title}</h3>
+                <p class="dialog-desc">${p.description}</p>
+                ${points ? `<ul class="entry-points">${points}</ul>` : ''}
+                ${p.link ? `<a class="btn btn-primary" href="${p.link}" target="_blank" rel="noopener">${p.linkText || 'View project'}</a>` : ''}
+            </div>`;
     },
 
-    /**
-     * Render the contact form.
-     */
-    renderContact(containerEl) {
-        containerEl.innerHTML = `
-            <p style="text-align: center;">Have a question or want to work together? Feel free to reach out.</p>
-            <form class="contact-form" id="contact-form">
-                <div class="form-group">
-                    <input type="text" name="from_name" placeholder="Your Name" required>
+    renderAwards(items, el) {
+        el.innerHTML = `<ol class="entries">${items.map(a => `
+            <li class="entry">
+                <p class="entry-when">${a.date}</p>
+                <div class="entry-main">
+                    <h3>${a.title}</h3>
+                    <p class="entry-text">${a.description}</p>
                 </div>
-                <div class="form-group">
-                    <input type="email" name="from_email" placeholder="Your Email" required>
-                </div>
-                <div class="form-group">
-                    <input type="text" name="subject" placeholder="Subject" required>
-                </div>
-                <div class="form-group">
-                    <textarea name="message" rows="6" placeholder="Your Message" required></textarea>
-                </div>
-                <button type="submit" class="btn-submit">Send Message</button>
-                <div id="form-feedback" style="display: none;"></div>
-            </form>
-        `;
+            </li>`).join('')}</ol>`;
     },
 
-    /**
-     * Render the footer.
-     */
-    renderFooter(footerText, footerEl) {
-        const year = new Date().getFullYear();
-        footerEl.innerHTML = `
-            <div class="container">
-                <p>&copy; ${year} Made with <span class="footer-heart">❤</span> by ${footerText}</p>
-            </div>
-        `;
+    renderContact(hero, el) {
+        const email = (hero.socialLinks.find(l => l.url.startsWith('mailto:')) || {}).url || '';
+        el.innerHTML = `
+            <div class="contact">
+                <div class="contact-intro">
+                    <p>Hiring for robotics, autonomy or simulation work? Email me directly or send a message here.</p>
+                    ${email ? `<a class="contact-email" href="${email}">${email.replace('mailto:', '')}</a>` : ''}
+                    <ul class="social">${this.socialLinks(hero.socialLinks.filter(l => !l.url.startsWith('mailto:')))}</ul>
+                </div>
+                <form class="contact-form" id="contact-form" novalidate>
+                    <p class="form-hint">All fields are required.</p>
+                    ${[
+                        ['cf-name', 'Name', '<input id="cf-name" type="text" name="from_name" autocomplete="name" required', 'Enter your name.'],
+                        ['cf-email', 'Email', '<input id="cf-email" type="email" name="from_email" autocomplete="email" required', 'Enter your email address.'],
+                        ['cf-subject', 'Subject', '<input id="cf-subject" type="text" name="subject" required', 'Enter a subject.'],
+                        ['cf-message', 'Message', '<textarea id="cf-message" name="message" rows="5" required', 'Write a message.']
+                    ].map(([id, label, open, msg]) => `
+                    <div class="field">
+                        <label for="${id}">${label}</label>
+                        ${open} aria-describedby="${id}-error" data-missing="${msg}">${open.startsWith('<textarea') ? '</textarea>' : ''}
+                        <p class="field-error" id="${id}-error"></p>
+                    </div>`).join('')}
+                    <button type="submit" class="btn btn-primary">Send message</button>
+                    <p class="form-status" id="form-status" role="status"></p>
+                </form>
+            </div>`;
+    },
+
+    renderFooter(name, el) {
+        el.innerHTML = `<div class="wrap"><p>&copy; ${new Date().getFullYear()} ${name}</p><a href="#top">Back to top</a></div>`;
     }
 };
 
-// Export for use in app.js (works as global for non-module script loading)
 window.Renderer = Renderer;

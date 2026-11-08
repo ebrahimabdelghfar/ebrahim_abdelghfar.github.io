@@ -7,21 +7,19 @@ A modern, data-driven portfolio website powered by GitHub Pages. All content is 
 ```
 ├── index.html              # Shell HTML (loads content dynamically)
 ├── css/
-│   ├── style.css           # Main styles + theme variables
-│   ├── animations.css      # Scroll reveal + stagger animations
-│   └── responsive.css      # Mobile-first media queries
+│   └── style.css           # All styles: tokens, light/dark theme, layout, responsive
 ├── js/
 │   ├── app.js              # Main orchestrator (loads JSON → renders)
 │   ├── renderer.js         # Section rendering functions
-│   ├── interactions.js     # Nav, modals, scroll, theme toggle
-│   └── typewriter.js       # Typewriter effect
+│   ├── interactions.js     # Theme, mobile menu, project dialog, contact form
+│   └── hero-sim.js         # Hero canvas: A* planning + Pure Pursuit car on an occupancy grid
 ├── data/
 │   ├── portfolio.json      # ✏️ ALL YOUR CONTENT GOES HERE
-│   └── config.json         # Site settings, theme, EmailJS config
+│   └── config.json         # Site settings, nav sections, EmailJS config
 ├── admin/
 │   └── index.html          # Visual editor for portfolio.json
 ├── assets/
-│   └── images/             # Store project screenshots, resume PDF, etc.
+│   └── Ebrahim_Abdelghfar_Ebrahim_CV.pdf   # CV linked from the "Download CV" button
 ├── robots.txt              # SEO
 ├── sitemap.xml             # SEO
 └── README.md               # This file

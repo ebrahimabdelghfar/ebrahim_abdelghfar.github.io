@@ -1,315 +1,125 @@
 /**
  * interactions.js
- * Handles all UI interactions: scroll effects, nav toggle, modals, theme, back-to-top.
+ * Theme, mobile menu, project dialog, contact form.
  */
 
 const Interactions = {
-    /**
-     * Initialize all interactions after DOM content is rendered.
-     */
-    init() {
-        this.initScrollEffects();
-        this.initMobileNav();
-        this.initTimeline();
-        this.initModals();
-        this.initRevealAnimations();
-        this.initThemeToggle();
-        this.initBackToTop();
-        this.initStatCounters();
-        this.initSmoothScroll();
+    init(projects) {
+        this.initTheme();
+        this.initMenu();
+        this.initNavState();
+        this.initProjects(projects);
     },
 
-    /**
-     * Header scroll shadow + active nav link highlighting.
-     */
-    initScrollEffects() {
-        const header = document.getElementById('header');
-        const navLinks = document.querySelectorAll('.nav-link');
-        const sections = document.querySelectorAll('section[id]');
-        const headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height'), 10) || 70;
+    /** Mark the nav link of the section in the middle of the viewport. */
+    initNavState() {
+        const links = [...document.querySelectorAll('.nav-link')];
+        const io = new IntersectionObserver(entries => entries.forEach(e => {
+            if (!e.isIntersecting) return;
+            links.forEach(a => a.hash === `#${e.target.id}`
+                ? a.setAttribute('aria-current', 'location')
+                : a.removeAttribute('aria-current'));
+        }), { rootMargin: '-45% 0px -50% 0px' });
+        document.querySelectorAll('main > section').forEach(s => io.observe(s));
+    },
 
-        const handleScroll = () => {
-            if (window.scrollY > 50) {
-                header.classList.add('header-scrolled');
-            } else {
-                header.classList.remove('header-scrolled');
-            }
-
-            let currentSection = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (window.scrollY >= (sectionTop - headerHeight - 1)) {
-                    currentSection = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').includes(currentSection)) {
-                    link.classList.add('active');
-                }
-            });
+    initTheme() {
+        const btn = document.getElementById('theme-toggle');
+        const root = document.documentElement;
+        const systemDark = matchMedia('(prefers-color-scheme: dark)');
+        const current = () => root.dataset.theme || (systemDark.matches ? 'dark' : 'light');
+        const announce = () => {
+            btn.setAttribute('aria-label', `Switch to ${current() === 'dark' ? 'light' : 'dark'} theme`);
+            document.dispatchEvent(new Event('themechange'));
         };
-
-        window.addEventListener('scroll', handleScroll);
-        handleScroll(); // Run once on init
-    },
-
-    /**
-     * Mobile navigation toggle.
-     */
-    initMobileNav() {
-        const navMenu = document.getElementById('nav-menu');
-        const navToggle = document.getElementById('nav-toggle');
-        const navLinks = document.querySelectorAll('.nav-link');
-
-        if (navToggle) {
-            navToggle.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
-            });
-        }
-
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                if (navMenu.classList.contains('active')) {
-                    navMenu.classList.remove('active');
-                }
-            });
-        });
-    },
-
-    /**
-     * Expandable timeline items.
-     */
-    initTimeline() {
-        const timelineContents = document.querySelectorAll('.timeline-content');
-        timelineContents.forEach(item => {
-            item.addEventListener('click', (e) => {
-                if (e.target.tagName.toLowerCase() === 'a') return;
-                const isExpanding = !item.classList.contains('expanded');
-                const parentItem = item.closest('.timeline-item');
-
-                if (isExpanding) {
-                    // Expand: first go full width, then expand content
-                    if (parentItem) parentItem.classList.add('expanded');
-                    item.classList.add('expanded');
-                } else {
-                    // Collapse: first collapse content, then shrink width after animation
-                    item.classList.remove('expanded');
-                    if (parentItem) {
-                        setTimeout(() => {
-                            parentItem.classList.remove('expanded');
-                        }, 500);
-                    }
-                }
-            });
-        });
-    },
-
-    /**
-     * Project modals — open/close.
-     */
-    initModals() {
-        const projectCards = document.querySelectorAll('.project-card');
-        const modals = document.querySelectorAll('.modal');
-        const closeModals = document.querySelectorAll('.close-modal');
-
-        projectCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const modalId = card.getAttribute('data-modal');
-                const modal = document.getElementById(modalId);
-                if (modal) modal.classList.add('show');
-            });
-        });
-
-        const closeModal = (modal) => {
-            if (modal) modal.classList.remove('show');
-        };
-
-        closeModals.forEach(button => {
-            button.addEventListener('click', () => {
-                closeModal(button.closest('.modal'));
-            });
-        });
-
-        window.addEventListener('click', (e) => {
-            modals.forEach(modal => {
-                if (e.target === modal) {
-                    closeModal(modal);
-                }
-            });
-        });
-
-        // Close modal on Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                modals.forEach(modal => closeModal(modal));
-            }
-        });
-    },
-
-    /**
-     * Intersection Observer for scroll reveal animations.
-     */
-    initRevealAnimations() {
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, {
-            threshold: 0.1
-        });
-
-        revealElements.forEach(el => {
-            revealObserver.observe(el);
-        });
-    },
-
-    /**
-     * Dark/Light theme toggle with localStorage persistence.
-     */
-    initThemeToggle() {
-        const toggleCheckbox = document.getElementById('theme-checkbox');
-        if (!toggleCheckbox) return;
-
-        const savedTheme = localStorage.getItem('portfolio-theme') || 'dark';
-        document.documentElement.setAttribute('data-theme', savedTheme);
-        toggleCheckbox.checked = savedTheme === 'light';
-
-        toggleCheckbox.addEventListener('change', () => {
-            const next = toggleCheckbox.checked ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', next);
-            localStorage.setItem('portfolio-theme', next);
-        });
-    },
-
-    /**
-     * Back to top button.
-     */
-    initBackToTop() {
-        const btn = document.getElementById('back-to-top');
-        if (!btn) return;
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 400) {
-                btn.classList.add('visible');
-            } else {
-                btn.classList.remove('visible');
-            }
-        });
 
         btn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            root.dataset.theme = current() === 'dark' ? 'light' : 'dark';
+            try { localStorage.setItem('portfolio-theme', root.dataset.theme); } catch (e) { }
+            announce();
         });
+        systemDark.addEventListener('change', announce);
+        announce();
     },
 
-    /**
-     * Initialize EmailJS contact form.
-     */
-    initContactForm(emailjsConfig) {
-        if (!emailjsConfig || !emailjsConfig.publicKey) return;
-
-        // Initialize EmailJS
-        emailjs.init({ publicKey: emailjsConfig.publicKey });
-
-        const contactForm = document.getElementById('contact-form');
-        if (!contactForm) return;
-
-        const submitBtn = contactForm.querySelector('.btn-submit');
-        const formFeedback = document.getElementById('form-feedback');
-
-        contactForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            submitBtn.textContent = 'Sending...';
-            submitBtn.disabled = true;
-            formFeedback.style.display = 'none';
-
-            emailjs.sendForm(emailjsConfig.serviceID, emailjsConfig.templateID, this)
-                .then(() => {
-                    submitBtn.textContent = 'Send Message';
-                    submitBtn.disabled = false;
-                    formFeedback.textContent = 'Message sent successfully!';
-                    formFeedback.className = 'success';
-                    formFeedback.style.display = 'block';
-                    contactForm.reset();
-                }, (err) => {
-                    submitBtn.textContent = 'Send Message';
-                    submitBtn.disabled = false;
-                    formFeedback.textContent = `Failed to send message. Error: ${JSON.stringify(err)}`;
-                    formFeedback.className = 'error';
-                    formFeedback.style.display = 'block';
-                });
-        });
-    },
-
-    /**
-     * Animated number counter for hero stats (triggers on scroll into view).
-     */
-    initStatCounters() {
-        const statNumbers = document.querySelectorAll('.stat-number');
-        if (!statNumbers.length) return;
-
-        let counted = false;
-
-        const countUp = (el) => {
-            const text = el.textContent.trim();
-            const hasPlus = text.includes('+');
-            const target = parseInt(text);
-            if (isNaN(target)) return;
-
-            const duration = 1500;
-            const frameDuration = 1000 / 60;
-            const totalFrames = Math.round(duration / frameDuration);
-            let frame = 0;
-
-            const easeOutQuad = t => t * (2 - t);
-
-            const counter = setInterval(() => {
-                frame++;
-                const progress = easeOutQuad(frame / totalFrames);
-                const current = Math.round(target * progress);
-                el.textContent = current + (hasPlus ? '+' : '');
-
-                if (frame === totalFrames) {
-                    clearInterval(counter);
-                    el.textContent = target + (hasPlus ? '+' : '');
-                }
-            }, frameDuration);
+    initMenu() {
+        const toggle = document.getElementById('nav-toggle');
+        const nav = document.getElementById('nav');
+        const setOpen = open => {
+            nav.classList.toggle('open', open);
+            document.body.classList.toggle('menu-open', open);
+            toggle.setAttribute('aria-expanded', open);
+            toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
         };
-
-        const statsObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !counted) {
-                    counted = true;
-                    statNumbers.forEach(el => countUp(el));
-                }
-            });
-        }, { threshold: 0.5 });
-
-        const statsRow = document.querySelector('.hero-stats');
-        if (statsRow) statsObserver.observe(statsRow);
+        toggle.addEventListener('click', () => setOpen(!nav.classList.contains('open')));
+        nav.addEventListener('click', e => { if (e.target.closest('a')) setOpen(false); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
     },
 
-    /**
-     * Smooth scroll for all anchor links with offset for fixed header.
-     */
-    initSmoothScroll() {
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                const target = document.querySelector(targetId);
-                if (!target) return;
+    initProjects(projects) {
+        const dialog = document.getElementById('project-dialog');
 
-                e.preventDefault();
-                const headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height'), 10) || 70;
-                const top = target.getBoundingClientRect().top + window.scrollY - headerHeight;
-                window.scrollTo({ top, behavior: 'smooth' });
-            });
+        document.querySelector('.projects').addEventListener('click', e => {
+            const btn = e.target.closest('[data-project]');
+            if (!btn) return;
+            dialog.innerHTML = Renderer.projectDialog(projects[btn.dataset.project]);
+            dialog.showModal();
+        });
+
+        dialog.addEventListener('click', e => {
+            // Click on the backdrop (the dialog element itself) or the close button closes it.
+            if (e.target === dialog || e.target.closest('.dialog-close')) dialog.close();
+        });
+    },
+
+    initContactForm(cfg) {
+        const form = document.getElementById('contact-form');
+        const status = document.getElementById('form-status');
+        const submit = form.querySelector('button[type="submit"]');
+        const fields = [...form.querySelectorAll('input, textarea')];
+
+        // Each error sits under its own field (linked with aria-describedby).
+        const check = field => {
+            const msg = field.validity.valueMissing ? field.dataset.missing
+                : field.validity.typeMismatch ? 'Enter an email address like name@company.com.' : '';
+            field.setAttribute('aria-invalid', msg ? 'true' : 'false');
+            document.getElementById(`${field.id}-error`).textContent = msg;
+            return !msg;
+        };
+        fields.forEach(f => {
+            f.addEventListener('blur', () => { if (f.value) check(f); });
+            f.addEventListener('input', () => { if (f.getAttribute('aria-invalid') === 'true') check(f); });
+        });
+
+        form.addEventListener('submit', async e => {
+            e.preventDefault();
+            const invalid = fields.filter(f => !check(f));
+            if (invalid.length) {
+                invalid[0].focus();
+                return;
+            }
+            if (!window.emailjs || !cfg || !cfg.publicKey) {
+                status.textContent = 'The form is unavailable right now. Email me directly instead.';
+                status.className = 'form-status error';
+                return;
+            }
+
+            submit.disabled = true;
+            submit.textContent = 'Sending…';
+            status.textContent = '';
+            try {
+                emailjs.init({ publicKey: cfg.publicKey });
+                await emailjs.sendForm(cfg.serviceID, cfg.templateID, form);
+                form.reset();
+                status.textContent = 'Message sent. I will reply by email.';
+                status.className = 'form-status success';
+            } catch (err) {
+                status.textContent = 'The message did not send. Try again, or email me directly.';
+                status.className = 'form-status error';
+            } finally {
+                submit.disabled = false;
+                submit.textContent = 'Send message';
+            }
         });
     }
 };

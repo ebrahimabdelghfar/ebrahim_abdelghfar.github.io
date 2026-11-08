@@ -2,16 +2,26 @@
   "hero": {
     "name": "Ebrahim Abdelghfar Ebrahim",
     "title": "Robotics Software Engineer",
-    "bio": "A results-driven Robotics Software Engineer with 2+ years of experience designing and deploying software for autonomous mobile robots. Expertise in C++/Python, ROS/ROS2, and the NAV2 stack, delivering robust solutions from simulation to deployment.",
+    "location": "Cairo, Egypt. Open to relocation.",
+    "bio": "I write navigation and control software for mobile robots and autonomous vehicles, and build the simulators that test it before it goes into the field. Most of my work is C++ and Python on Linux, with ROS 2, Nav2, CARLA and Isaac Sim.",
     "photo": "https://i.postimg.cc/7YvXDxZv/testtt.jpg",
-    "typewriterTexts": [
-      "Ebrahim Abdelghfar Ebrahim",
-      "Robotics Simulation Engineer",
-      "Preparing His Master Thesis",
-      "in vehicle parameter Estimation"
+    "stats": [
+      { "number": "70%", "label": "less on-site testing after the CARLA SIL pipeline at Micropolis" },
+      { "number": "0.17 m", "label": "localisation error over a ~1 km run on the Nav2 stack I delivered" },
+      { "number": "100 km/h", "label": "stable nonlinear MPC driving on a µ = 0.35 surface" }
     ],
-    "resumeURL": "https://drive.google.com/file/d/1hh8awOhaA-seSkyKXhR8HHXsCKB53ORR/view?usp=sharing",
+    "typewriterTexts": [
+      "Robotics Software Engineer",
+      "Robotics Simulation Engineer",
+      "M.Sc. researcher in adaptive nonlinear MPC"
+    ],
+    "resumeURL": "assets/Ebrahim_Abdelghfar_Ebrahim_CV.pdf",
     "socialLinks": [
+      {
+        "platform": "Email",
+        "icon": "fas fa-envelope",
+        "url": "mailto:ebrahimabdelghfar550@gmail.com"
+      },
       {
         "platform": "LinkedIn",
         "icon": "fab fa-linkedin",
@@ -27,355 +37,366 @@
   "experience": [
     {
       "title": "Robotics Simulation Engineer",
-      "date": "Apr 2026 - Present",
+      "date": "Apr 2026 – Present",
       "side": "left",
       "details": [
-        "Adjust Cosoms Drive Dream to generate synthetic data collected from CARLA environment to decrease the sim2real gap of perception stack",
-        "Transfer UAV dense pointcloud in enivronment and import it in CARLA environment.",
-        "Design Simulation Environments using Blender and Import It using Unreal engine 4.26.",
-        "Cut onsite testing phase by 70% by adding realistic sensors model, robot dynamics, design and environments in CARLA simulation."
+        "Built the software-in-the-loop (SIL) pipeline in CARLA 0.9.16 and Unreal Engine 4.26, with realistic LiDAR, camera and GNSS models and vehicle dynamics. This cut on-site testing by 70%.",
+        "Set up a hardware-in-the-loop (HIL) bench that feeds simulated sensor data to the vehicle in the formats its drivers expect, so the onboard stack runs against the simulator without changes.",
+        "Made a GUI tool on top of CARLA ScenarioRunner so the team can build automated test scenarios visually rather than coding each one.",
+        "Brought UAV-captured dense point clouds into CARLA through custom data pipelines to make the simulated environments more faithful.",
+        "Adapted NVIDIA Cosmos-Drive-Dreams to generate synthetic training data from CARLA scenes, helping the perception stack close the sim-to-real gap."
       ],
-      "company": "Micropolis",
+      "company": "Micropolis, Dubai, UAE",
       "logo": "https://i.postimg.cc/tgCrkwr6/28b2acc032a8494f9b704dbca422ae69.png"
     },
     {
-      "title": "Robotics Software Engineer",
-      "date": "Dec 2024 - Apr 2026",
+      "title": "Robotics Systems Engineer",
+      "date": "Dec 2024 – Apr 2026",
       "side": "right",
       "details": [
-        "Using Gazebo and Isaac-sim simulators environments for benchmarking and reducing hardware testing cycles by 40% and accelerating algorithm validation.",
-        " Designed MPC Control algorithm for four-wheel independent steering robot.",
-        "Used a complete navigation stack for an AMR using ROS2 and NAV2, achieving 0.3m odometry accuracy through robust sensor fusion of IMU and monocular cameras with PyCuSLAM.",
-        " Containerized robotics applications using Docker, decreasing environment setup time by 75% and improving deployment reliability.",
-        "• Developed technical strategies, plans, and roadmaps for the mobile robot platform."
+        "Delivered the ROS 2 / Nav2 navigation stack for the company's mobile robot, combining cuVSLAM visual odometry with RTAB-Map occupancy-grid mapping. Localisation error stayed within 0.17 m over a ~1 km run.",
+        "Designed the Model Predictive Controller (MPC) for the four-wheel independent-steering robot.",
+        "Set up SIL benchmarks in Gazebo and NVIDIA Isaac Sim, which cut hardware test cycles by 40%.",
+        "Packaged the robot software in Docker, so setting up a new machine took 75% less time and every deployment came out the same.",
+        "Wrote the platform's technical roadmap and development plan."
       ],
-      "company": "Dakahlia Group",
+      "company": "Dakahlia Group, Cairo, Egypt",
       "logo": "https://i.postimg.cc/NF7SzNNc/images.png"
     },
     {
-      "title": "Robotics Software Engineer",
-      "date": "Jan 2024 - Nov 2024",
+      "title": "Robotics Systems Engineer",
+      "date": "Jan 2024 – Nov 2024",
       "side": "left",
       "details": [
-        "Designed high-fidelity CoppeliaSim environments for Robo-cafe projects, reducing development costs by 30%.",
-        "Developed integration bridges between industrial PLCs and high-level ROS controllers.",
-        "Established the company's software development pipeline using Git.",
-        " Established the company's CI/CD using Git, improving code integration efficiency and enabling version control best practices.",
-        "Designed robotic software stack for projects such as Robo-cafe."
+        "Designed the software stack for the Robo-Cafe product and built a detailed CoppeliaSim simulator for it, which lowered development cost by about 30%.",
+        "Connected industrial PLCs to high-level ROS controllers for factory-automation projects.",
+        "Set up the company's Git workflow and CI/CD pipeline."
       ],
-      "company": "Noases",
+      "company": "I-Robotic, Cairo, Egypt",
       "logo": "https://i.postimg.cc/rw6RJQv3/1705454991744.jpg"
-    },
-    {
-      "title": "Teaching Assistant",
-      "date": "Jan 2024 - Aug 2024",
-      "side": "right",
-      "details": [
-        "Taught the \"MCT443: Autonomous Systems\" course to over 40 undergraduate students.",
-        "Mentored students on ROS2 implementation and core robotics algorithms."
-      ],
-      "company": "Faculty of engineering of Ain Shams university",
-      "logo": "https://i.postimg.cc/pVnRFX1t/image.png"
-    },
-    {
-      "title": "Robotics Software Engineer",
-      "date": "Oct 2023 - Aug 2024",
-      "side": "left",
-      "details": [
-        "Delivered training modules on autonomous systems, increasing implementation rates by 70%.",
-        "Engineered a milestones simulator using CoppeliaSim and ROS1.",
-        "Developed the Steering Control for an Autonomous Vehicle using Pure Pursuit."
-      ],
-      "company": "Egyptian Electric Vehicle Rally Competition",
-      "logo": "https://i.postimg.cc/kGKtSHnB/image.png"
     }
   ],
   "education": [
     {
-      "title": "M.Sc. in Mechatronics and Robotics Engineering",
-      "date": "Jan 2024 - Present",
+      "title": "M.Sc. Mechatronics Engineering",
+      "date": "Expected Jun 2027",
       "side": "right",
       "details": [
-        "Currently pursuing advanced studies in robotics, focusing on cutting-edge research and development in autonomous systems."
+        "Research on on-track tire identification and adaptive nonlinear MPC."
       ],
-      "institution": "Graduate Student",
+      "institution": "Ain Shams University, Cairo",
       "logo": ""
     },
     {
-      "title": "Graduate Mechatronics and Automation Engineer",
-      "date": "Sep 2018 - Jul 2023",
+      "title": "B.Sc. Mechatronics Engineering",
+      "date": "Sep 2018 – Jul 2023",
       "side": "left",
       "details": [
-        "Designed a software architecture organizing 11 different algorithms.",
-        "Implemented an SDK to facilitate dealing with MoveIt and frame transformation.",
-        "Developed a screw localizing technique using YOLOv5 and a depth camera."
+        "Thesis: an autonomous robot arm for non-destructive e-waste disassembly. Developed the approach-and-unscrew algorithm (98% success rate) and screw localisation with YOLOv5 and a depth camera.",
+        "Built a 10-method SDK that simplifies MoveIt motion planning and frame transforms, plus a CoppeliaSim / ROS 1 digital twin for testing."
       ],
-      "institution": "Faculty of Engineering, Ain Shams University",
+      "institution": "Ain Shams University, Cairo",
       "logo": "",
-      "detailsHTML": "<strong>GPA:</strong> 3.0 <br><strong>Thesis:</strong> E-waste Non-Destructive Disassembly Robot. <br><strong>Graduation Project:</strong> Autonomous Disassembly Robotic Manipulator."
+      "detailsHTML": ""
     },
     {
       "title": "Robotics Software Engineer Nanodegree",
       "date": "Completed Apr 2025",
       "side": "right",
       "details": [
-        "Implemented algorithms like A*, Extended Kalman Filter, and PID using C++.",
-        "Developed testing environments in Gazebo and ROS."
+        "Capstone: home-service robot with A*, EKF and PID in C++ / ROS, tested in Gazebo."
       ],
       "institution": "Udacity",
       "logo": "",
-      "detailsHTML": "A comprehensive program covering the full spectrum of robotics software engineering, from foundational algorithms to advanced ROS applications."
+      "detailsHTML": ""
     }
   ],
   "skills": [
     {
-      "category": "Programming & Languages",
+      "category": "Programming",
       "icon": "fas fa-code",
       "items": [
-        {
-          "name": "C++ (Advanced)",
-          "icon": "fas fa-file-code"
-        },
-        {
-          "name": "Python (Advanced)",
-          "icon": "fab fa-python"
-        },
-        {
-          "name": "C",
-          "icon": "fas fa-file-code"
-        },
-        {
-          "name": "LUA",
-          "icon": "fas fa-scroll"
-        },
-        {
-          "name": "Bash Scripting",
-          "icon": "fas fa-terminal"
-        }
+        { "name": "C++", "icon": "" },
+        { "name": "Python", "icon": "" },
+        { "name": "C", "icon": "" },
+        { "name": "Lua", "icon": "" }
       ]
     },
     {
-      "category": "Robotics & Simulators",
+      "category": "Robotics software",
       "icon": "fas fa-robot",
       "items": [
-        {
-          "name": "ROS1 & ROS2",
-          "icon": "fas fa-robot"
-        },
-        {
-          "name": "Nav2 Stack",
-          "icon": "fas fa-route"
-        },
-        {
-          "name": "MoveIt",
-          "icon": "fas fa-cogs"
-        },
-        {
-          "name": "Gazebo / CoppeliaSim / Carla / Isaac Sim",
-          "icon": "fas fa-cubes"
-        },
-        {
-          "name": "Matlab/Simulink",
-          "icon": "fas fa-project-diagram"
-        }
+        { "name": "ROS 2", "icon": "" },
+        { "name": "ROS 1", "icon": "" },
+        { "name": "Nav2", "icon": "" },
+        { "name": "MoveIt 2", "icon": "" },
+        { "name": "RTAB-Map", "icon": "" },
+        { "name": "NVIDIA cuVSLAM", "icon": "" }
       ]
     },
     {
-      "category": "Tools & Platforms",
-      "icon": "fas fa-tools",
+      "category": "Localization & mapping",
+      "icon": "fas fa-map",
       "items": [
-        {
-          "name": "Git & GitHub",
-          "icon": "fab fa-git-alt"
-        },
-        {
-          "name": "Docker",
-          "icon": "fab fa-docker"
-        },
-        {
-          "name": "CMake",
-          "icon": "fas fa-tools"
-        },
-        {
-          "name": "PyTorch & TensorFlow",
-          "icon": "fas fa-brain"
-        },
-        {
-          "name": "Linux",
-          "icon": "fab fa-linux"
-        },
-        {
-          "name": "Digital Ocean",
-          "icon": "fa-brands fa-digital-ocean"
-        }
+        { "name": "SLAM", "icon": "" },
+        { "name": "Visual odometry", "icon": "" },
+        { "name": "Multi-sensor fusion", "icon": "" },
+        { "name": "Extended Kalman Filter (EKF)", "icon": "" },
+        { "name": "A* path planning", "icon": "" }
       ]
     },
     {
-      "category": "Hardware & Embedded",
-      "icon": "fas fa-microchip",
+      "category": "Control",
+      "icon": "fas fa-sliders",
       "items": [
-        {
-          "name": "ESP32, ARM",
-          "icon": "fas fa-microchip"
-        },
-        {
-          "name": "PLC Programming",
-          "icon": "fas fa-industry"
-        },
-        {
-          "name": "PCB Design (EasyEDA)",
-          "icon": "fas fa-ruler-combined"
-        },
-        {
-          "name": "MQTT, WebSockets",
-          "icon": "fas fa-network-wired"
-        }
+        { "name": "MPC and nonlinear MPC", "icon": "" },
+        { "name": "LQR", "icon": "" },
+        { "name": "Pure Pursuit", "icon": "" },
+        { "name": "Stanley", "icon": "" },
+        { "name": "PID", "icon": "" },
+        { "name": "System identification", "icon": "" },
+        { "name": "Vehicle and tire dynamics", "icon": "" }
+      ]
+    },
+    {
+      "category": "Perception",
+      "icon": "fas fa-eye",
+      "items": [
+        { "name": "YOLOv5", "icon": "" },
+        { "name": "Depth cameras", "icon": "" },
+        { "name": "LiDAR", "icon": "" },
+        { "name": "Camera and GNSS sensor modelling", "icon": "" },
+        { "name": "Synthetic data generation (NVIDIA Cosmos)", "icon": "" }
+      ]
+    },
+    {
+      "category": "Simulation & testing",
+      "icon": "fas fa-cubes",
+      "items": [
+        { "name": "CARLA", "icon": "" },
+        { "name": "ScenarioRunner", "icon": "" },
+        { "name": "Unreal Engine", "icon": "" },
+        { "name": "NVIDIA Isaac Sim", "icon": "" },
+        { "name": "Gazebo (Classic, Harmonic)", "icon": "" },
+        { "name": "CoppeliaSim", "icon": "" },
+        { "name": "Webots", "icon": "" },
+        { "name": "Software-in-the-loop (SIL)", "icon": "" },
+        { "name": "Hardware-in-the-loop (HIL)", "icon": "" }
+      ]
+    },
+    {
+      "category": "Engineering tools",
+      "icon": "fas fa-screwdriver-wrench",
+      "items": [
+        { "name": "Linux", "icon": "" },
+        { "name": "Git", "icon": "" },
+        { "name": "Docker", "icon": "" },
+        { "name": "CMake", "icon": "" },
+        { "name": "CI/CD", "icon": "" },
+        { "name": "CAN bus", "icon": "" },
+        { "name": "TCP/UDP", "icon": "" },
+        { "name": "PLC integration", "icon": "" },
+        { "name": "MATLAB/Simulink", "icon": "" },
+        { "name": "Autodesk Inventor", "icon": "" },
+        { "name": "Blender", "icon": "" }
       ]
     }
   ],
   "projects": [
     {
-      "id": "Formula Ai Student Simulator",
-      "title": "High Fidelity Racing Simulator",
-      "summary": "developed a fully configurable simulation environment using CARLA 0.9.16 and Unreal Engine 4.26",
-      "description": "developed a fully configurable simulation environment using CARLA 0.9.16 and Unreal Engine 4.26, built specifically for Formula AI participants and researchers to test their algorithms. The setup is straightforward just adjust your sensor locations, parameters, and rates, and you’re ready to run your tests.\n\nKey details:\n- Track: Silverstone UK\n- Vehicle: Formula AI model tuned to approximate real-world vehicle parameters\n",
+      "id": "fsai-simulator",
+      "title": "Formula Student AI Simulator",
+      "summary": "A configurable CARLA 0.9.16 and Unreal Engine 4.26 simulator for Formula Student AI teams and researchers.",
+      "description": "Built between July and August 2026 for Formula Student AI teams and researchers. Sensor placement, parameters and rates are all set in config, so teams can start testing their algorithms right away.\n\nTrack: Silverstone, UK.\nVehicle: Formula AI model tuned to approximate real-world vehicle parameters.",
       "image": "https://i.ibb.co/SDdbNQBz/Screenshot-from-2026-08-18-16-45-56.png",
-      "link": "",
-      "linkText": "https://github.com/ebrahimabdelghfar/Carla_ASU_Bridge",
-      "details": []
-    },
-    {
-      "id": "project6",
-      "title": "Shell Urban Autonomous Concept Simulator",
-      "summary": "A modular simulation framework with ROS 2 and Docker for testing navigation algorithms.",
-      "description": "Developed for efficient testing of autonomous navigation algorithms.",
-      "image": "https://i.postimg.cc/fyK6p8zs/447697576-a85443a4-060b-4343-af05-7bcb578cb165.png",
-      "link": "https://github.com/Shell-Urban-Concept-Autonomous/shell_urban_simulator",
+      "link": "https://github.com/ebrahimabdelghfar/Carla_ASU_Bridge",
       "linkText": "View on GitHub",
       "details": [
-        "Engineered a modular simulation framework using ROS 2 Humble and Docker.",
-        "Implemented Docker containers to ensure consistent development environments and streamline deployment.",
-        "Collaborated with a multidisciplinary team to integrate sensor models and vehicle dynamics.",
-        "Contributed to documentation and user guides to facilitate broader adoption."
+        "Built on CARLA 0.9.16 and Unreal Engine 4.26.",
+        "Sensor placement, parameters and rates set from a single config.",
+        "Vehicle model tuned to approximate the real Formula AI car."
       ]
     },
     {
-      "id": "project2",
-      "title": "Path Tracking Surveys",
-      "summary": "Applied and compared Pure-pursuit, Stanley, and MPC controllers in the CARLA simulator.",
-      "description": "A comparative study of different path tracking algorithms.",
+      "id": "on-track-nmpc",
+      "title": "On-Track System Identification & Adaptive Nonlinear MPC",
+      "summary": "Estimates Pacejka tire coefficients on the track with no prior vehicle data, then hands over to nonlinear MPC.",
+      "description": "Research project on identifying vehicle and tire parameters while driving, and using them in an adaptive nonlinear model predictive controller.",
+      "image": "",
+      "link": "",
+      "linkText": "",
+      "details": [
+        "Built a pipeline that estimates Pacejka Magic Formula tire coefficients on the track, starting with no prior vehicle data.",
+        "Wrote a supervisory controller: the car first drives on Pure Pursuit to gather excitation data, then switches to nonlinear MPC once the parameters are known.",
+        "Drove stably on a low-friction surface (µ = 0.35) at up to 100 km/h."
+      ]
+    },
+    {
+      "id": "agri-robot-stack",
+      "title": "Autonomous Agricultural Robot Simulation Stack",
+      "summary": "A full autonomy stack for a 4WS/4WD agricultural robot in NVIDIA Isaac Sim with the Isaac ROS ecosystem.",
+      "description": "A full-fidelity simulation stack for an autonomous agricultural robot with Double Ackermann (4WS/4WD) steering. NVIDIA Isaac Sim provides physics-based, photorealistic simulation; Isaac ROS provides GPU-accelerated perception, mapping and navigation.",
+      "image": "https://i.postimg.cc/W43bVZrM/image.png",
+      "link": "https://www.canva.com/design/DAHA76EFbsA/QyGmz7ZQWELVfI5N1Zvq7Q/watch",
+      "linkText": "Watch the video",
+      "details": [
+        "USD-based agricultural environment in NVIDIA Isaac Sim with realistic terrain, HDRI lighting and physics.",
+        "Multi-camera ESS stereo disparity and depth estimation on the GPU.",
+        "NVIDIA cuVSLAM for GPU-accelerated visual odometry, mapping and relocalisation.",
+        "YOLO-based segmentation to mask dynamic objects out of the depth maps."
+      ]
+    },
+    {
+      "id": "path-tracking-benchmark",
+      "title": "Path-Tracking Controller Benchmark",
+      "summary": "Pure Pursuit, Stanley and MPC path tracking, compared in CARLA through ROS 2.",
+      "description": "Implemented three path-tracking controllers in Python and compared how each one follows the same track in CARLA.",
       "image": "https://i.postimg.cc/Qx7qg66c/image.png",
       "link": "https://github.com/ebrahimabdelghfar/Control-surveys",
       "linkText": "View on GitHub",
       "details": [
-        "Applied Pure-pursuit, Stanley, and MPC to follow a track and compared the performance of each.",
-        "Tested algorithms on CARLA and integrated them using ROS2.",
-        "All implementations were done in Python."
+        "Implemented Pure Pursuit, Stanley and MPC path tracking.",
+        "Ran every controller in CARLA through ROS 2 and compared tracking performance.",
+        "Written in Python."
       ]
     },
     {
-      "id": "project3",
+      "id": "rotary-pendulum-lqr",
+      "title": "Rotary Inverted Pendulum: LQR with Hardware-in-the-Loop",
+      "summary": "Designed the mechanism, derived its state-space model and balanced it with LQR in Simulink.",
+      "description": "MATLAB/Simulink and Autodesk Inventor project, from mechanical design to a balanced pendulum on real hardware.",
+      "image": "",
+      "link": "",
+      "linkText": "",
+      "details": [
+        "Designed the mechanism in Autodesk Inventor.",
+        "Derived a state-space model from the nonlinear dynamics.",
+        "Balanced the pendulum with LQR in Simulink, with the hardware in the loop."
+      ]
+    },
+    {
+      "id": "shell-urban-simulator",
+      "title": "Shell Urban Concept Autonomous Simulator",
+      "summary": "A Dockerised Gazebo Harmonic and ROS 2 simulator for Shell Eco-marathon teams that runs on low-spec laptops.",
+      "description": "Built for the Shell Eco-marathon Urban Concept autonomous teams at the Autotronics Research Lab so they can test navigation without the car.",
+      "image": "https://i.postimg.cc/fyK6p8zs/447697576-a85443a4-060b-4343-af05-7bcb578cb165.png",
+      "link": "https://github.com/Shell-Urban-Concept-Autonomous/shell_urban_simulator",
+      "linkText": "View on GitHub",
+      "details": [
+        "Modular simulation framework on ROS 2 Humble and Gazebo Harmonic.",
+        "Docker images keep every team member's environment the same.",
+        "Integrated sensor models and vehicle dynamics with a multidisciplinary team.",
+        "Wrote the documentation and user guides."
+      ]
+    },
+    {
+      "id": "ever-simulator",
       "title": "Self-Driving Car Simulator",
-      "summary": "Built a complete simulation environment for an Ackerman steering car with ROS1 integration.",
-      "description": "A high-fidelity simulation from the ground up.",
+      "summary": "A CoppeliaSim simulator of an Ackermann-steering car with ROS 1, built for the Egyptian EV Rally.",
+      "description": "A simulation of the competition car built from the ground up, used by the teams in the Egyptian Electric Vehicle Rally.",
       "image": "https://i.postimg.cc/N04TJRtf/image.png",
       "link": "https://github.com/ebrahimabdelghfar/EVER_Simulator",
       "linkText": "View on GitHub",
       "details": [
-        "Prepared a 3D Model of an Ackerman steering car using SolidWorks and converted it to URDF.",
-        "Built the simulation environment and tuned physics to achieve a low sim-to-real gap (10% error).",
-        "Added 3D Lidar, IMU, and GPS sensors and connected the environment with ROS1 using LUA."
+        "Modelled the Ackermann-steering car in SolidWorks and converted it to URDF.",
+        "Tuned the physics to a 10% sim-to-real error.",
+        "Added 3D LiDAR, IMU and GPS, and connected the scene to ROS 1 through Lua."
       ]
     },
     {
-      "id": "project4",
+      "id": "abb-irb120-simulator",
       "title": "ABB IRB 120 Simulator",
-      "summary": "Integrated ROS1 and MoveIt with CoppeliaSim for an industrial robot arm, cited in a Master's thesis.",
-      "description": "A simulator for an industrial robotic arm that gained academic recognition.",
+      "summary": "ROS 1 and MoveIt connected to CoppeliaSim for an industrial arm. Cited in a Master's thesis in Italy.",
+      "description": "A simulator for the ABB IRB 120 industrial arm. The simulator bridge was cited in a Master's thesis in Italy.",
       "image": "https://i.postimg.cc/L6hRYZmf/image.png",
       "link": "https://github.com/ebrahimabdelghfar/ABB-IRB120-Coppeliasim-Moveit-Simulation",
       "linkText": "View on GitHub",
       "details": [
-        "The simulator bridge was cited in a Master's thesis in Italy.",
-        "Integrated ROS1 and MoveIt with CoppeliaSim.",
+        "Integrated ROS 1 and MoveIt with CoppeliaSim.",
         "Designed the complete simulation environment for the robot."
       ]
     },
     {
-      "id": "project5",
-      "title": "Autonomous Disassembly Robotic Manipulator",
-      "summary": "A complex project for non-destructive e-waste disassembly, part of my graduation thesis.",
-      "description": "This was my graduation project, focusing on the non-destructive disassembly of e-waste.",
+      "id": "ewaste-disassembly",
+      "title": "Autonomous E-Waste Disassembly Arm",
+      "summary": "B.Sc. thesis: a robot arm that removes screws from e-waste without damaging it, at a 98% success rate.",
+      "description": "Graduation project on non-destructive disassembly of electronic waste with a robot arm.",
       "image": "https://i.postimg.cc/MHk8B95P/image.png",
       "link": "https://github.com/ebrahimabdelghfar/EwasteNonDestructiveDisassembly",
       "linkText": "View on GitHub",
       "details": [
-        "Designed a software architecture that organizes workflow between 11 different algorithms.",
-        "Implemented an SDK that contains 10 different methods to facilitate dealing with MoveIt and frame transformation.",
-        "Facilitated algorithm testing by designing a digital twin environment using CoppeliaSim and ROS1.",
-        "Developed approach and unscrewing algorithm at which the success percentage reached 98%.",
-        "Developed a Screw localizing technique using YOLOv5 and a depth camera."
-      ]
-    },
-    {
-      "id": "project1",
-      "title": "Autonomous Agricultural Robot Simulation Stack",
-      "summary": "Designed a full agriculture autonomous stack to work within a realistic agriculture environment",
-      "description": "A full-fidelity simulation stack for an autonomous agricultural robot featuring Double Ackermann (4WS/4WD) steering. The platform leverages NVIDIA Isaac Sim for photorealistic, physics-based simulation and the NVIDIA Isaac ROS ecosystem for GPU-accelerated perception, mapping, and navigation.",
-      "image": "https://i.postimg.cc/W43bVZrM/image.png",
-      "link": "https://www.canva.com/design/DAHA76EFbsA/QyGmz7ZQWELVfI5N1Zvq7Q/watch",
-      "linkText": "🎥 View on Video",
-      "details": [
-        "Photorealistic simulation — USD-based agricultural environment in NVIDIA Isaac Sim with realistic terrain, lighting (HDRI), and physics",
-        "GPU-accelerated stereo vision — Multi-camera ESS (Edge-aware Stereo Similarity) disparity and depth estimation",
-        "Visual SLAM — NVIDIA cuVSLAM for GPU-accelerated visual odometry, mapping, and relocalization",
-        "Dynamic obstacle masking — YOLO-based segmentation to filter dynamic objects from depth maps"
+        "Developed the approach-and-unscrew algorithm, reaching a 98% success rate.",
+        "Localised screws with YOLOv5 and a depth camera.",
+        "Built a 10-method SDK that simplifies MoveIt motion planning and frame transforms.",
+        "Designed a software architecture that coordinates 11 algorithms.",
+        "Tested everything on a CoppeliaSim / ROS 1 digital twin."
       ]
     }
   ],
   "competitions": [
     {
-      "title": "1st Place, Shell \"Pitch the future\"",
-      "date": "April 2022",
+      "title": "1st place worldwide, Shell “Pitch the Future”",
+      "date": "Apr 2022",
       "icon": "fas fa-trophy",
-      "description": "Won first place worldwide on our idea on how to make an autonomous vehicle prevent a carjacking situation."
+      "description": "Our idea for how an autonomous vehicle can prevent a carjacking won first place."
     },
     {
-      "title": "4th National Place, DEBI Robotics",
-      "date": "May 2023",
-      "icon": "fas fa-trophy",
-      "description": "Developed an autonomous system on a TurtleBot3 to track and grasp a ball for the Ministry of Communication competition."
-    },
-    {
-      "title": "5th Place, Shell AI Competition",
+      "title": "5th place worldwide, Shell AI Competition",
       "date": "May 2022",
       "icon": "fas fa-trophy",
-      "description": "Won 5th place worldwide by creating a full stack for a self-driving vehicle by using the CARLA simulation."
+      "description": "Built a full self-driving stack for a vehicle in the CARLA simulator."
+    },
+    {
+      "title": "4th place nationally, DEBI Robotics",
+      "date": "May 2023",
+      "icon": "fas fa-trophy",
+      "description": "An autonomous TurtleBot3 that tracks and grasps a ball, for the Ministry of Communications competition."
     }
   ],
   "scholarships": [
     {
-      "title": "\"My Future\" Full Scholarship",
-      "date": "Offered by Egyptian Refining Company (ERC)",
+      "title": "“My Future” full scholarship",
+      "date": "Egyptian Refining Company",
       "icon": "fas fa-graduation-cap",
-      "description": "Received a full scholarship for promising national school students to study Bachelor of Mechatronics within the International Programs at the Faculty of Engineering, Ain Shams University."
+      "description": "Full scholarship for the B.Sc. in Mechatronics in the International Programs at the Faculty of Engineering, Ain Shams University."
     }
   ],
   "volunteering": [
     {
-      "title": "Autonomous Racing Team's Coordinator",
-      "date": "June 2023 - April 2025",
+      "title": "Autonomous Racing Team Coordinator",
+      "date": "Jun 2023 – Apr 2025",
       "side": "right",
       "details": [
-        "Developed a Shell Urban Autonomous simulation environment using Gazebo Harmonic and ROS2 for low-specification laptops.",
-        "Designed Carla simulation environments for testing ADAS algorithms for the autonomous teams.",
-        "Planned and taught an autonomous workshop curriculum to 100 students over 3 months.",
-        "Led the technical preparations for the IOT RC cars for the first self-driving car competition in Egypt.",
-        "Engineered IOT Cars with latency 20ms for control and sensor signals while 40ms latency for sending photo frames from esp-camera.",
-        "Mentored a robotic team to win 4th place in a national robotic competition."
+        "Built and Dockerised a Shell Eco-marathon Urban Concept simulator in Gazebo Harmonic and ROS 2, with sensor models and vehicle dynamics, that runs on low-spec laptops.",
+        "Set up CARLA environments for testing ADAS algorithms.",
+        "Planned and taught a 3-month autonomous-systems workshop for 100 students.",
+        "Mentored teams entering autonomous-driving competitions."
       ],
-      "organization": "Autotronics Research Lab (ARL)",
+      "organization": "Autotronics Research Lab (ARL), Cairo. Part-time.",
       "logo": "https://i.postimg.cc/FKZxQZJ1/image.png"
+    },
+    {
+      "title": "Autonomous Systems Mentor",
+      "date": "Oct 2023 – Aug 2024",
+      "side": "left",
+      "details": [
+        "Built the competition's milestone simulator in CoppeliaSim and ROS 1, used by the competing teams.",
+        "Wrote the Pure Pursuit steering controller for the autonomous car that drove the opening parade lap.",
+        "Designed and delivered autonomous-systems training for national teams."
+      ],
+      "organization": "Egyptian Electric Vehicle Rally Competition, Cairo. Part-time.",
+      "logo": "https://i.postimg.cc/kGKtSHnB/image.png"
+    },
+    {
+      "title": "Teaching Assistant",
+      "date": "Jan 2024 – Aug 2024",
+      "side": "right",
+      "details": [
+        "Taught MCT443: Autonomous Systems to more than 40 undergraduate students.",
+        "Mentored students on ROS 2 and core robotics algorithms."
+      ],
+      "organization": "Faculty of Engineering, Ain Shams University",
+      "logo": "https://i.postimg.cc/pVnRFX1t/image.png"
     }
   ]
 }
