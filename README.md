@@ -11,8 +11,7 @@ A modern, data-driven portfolio website powered by GitHub Pages. All content is 
 ├── js/
 │   ├── app.js              # Main orchestrator (loads JSON → renders)
 │   ├── renderer.js         # Section rendering functions
-│   ├── interactions.js     # Theme, mobile menu, project dialog, contact form
-│   └── hero-sim.js         # Hero canvas: A* planning + Pure Pursuit car on an occupancy grid
+│   └── interactions.js     # Theme, mobile menu, project dialog, contact form
 ├── data/
 │   ├── portfolio.json      # ✏️ ALL YOUR CONTENT GOES HERE
 │   └── config.json         # Site settings, nav sections, EmailJS config

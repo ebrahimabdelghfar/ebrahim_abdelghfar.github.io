@@ -33,7 +33,6 @@
 
         Interactions.init(data.projects);
         Interactions.initContactForm(config.emailjs);
-        HeroSim.start(document.getElementById('sim-canvas'));
     } catch (err) {
         console.error('Portfolio loading error:', err);
         document.getElementById('hero-content').innerHTML =

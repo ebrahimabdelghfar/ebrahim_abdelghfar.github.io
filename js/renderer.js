@@ -26,29 +26,17 @@ const Renderer = {
             : '';
 
         el.innerHTML = `
-            <div class="hero-copy">
-                <div class="hero-id" data-enter>
-                    ${hero.photo ? `<img class="hero-photo" src="${hero.photo}" alt="Portrait of ${hero.name}" width="56" height="56">` : ''}
-                    <p>${hero.title}<br><span>${hero.location || ''}</span></p>
-                </div>
-                <h1 class="hero-name" data-enter>${hero.name}</h1>
-                <p class="hero-bio" data-enter>${hero.bio}</p>
-                <div class="hero-actions" data-enter>
-                    ${resume}
-                    <a class="btn btn-ghost" href="#contact">Get in touch</a>
-                    <ul class="social">${this.socialLinks(hero.socialLinks)}</ul>
-                </div>
+            <div class="hero-id" data-enter>
+                ${hero.photo ? `<img class="hero-photo" src="${hero.photo}" alt="Portrait of ${hero.name}" width="56" height="56">` : ''}
+                <p>${hero.title}<br><span>${hero.location || ''}</span></p>
             </div>
-            <figure class="sim" data-enter>
-                <canvas id="sim-canvas" role="img"
-                    aria-label="Animated occupancy grid: a car plans a route with A* and follows it with Pure Pursuit. Click the map to give it a new goal."></canvas>
-                <figcaption class="sim-legend">
-                    <span class="key key-path">A* plan</span>
-                    <span class="key key-horizon">Predicted horizon</span>
-                    <span class="key key-trail">Driven path</span>
-                    <span class="sim-hint">Click the map to set a goal</span>
-                </figcaption>
-            </figure>
+            <h1 class="hero-name" data-enter>${hero.name}</h1>
+            <p class="hero-bio" data-enter>${hero.bio}</p>
+            <div class="hero-actions" data-enter>
+                ${resume}
+                <a class="btn btn-ghost" href="#contact">Get in touch</a>
+                <ul class="social">${this.socialLinks(hero.socialLinks)}</ul>
+            </div>
             <dl class="hero-facts" data-enter>${stats}</dl>
         `;
     },
