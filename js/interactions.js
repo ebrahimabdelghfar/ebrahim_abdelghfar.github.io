@@ -34,9 +34,24 @@ const Interactions = {
         };
 
         btn.addEventListener('click', () => {
-            root.dataset.theme = current() === 'dark' ? 'light' : 'dark';
-            try { localStorage.setItem('portfolio-theme', root.dataset.theme); } catch (e) { }
-            announce();
+            const apply = () => {
+                root.dataset.theme = current() === 'dark' ? 'light' : 'dark';
+                try { localStorage.setItem('portfolio-theme', root.dataset.theme); } catch (e) { }
+                announce();
+            };
+            // Browsers without View Transitions, or reduced motion: switch instantly.
+            if (!document.startViewTransition || matchMedia('(prefers-reduced-motion: reduce)').matches) return apply();
+
+            // The new theme spreads out in a circle from the toggle button.
+            const r = btn.getBoundingClientRect();
+            const x = r.left + r.width / 2, y = r.top + r.height / 2;
+            const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+            document.startViewTransition(apply).ready.then(() => {
+                root.animate(
+                    { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },
+                    { duration: 600, easing: 'cubic-bezier(.2, .7, .2, 1)', pseudoElement: '::view-transition-new(root)' }
+                );
+            });
         });
         systemDark.addEventListener('change', announce);
         announce();

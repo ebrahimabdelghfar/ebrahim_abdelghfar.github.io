@@ -327,6 +327,28 @@ button {
     display: none;
 }
 
+/* Theme switch: JS clips the new snapshot into a growing circle; no default cross-fade. */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+/* The half-filled icon turns over with the theme. */
+#theme-toggle svg {
+    transition: transform .6s var(--ease);
+}
+
+:root[data-theme="dark"] #theme-toggle svg {
+    transform: rotate(180deg);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) #theme-toggle svg {
+        transform: rotate(180deg);
+    }
+}
+
 /* ==========================================================================
    Hero
    ========================================================================== */
